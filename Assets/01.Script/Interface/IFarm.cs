@@ -4,7 +4,7 @@ public interface IFarm
 {
     string[] FarmName { get; }    //이름
     int[] FarmCost { get; }       //가격
-    int[] FarmHaverst  { get; }       //작물 수확량
+    int[] FarmHaverst  { get; }   //작물 수확량
     float[] FarmGrowTime { get; } //작물 성장 시간
 
 }
