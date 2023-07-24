@@ -11,6 +11,7 @@ namespace JinnyBuilding
         public string buildingName;     //이름
         public int buildingCost;        //가격
         public float buildingBuildTime; //건축 시간
+        public Sprite buildingImage;    //건물 이미지
     }
 
     //by.J:230719 IBuilding 인터페이스 정의
@@ -74,40 +75,41 @@ namespace JinnyBuilding
             {
                 buildingName = "빵집",
                 buildingCost = 10,
-                buildingBuildTime = 5.0f
-            });
+                buildingBuildTime = 5.0f,
+                buildingImage = Resources.Load<Sprite>("Images/Build_1_1")
+        });
 
-            // 정미소
-            buildingDataList.Add(new BuildingDataInfo()
-            {
-                buildingName = "정미소",
-                buildingCost = 10,
-                buildingBuildTime = 5.0f
-            });
+            //// 정미소
+            //buildingDataList.Add(new BuildingDataInfo()
+            //{
+            //    buildingName = "정미소",
+            //    buildingCost = 10,
+            //    buildingBuildTime = 5.0f
+            //});
 
-            // 철판가게
-            buildingDataList.Add(new BuildingDataInfo()
-            {
-                buildingName = "철판 가게",
-                buildingCost = 10,
-                buildingBuildTime = 5.0f
-            });
+            //// 철판가게
+            //buildingDataList.Add(new BuildingDataInfo()
+            //{
+            //    buildingName = "철판 가게",
+            //    buildingCost = 10,
+            //    buildingBuildTime = 5.0f
+            //});
 
-            //유제품 가공소
-            buildingDataList.Add(new BuildingDataInfo()
-            {
-                buildingName = "유제품 가공소",
-                buildingCost = 10,
-                buildingBuildTime = 5.0f
-            });
+            ////유제품 가공소
+            //buildingDataList.Add(new BuildingDataInfo()
+            //{
+            //    buildingName = "유제품 가공소",
+            //    buildingCost = 10,
+            //    buildingBuildTime = 5.0f
+            //});
 
-            //쥬스가게
-            buildingDataList.Add(new BuildingDataInfo()
-            {
-                buildingName = "쥬스 가게",
-                buildingCost = 10,
-                buildingBuildTime = 5.0f
-            });
+            ////쥬스가게
+            //buildingDataList.Add(new BuildingDataInfo()
+            //{
+            //    buildingName = "쥬스 가게",
+            //    buildingCost = 10,
+            //    buildingBuildTime = 5.0f
+            //});
 
 
         }

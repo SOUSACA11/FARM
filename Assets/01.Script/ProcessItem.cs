@@ -15,7 +15,7 @@ namespace JinnyProcessItem
     //by.J:230720 IItem 인터페이스 정의
     public class ProcessItem : MonoBehaviour, IItem
     {
-        [SerializeField] private List<ProcessItemDataInfo> processitemDataInfoList = new List<ProcessItemDataInfo>();
+        [SerializeField] public List<ProcessItemDataInfo> processitemDataInfoList = new List<ProcessItemDataInfo>();
 
         public string[] ItemName
         {

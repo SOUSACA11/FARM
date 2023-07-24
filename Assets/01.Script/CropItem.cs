@@ -15,7 +15,7 @@ namespace JinnyCropItem
     //by.J:230720 IItem 인터페이스 정의
     public class CropItem : MonoBehaviour, IItem
     {
-        [SerializeField] private List<CropItemDataInfo> cropItemDataInfoList = new List<CropItemDataInfo>();
+        [SerializeField] public List<CropItemDataInfo> cropItemDataInfoList = new List<CropItemDataInfo>();
 
         public string[] ItemName
         {
@@ -54,6 +54,28 @@ namespace JinnyCropItem
         //by.J:230720 초기화 기능
         private void InitializeBuildings()
         {
+            //우유
+            cropItemDataInfoList.Add(new CropItemDataInfo()
+            {
+                cropItemName = "우유",
+                cropItemCost = 10
+            });
+
+            //달걀
+            cropItemDataInfoList.Add(new CropItemDataInfo()
+            {
+                cropItemName = "달걀",
+                cropItemCost = 10
+            });
+
+            //돼지고기
+            cropItemDataInfoList.Add(new CropItemDataInfo()
+            {
+                cropItemName = "돼지고기",
+                cropItemCost = 10
+            });
+
+
             //밀
             cropItemDataInfoList.Add(new CropItemDataInfo()
             {
@@ -64,31 +86,31 @@ namespace JinnyCropItem
             //옥수수
             cropItemDataInfoList.Add(new CropItemDataInfo()
             {
-                cropItemName = "밀",
+                cropItemName = "옥수수",
                 cropItemCost = 10
             });
 
             //콩
             cropItemDataInfoList.Add(new CropItemDataInfo()
             {
-                cropItemName = "밀",
+                cropItemName = "콩",
                 cropItemCost = 10
             });
 
             //토마토
             cropItemDataInfoList.Add(new CropItemDataInfo()
             {
-                cropItemName = "밀",
+                cropItemName = "토마토",
                 cropItemCost = 10
             });
 
             //당근
             cropItemDataInfoList.Add(new CropItemDataInfo()
             {
-                cropItemName = "밀",
+                cropItemName = "당근",
                 cropItemCost = 10
             });
-
+            
         }
     }
 }
