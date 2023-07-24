@@ -1,44 +1,44 @@
-using UnityEngine;
-using UnityEngine.UI;
-using System.Collections.Generic;
+//using UnityEngine;
+//using UnityEngine.UI;
+//using System.Collections.Generic;
 
-////by.J:230724 건물 상점 UI
-public class BuildUI : MonoBehaviour
-{
-    public Text itemNameText; // 아이템 이름을 표시할 Text 컴포넌트
-    public Text itemPriceText; // 아이템 가격을 표시할 Text 컴포넌트
-    public GameObject storePanel; // 상점 패널
-    public Button purchaseButton; // 구매 버튼
+//////by.J:230724 건물 상점 UI
+//public class BuildUI : MonoBehaviour
+//{
+//    public Text itemNameText; // 아이템 이름을 표시할 Text 컴포넌트
+//    public Text itemPriceText; // 아이템 가격을 표시할 Text 컴포넌트
+//    public GameObject storePanel; // 상점 패널
+//    public Button purchaseButton; // 구매 버튼
 
-    private ItemDic itemDic;
-    private string selectedItem;
+//    private ItemDic itemDic;
+//    private string selectedItem;
 
-    private void Start()
-    {
-        itemDic = FindObjectOfType<ItemDic>(); // 아이템 사전 참조 가져오기
+//    private void Start()
+//    {
+//        itemDic = FindObjectOfType<ItemDic>(); // 아이템 사전 참조 가져오기
 
-        // 구매 버튼에 클릭 이벤트 추가
-        purchaseButton.onClick.AddListener(PurchaseItem);
-    }
+//        // 구매 버튼에 클릭 이벤트 추가
+//        purchaseButton.onClick.AddListener(PurchaseItem);
+//    }
 
-    public void ShowItem(string itemType)
-    {
-        selectedItem = itemType;
+//    public void ShowItem(string itemType)
+//    {
+//        selectedItem = itemType;
 
-        // 아이템 이름과 가격을 UI에 표시하기
-        // 이 부분은 실제 게임에 따라 달라질 수 있음
-        // itemType에 따라 해당 아이템의 이름과 가격을 가져와야 함
-        itemNameText.text = itemType;
-        itemPriceText.text = "가격";
-    }
+//        // 아이템 이름과 가격을 UI에 표시하기
+//        // 이 부분은 실제 게임에 따라 달라질 수 있음
+//        // itemType에 따라 해당 아이템의 이름과 가격을 가져와야 함
+//        itemNameText.text = itemType;
+//        itemPriceText.text = "가격";
+//    }
 
-    public void PurchaseItem()
-    {
-        // 구매 로직
-        // 이 부분은 실제 게임의 구매 로직에 따라 달라질 수 있음
-        Debug.Log(selectedItem + " 구매!");
-    }
-}
+//    public void PurchaseItem()
+//    {
+//        // 구매 로직
+//        // 이 부분은 실제 게임의 구매 로직에 따라 달라질 수 있음
+//        Debug.Log(selectedItem + " 구매!");
+//    }
+//}
 
 
     //public GameObject storePanel;  // 상점 패널 참조

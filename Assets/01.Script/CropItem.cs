@@ -8,8 +8,9 @@ namespace JinnyCropItem
     [System.Serializable]
     public struct CropItemDataInfo
     {
-        public string cropItemName;  //이름
-        public int cropItemCost;    //가격
+        public string cropItemName;   //이름
+        public int cropItemCost;     //가격
+        public Sprite cropItemImage; //생산품 이미지
     }
 
     //by.J:230720 IItem 인터페이스 정의
@@ -48,11 +49,12 @@ namespace JinnyCropItem
         ////by.J:230720 시작시 초기화 기능 시작
         private void Start()
         {
-            InitializeBuildings();
+            InitializeCropItems();
+            Debug.Log("농장 생산품 리스트 크기 : " + cropItemDataInfoList.Count);
         }
 
         //by.J:230720 초기화 기능
-        private void InitializeBuildings()
+        private void InitializeCropItems()
         {
             //우유
             cropItemDataInfoList.Add(new CropItemDataInfo()

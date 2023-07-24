@@ -65,19 +65,36 @@ namespace JinnyBuilding
         private void Start()  //시작하고나서 한번 실행
         {
             InitializeBuildings();
+            Debug.Log("빌딩 리스트 크기 : " + buildingDataList.Count);
+
         }
 
         //by.J:230719 초기화 기능
         private void InitializeBuildings()
         {
+            //by.J:230724 이미지 추가 작업
+            Sprite[] sprites = Resources.LoadAll<Sprite>("Buid_1");
+            Sprite buid_1_1 = System.Array.Find(sprites, sprite => sprite.name.Equals("Buid_1_1"));
+            Sprite buid_1_2 = System.Array.Find(sprites, sprite => sprite.name.Equals("Buid_1_2"));
+            Sprite buid_1_3 = System.Array.Find(sprites, sprite => sprite.name.Equals("Buid_1_3"));
+
             // 빵집
             buildingDataList.Add(new BuildingDataInfo()
             {
                 buildingName = "빵집",
                 buildingCost = 10,
                 buildingBuildTime = 5.0f,
-                buildingImage = Resources.Load<Sprite>("Images/Build_1_1")
-        });
+                buildingImage = buid_1_1
+            });
+
+            // 축사
+            buildingDataList.Add(new BuildingDataInfo()
+            {
+                buildingName = "축사",
+                buildingCost = 10,
+                buildingBuildTime = 5.0f,
+                buildingImage = buid_1_2
+            });
 
             //// 정미소
             //buildingDataList.Add(new BuildingDataInfo()
@@ -87,13 +104,14 @@ namespace JinnyBuilding
             //    buildingBuildTime = 5.0f
             //});
 
-            //// 철판가게
-            //buildingDataList.Add(new BuildingDataInfo()
-            //{
-            //    buildingName = "철판 가게",
-            //    buildingCost = 10,
-            //    buildingBuildTime = 5.0f
-            //});
+            // 철판가게
+            buildingDataList.Add(new BuildingDataInfo()
+            {
+                buildingName = "철판 가게",
+                buildingCost = 10,
+                buildingBuildTime = 5.0f,
+                buildingImage = buid_1_3
+            });
 
             ////유제품 가공소
             //buildingDataList.Add(new BuildingDataInfo()
@@ -116,7 +134,17 @@ namespace JinnyBuilding
 
         private void Update()
         {
-            Debug.Log(buildingDataList.Count);
+            //Debug.Log("빌딩 리스트 크기 : " + buildingDataList.Count);
+
+
+                //foreach (var building in buildingDataList)
+                //{
+                //    if (building.buildingName == "빵집")
+                //    {
+                //        Debug.Log("빵집 건물의 이미지 이름 : " + building.buildingImage.name);
+                //    }
+                //}
+            
         }
     }
 }

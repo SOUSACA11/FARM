@@ -12,6 +12,7 @@ namespace JinnyFarm
         public int farmCost;        //가격
         public int farmHaverst;     //작물 수확량 
         public float farmGrowTime;  //작물 성장 시간
+        public Sprite farmImage;    //농장밭 이미지
     }
 
     //by.J:230720 IFarm 인터페이스 정의
@@ -76,11 +77,12 @@ namespace JinnyFarm
         ////by.J:230720 시작시 초기화 기능 시작
         private void Start()
         {
-            InitializeBuildings();
+            InitializeFarms();
+            Debug.Log("농장밭 리스트 크기 : " + farmDataList.Count);
         }
 
         //by.J:230720 초기화 기능
-        private void InitializeBuildings()
+        private void InitializeFarms()
         {
             // 밀밭
             farmDataList.Add(new FarmDataInfo()

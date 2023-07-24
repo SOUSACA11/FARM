@@ -10,6 +10,7 @@ namespace JinnyProcessItem
     {
         public string processItemName; //이름
         public int processItemCost;    //가격
+        public Sprite processItemImage;//생산품 이미지
     }
 
     //by.J:230720 IItem 인터페이스 정의
@@ -47,11 +48,12 @@ namespace JinnyProcessItem
         ////by.J:230720 시작시 초기화 기능 시작
         private void Start()
         {
-            InitializeBuildings();
+            InitializeProcessItems();
+            Debug.Log("가공 생산품 리스트 크기 : " + processitemDataInfoList.Count);
         }
 
         //by.J:230720 초기화 기능
-        private void InitializeBuildings()
+        private void InitializeProcessItems()
         {
             //식빵
             processitemDataInfoList.Add(new ProcessItemDataInfo()

@@ -2,10 +2,12 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
-
 using JinnyBuilding;
+using JinnyFarm;
+using JinnyCropItem;
+using JinnyProcessItem;
 
-//by.J : 230724 클릭시 상점 창 활성화 / 메뉴 버튼 비활성화 / 닫기 버튼
+//by.J:230724 클릭시 상점 창 활성화 / 메뉴 버튼 비활성화 / 닫기 버튼 / 상점 아이템 읽기
 public class ShopManagerUI : MonoBehaviour
 {
     public Image image;          //움직일 이미지 
@@ -20,14 +22,11 @@ public class ShopManagerUI : MonoBehaviour
 
     private Vector3 startPosition; //시작위치
 
-
-
-    public GameObject shopItemPrefab; // 상점 아이템 UI 프리팹
-    public Transform shopItemsParent; // 상점 아이템들을 담을 부모 오브젝트
-    private ItemDic itemDic; // 아이템 정보를 가진 ItemDic 클래스
+            
+    public GameObject shopItemPrefab;         // 상점 아이템 UI 프리팹
+    public Transform shopItemsParent;         // 상점 아이템들을 담을 부모 오브젝트
+    public ItemDic itemDic;                  // 아이템 정보를 가진 ItemDic 클래스
     private Dictionary<string, object> items; // 아이템 정보를 담은 사전
-
-
 
 
     private void Start()
@@ -35,26 +34,51 @@ public class ShopManagerUI : MonoBehaviour
         //Debug.Log(image.rectTransform.position.x);
         //Debug.Log(image.rectTransform.position.y);
 
-        closeButton.onClick.AddListener(CloseButtonOnClick);
-        startPosition = image.transform.position;
-
-
+        closeButton.onClick.AddListener(CloseButtonOnClick);    //닫기 버튼 클릭
+        startPosition = image.transform.position;               //시작 위치 설정
 
         itemDic = FindObjectOfType<ItemDic>(); // ItemDic 클래스를 찾아서 itemDic에 저장
-        items = itemDic.Item; // ItemDic 클래스에 있는 Item 사전을 items에 저장
+        items = itemDic.Item;                  // ItemDic 클래스에 있는 Item 사전을 items에 저장
+
 
         foreach (var item in items) // 사전에 있는 모든 아이템에 대해서
         {
-            foreach (var data in (List<BuildingDataInfo>)item.Value) // 아이템의 정보 리스트를 순회
+            if (item.Key == "건물")
             {
-                // 상점 아이템 UI 프리팹을 생성하고 그 컴포넌트를 가져옴
-                var shopItem = Instantiate(shopItemPrefab, shopItemsParent).GetComponent<ShopItemUI>();
-                // 가져온 컴포넌트에 아이템 정보를 설정
-                shopItem.SetInfo(data.buildingName, data.buildingCost, data.buildingImage);
+                foreach (var data in (List<BuildingDataInfo>)item.Value) // 아이템의 정보 리스트 순회
+                {
+                    // 상점 아이템 UI 프리팹을 생성하고 그 컴포넌트를 가져옴
+                    var shopItem = Instantiate(shopItemPrefab, shopItemsParent).GetComponent<ShopItemUI>();
+                    // 가져온 컴포넌트에 아이템 정보를 설정
+                    shopItem.SetInfo(data.buildingName, data.buildingCost, data.buildingImage);
+                }
+            }
+            else if (item.Key == "농장밭")
+            {
+                foreach (var data in (List<FarmDataInfo>)item.Value)
+                {
+                    var shopItem = Instantiate(shopItemPrefab, shopItemsParent).GetComponent<ShopItemUI>();
+                    shopItem.SetInfo(data.farmName, data.farmCost, data.farmImage);
+                }
             }
 
+            else if (item.Key == "농장 생산품")
+            {
+                foreach (var data in (List<CropItemDataInfo>)item.Value)
+                {
+                    var shopItem = Instantiate(shopItemPrefab, shopItemsParent).GetComponent<ShopItemUI>();
+                    shopItem.SetInfo(data.cropItemName, data.cropItemCost, data.cropItemImage);
+                }
+            }
 
-
+            else if (item.Key == "가공 생산품")
+            {
+                foreach (var data in (List<ProcessItemDataInfo>)item.Value)
+                {
+                    var shopItem = Instantiate(shopItemPrefab, shopItemsParent).GetComponent<ShopItemUI>();
+                    shopItem.SetInfo(data.processItemName, data.processItemCost, data.processItemImage);
+                }
+            }
         }
     }
 
