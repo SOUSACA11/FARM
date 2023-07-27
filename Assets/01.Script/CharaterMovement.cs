@@ -24,8 +24,8 @@ public class CharaterMovement : MonoBehaviour
         bottomLeft = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, Camera.main.nearClipPlane));
         topRight = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.nearClipPlane));
 
-        Debug.Log("왼쪽 하단: " + bottomLeft);
-        Debug.Log("오른쪽 상단: " + topRight);
+        //Debug.Log("왼쪽 하단: " + bottomLeft);
+        //Debug.Log("오른쪽 상단: " + topRight);
 
         // 처음 목적지를 설정
         SetNewDestination();
@@ -51,8 +51,8 @@ public class CharaterMovement : MonoBehaviour
 
         float isoX = (x - y) / 2;
         float isoY = (x + y) / 2;
-        Debug.Log("X: " + isoX);
-        Debug.Log("Y: " + isoY);
+        //Debug.Log("X: " + isoX);
+        //Debug.Log("Y: " + isoY);
 
         targetPosition = new Vector3(x, y, transform.position.z);
     }

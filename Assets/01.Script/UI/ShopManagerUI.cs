@@ -53,7 +53,7 @@ public class ShopManagerUI : MonoBehaviour
                     // 가져온 컴포넌트에 아이템 정보를 설정
                     shopItem.SetInfo(data.buildingName, data.buildingCost, data.buildingImage);
                    // Debug.Log($"Item Name: {data.buildingName}, Item Cost: {data.buildingCost}");
-                    Debug.Log($"SetInfo called with: {data.buildingName}, {data.buildingCost}, {data.buildingImage.name}");
+                   // Debug.Log($"SetInfo called with: {data.buildingName}, {data.buildingCost}, {data.buildingImage.name}");
 
                     shopItems.Add(shopItem); // 리스트에 객체 추가
                 }
