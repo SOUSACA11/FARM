@@ -55,95 +55,124 @@ namespace JinnyProcessItem
         //by.J:230720 초기화 기능
         private void InitializeProcessItems()
         {
+            //by.J:230728 이미지 추가 작업
+            Sprite[] sprites = Resources.LoadAll<Sprite>("Item");
+            Sprite bread = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_8"));
+            Sprite bagutte = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_9"));
+            Sprite croissant = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_10"));
+            Sprite flour = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_11"));
+            Sprite chickenfeed = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_12"));
+            Sprite pigfeed = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_13"));
+            Sprite cowfeed = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_14"));
+            Sprite eggflower = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_15"));
+            Sprite bacon = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_16"));
+            Sprite tomatojuice = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_17"));
+            Sprite carrotjuice = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_18"));
+            Sprite butter = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_19"));
+            Sprite cheese = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_20"));
+
             //식빵
             processitemDataInfoList.Add(new ProcessItemDataInfo()
             {
                 processItemName = "식빵",
-                processItemCost = 10
+                processItemCost = 10,
+                processItemImage = bread
             });
 
             //바게트
             processitemDataInfoList.Add(new ProcessItemDataInfo()
             {
                 processItemName = "바게트",
-                processItemCost = 10
+                processItemCost = 10,
+                processItemImage = bagutte
             });
 
             //크루와상
             processitemDataInfoList.Add(new ProcessItemDataInfo()
             {
                 processItemName = "크루와상",
-                processItemCost = 10
+                processItemCost = 10,
+                processItemImage = croissant
             });
 
             //밀가루
             processitemDataInfoList.Add(new ProcessItemDataInfo()
             {
                 processItemName = "밀가루",
-                processItemCost = 10
+                processItemCost = 10,
+                processItemImage = flour
             });
 
             //닭 사료
             processitemDataInfoList.Add(new ProcessItemDataInfo()
             {
                 processItemName = "닭 사료",
-                processItemCost = 10
+                processItemCost = 10,
+                processItemImage = chickenfeed
             });
 
             //돼지 사료
             processitemDataInfoList.Add(new ProcessItemDataInfo()
             {
                 processItemName = "돼지 사료",
-                processItemCost = 10
+                processItemCost = 10,
+                processItemImage = pigfeed
             });
 
             //소 사료
             processitemDataInfoList.Add(new ProcessItemDataInfo()
             {
                 processItemName = "소 사료",
-                processItemCost = 10
+                processItemCost = 10,
+                processItemImage = cowfeed
             });
 
             //계란후라이
             processitemDataInfoList.Add(new ProcessItemDataInfo()
             {
                 processItemName = "게란후라이",
-                processItemCost = 10
+                processItemCost = 10,
+                processItemImage = eggflower
             });
 
             //베이컨
             processitemDataInfoList.Add(new ProcessItemDataInfo()
             {
                 processItemName = "베이컨",
-                processItemCost = 10
+                processItemCost = 10,
+                processItemImage = bacon
             });
 
             //토마토 쥬스
             processitemDataInfoList.Add(new ProcessItemDataInfo()
             {
                 processItemName = "토마토 쥬스",
-                processItemCost = 10
+                processItemCost = 10,
+                processItemImage = tomatojuice
             });
 
             //당근 쥬스
             processitemDataInfoList.Add(new ProcessItemDataInfo()
             {
                 processItemName = "당근 쥬스",
-                processItemCost = 10
+                processItemCost = 10,
+                processItemImage = carrotjuice
             });
 
             //버터
             processitemDataInfoList.Add(new ProcessItemDataInfo()
             {
                 processItemName = "버터",
-                processItemCost = 10
+                processItemCost = 10,
+                processItemImage = butter
             });
 
             //치즈
             processitemDataInfoList.Add(new ProcessItemDataInfo()
             {
                 processItemName = "치즈",
-                processItemCost = 10
+                processItemCost = 10,
+                processItemImage = cheese
             });
         }
     }
