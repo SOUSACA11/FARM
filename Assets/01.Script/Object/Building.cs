@@ -12,6 +12,9 @@ namespace JinnyBuilding
         public int buildingCost;        //가격
         public float buildingBuildTime; //건축 시간
         public Sprite buildingImage;    //건물 이미지
+
+        public GameObject buildingPrefab;    //건물 프리팹
+
     }
 
     //by.J:230719 IBuilding 인터페이스 정의

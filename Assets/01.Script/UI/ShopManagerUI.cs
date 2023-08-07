@@ -110,6 +110,7 @@ public class ShopManagerUI : MonoBehaviour
         }
     }
 
+
     //ºôµù ÅÇ
     public void TabBuildingItem()
     {
@@ -118,8 +119,8 @@ public class ShopManagerUI : MonoBehaviour
         foreach (var data in buildingList)
         {
             var shopItem = Instantiate(shopItemPrefab, shopItemsParent).GetComponent<ShopItemUI>();
-            shopItem.SetInfo(data.buildingName, data.buildingCost, data.buildingImage);
-            shopItems.Add(shopItem); // ¸®½ºÆ®¿¡ °´Ã¼ Ãß°¡
+            shopItem.SetInfo(data.buildingName, data.buildingCost, data.buildingImage); ////, data.buildingPrefab);
+            //shopItems.Add(shopItem); // ¸®½ºÆ®¿¡ °´Ã¼ Ãß°¡
         }
     }
 
@@ -127,12 +128,12 @@ public class ShopManagerUI : MonoBehaviour
     public void TabFarmitem()
     {
         TabClearItem();
-        var farmList = (List < FarmDataInfo >) items["³óÀå¹ç"];
-        foreach(var data in farmList)
+        var farmList = (List<FarmDataInfo>)items["³óÀå¹ç"];
+        foreach (var data in farmList)
         {
             var shopItem = Instantiate(shopItemPrefab, shopItemsParent).GetComponent<ShopItemUI>();
             shopItem.SetInfo(data.farmName, data.farmCost, data.farmImage);
-            Debug.Log($"Item Name: {data.farmName}, Item Cost: {data.farmCost}");
+
         }
     }
 
@@ -151,17 +152,17 @@ public class ShopManagerUI : MonoBehaviour
     //Storeitem ÅÂ±× ¾ÆÀÌÅÛ Áö¿ì±â
     public void TabClearItem()
     {
-        foreach(Transform child in shopItemsParent)
+        foreach (Transform child in shopItemsParent)
         {
-            if(child.CompareTag("StoreItem"))
+            if (child.CompareTag("StoreItem"))
             {
                 Destroy(child.gameObject);
             }
         }
     }
 
-    private void Update()
-    {
-        //Debug.Log(image.rectTransform.position.y);
-    }
+    //private void Update()
+    //{
+    //    //Debug.Log(image.rectTransform.position.y);
+    //}
 }

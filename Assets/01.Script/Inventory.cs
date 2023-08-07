@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    // Item class는 아이템에 대한 정보를 담는 클래스입니다.
+    // 아이템 정보
     [System.Serializable]
     public class Item
     {
-        public string id; // 아이템의 고유 ID
+        public string id;    // 아이템의 고유 ID
         public int quantity; // 아이템의 수량
         // 필요하다면, 여기에 다른 정보(이름, 이미지 등)를 추가할 수 있습니다.
     }
