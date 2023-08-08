@@ -46,6 +46,19 @@ namespace JinnyAnimal
 
         }
 
+        public Sprite[] ItemImage
+        {
+            get
+            {
+                Sprite[] images = new Sprite[AnimalDataInfoList.Count];
+                for (int i = 0; i < AnimalDataInfoList.Count; i++)
+                {
+                    images[i] = AnimalDataInfoList[i].AnimalImage;
+                }
+                return images;
+            }
+        }
+
         ////by.J:230725 시작시 초기화 기능 시작
         private void Start()
         {

@@ -44,6 +44,18 @@ namespace JinnyProcessItem
             }
         }
 
+        public Sprite[] ItemImage
+        {
+            get
+            {
+                Sprite[] images = new Sprite[processitemDataInfoList.Count];
+                for (int i = 0; i < processitemDataInfoList.Count; i++)
+                {
+                    images[i] = processitemDataInfoList[i].processItemImage;
+                }
+                return images;
+            }
+        }
 
         ////by.J:230720 시작시 초기화 기능 시작
         private void Start()

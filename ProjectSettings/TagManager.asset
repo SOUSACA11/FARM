@@ -12,7 +12,7 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
+  - UI Item
   - 
   - 
   - 
@@ -44,6 +44,9 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Item
+    uniqueID: 4210051337
     locked: 0
   - name: Buttonbox
     uniqueID: 2722145927

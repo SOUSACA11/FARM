@@ -46,6 +46,18 @@ namespace JinnyCropItem
             
         }
 
+        public Sprite[] ItemImage
+        {
+            get
+            {
+                Sprite[] images = new Sprite[cropItemDataInfoList.Count];
+                for (int i = 0; i < cropItemDataInfoList.Count; i++)
+                {
+                    images[i] = cropItemDataInfoList[i].cropItemImage;
+                }
+                return images;
+            }
+        }
         ////by.J:230720 시작시 초기화 기능 시작
         private void Start()
         {
