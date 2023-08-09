@@ -9,8 +9,16 @@ public class DragAndDropCamera : MonoBehaviour
     private Vector2 minPosition = new Vector2(-10, -10); //카메라 이동 최소 위치
     private Vector2 maxPosition = new Vector2(20, 20);   //카메라 이동 최대 위치
 
+    public bool dragOk = true; //이동 가능 여부
+
     void Update()
     {
+        if (!dragOk)
+        {
+            return;
+        }
+           
+
         //모바일 버전
         if (Input.touchCount > 0)
         {
@@ -25,11 +33,11 @@ public class DragAndDropCamera : MonoBehaviour
                     Vector3 direction = touchStart - cam.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, cam.transform.position.z));
                     Vector3 newPosition = cam.transform.position + direction;
 
-                    // 새로운 위치가 제한 범위 내에 있는지 확인
+                    //새로운 위치가 제한 범위 내에 있는지 확인
                     newPosition.x = Mathf.Clamp(newPosition.x, minPosition.x, maxPosition.x);
                     newPosition.y = Mathf.Clamp(newPosition.y, minPosition.y, maxPosition.y);
 
-                    // 카메라 위치를 새로운 위치로 업데이트
+                    //카메라 위치를 새로운 위치로 업데이트
                     cam.transform.position = newPosition;
                     break;
             }
@@ -45,13 +53,25 @@ public class DragAndDropCamera : MonoBehaviour
             Vector3 direction = touchStart - cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, cam.transform.position.z));
             Vector3 newPosition = cam.transform.position + direction;
 
-            // 새로운 위치가 제한 범위 내에 있는지 확인
+            //새로운 위치가 제한 범위 내에 있는지 확인
             newPosition.x = Mathf.Clamp(newPosition.x, minPosition.x, maxPosition.x);
             newPosition.y = Mathf.Clamp(newPosition.y, minPosition.y, maxPosition.y);
 
-            // 카메라 위치를 새로운 위치로 업데이트
+            //카메라 위치를 새로운 위치로 업데이트
             cam.transform.position = newPosition;
         }
+    }
+
+    public void OkDrag()
+    {
+        dragOk = true;
+        Debug.Log("움직임");
+    }
+
+    public void NoDrag()
+    {
+        dragOk = false;
+        Debug.Log("안움직임");
     }
 }
 

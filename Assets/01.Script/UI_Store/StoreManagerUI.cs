@@ -8,6 +8,7 @@ using JinnyAnimal;
 
 //by.J:230724 상점 창 클릭시 활성화 / 메뉴 버튼 비활성화 / 닫기 버튼 / 상점 아이템 읽기
 //by.J:230724 상점 탭 UI 설정 추가
+//by.J:230809 상점 아이템 살 경우 상점 창 아래로 내리고 배치 완료 할 경우 원위치
 public class StoreManagerUI : MonoBehaviour
 {
     public Image image;          //움직일 이미지 
@@ -61,7 +62,6 @@ public class StoreManagerUI : MonoBehaviour
             }
         }
     }
-
         public void CloseButtonOnClick()
     {
         //메뉴 버튼 비활성화, 닫기 버튼 활성화
@@ -73,7 +73,7 @@ public class StoreManagerUI : MonoBehaviour
     public void StoreButton_Click()
     {
         //상점 창 기능 활성화
-        StartCoroutine(MoveImage());
+        StartCoroutine(MoveImageUp());
 
         //메뉴 버튼 비활성화
         inviButton1.gameObject.SetActive(false);
@@ -81,7 +81,8 @@ public class StoreManagerUI : MonoBehaviour
         inviButton3.gameObject.SetActive(false);
     }
 
-    IEnumerator MoveImage()
+    //밖에 있는 상점 창 화면상 배치
+    IEnumerator MoveImageUp()
     {
 
         //처음 y값    : -846
@@ -95,7 +96,41 @@ public class StoreManagerUI : MonoBehaviour
 
         while (t < 1f) // t가 1이 될 때까지
         {
-            if (image.rectTransform.position.y >= 287) //마지막 위치에 이동했다면 더이상 움직이지 않음
+            if (image.rectTransform.position.y >= 318) //y값이 318 이상이면 멈춤
+            {
+                yield break;
+            }
+
+            t += Time.deltaTime * speed; // 시간 누적
+
+            // Lerp를 이용해 현재 위치에서 endPosition까지 부드럽게 이동
+            image.transform.position = Vector3.Lerp(startPosition, endPosition, t);
+
+            yield return null; // 프레임 간격대로 실행
+
+        }
+    }
+    
+
+    public void BottomStore_Click()
+    {
+        StartCoroutine(MoveImageBottom());
+    }
+
+    //화면상 배치된 상점 창 아래로 내리기
+    IEnumerator MoveImageBottom()
+    {
+        //y값 : -191
+        //Debug.Log("상점 창 내리기 시그널");
+        float t = 0f; // 시간 변수
+
+        Vector3 startPosition = image.transform.position;  // 시작 위치 저장
+
+        endPosition = new Vector3(948, image.rectTransform.position.y - 480, 0); //마지막 위치 저장
+
+        while (t < 1f) // t가 1이 될 때까지
+        {
+            if (image.rectTransform.position.y >= 2000) //y값 2000 이상이면 멈춤
             {
                 yield break;
             }
@@ -110,6 +145,37 @@ public class StoreManagerUI : MonoBehaviour
         }
     }
 
+    public void TopStore_Click()
+    {
+        StartCoroutine(MoveImageTop());
+    }
+
+    //화면상 배치된 상점 창 위로 올리기
+    IEnumerator MoveImageTop()
+    {
+        //Debug.Log("상점 창 올리기 시그널");
+        float t = 0f; // 시간 변수
+
+        Vector3 startPosition = image.transform.position;  // 시작 위치 저장
+
+        endPosition = new Vector3(948, image.rectTransform.position.y + 480, 0); //마지막 위치 저장
+
+        while (t < 1f) // t가 1이 될 때까지
+        {
+            if (image.rectTransform.position.y >= 2000) //y값 2000 이상이면 멈춤
+            {
+                yield break;
+            }
+
+            t += Time.deltaTime * speed; // 시간 누적
+
+            // Lerp를 이용해 현재 위치에서 endPosition까지 부드럽게 이동
+            image.transform.position = Vector3.Lerp(startPosition, endPosition, t);
+
+            yield return null; // 프레임 간격대로 실행
+
+        }
+    }
 
     //빌딩 탭
     public void TabBuildingItem()
@@ -145,7 +211,7 @@ public class StoreManagerUI : MonoBehaviour
         foreach (var data in farmList)
         {
             var shopItem = Instantiate(storeItemPrefab, storeItemsParent).GetComponent<StoreItemUI>();
-            shopItem.SetInfo(data.AnimalName, data.AnimalCost, data.AnimalImage);
+            shopItem.SetInfo(data.animalName, data.animalCost, data.animalImage);
         }
     }
 
@@ -161,8 +227,4 @@ public class StoreManagerUI : MonoBehaviour
         }
     }
 
-    //private void Update()
-    //{
-    //    //Debug.Log(image.rectTransform.position.y);
-    //}
 }
