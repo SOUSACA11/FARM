@@ -1,19 +1,21 @@
 using UnityEngine;
-using System.Collections.Generic; //by.J:230721 List 변경화
+using System.Collections.Generic;
 
-//by.J:230720 생산품 (작물/동물) 오브젝트 
+//by.J:230720 생산품 (작물/동물) 오브젝트
+//by.J:230721 List 변경화
+//by.J:230728 이미지 추가 작업
 namespace JinnyCropItem
 {
-    //by.J:230720 구조체 정의
+    //구조체 정의
     [System.Serializable]
     public struct CropItemDataInfo
     {
         public string cropItemName;   //이름
-        public int cropItemCost;     //가격
-        public Sprite cropItemImage; //생산품 이미지
+        public int cropItemCost;      //가격
+        public Sprite cropItemImage;  //생산품 이미지
     }
 
-    //by.J:230720 IItem 인터페이스 정의
+    //IItem 인터페이스 정의
     public class CropItem : MonoBehaviour, IItem
     {
         [SerializeField] public List<CropItemDataInfo> cropItemDataInfoList = new List<CropItemDataInfo>();
@@ -58,17 +60,18 @@ namespace JinnyCropItem
                 return images;
             }
         }
-        ////by.J:230720 시작시 초기화 기능 시작
+
+        //시작시 초기화 기능 시작
         private void Start()
         {
             InitializeCropItems();
             Debug.Log("농장 생산품 리스트 크기 : " + cropItemDataInfoList.Count);
         }
 
-        //by.J:230720 초기화 기능
+        //초기화 기능
         private void InitializeCropItems()
         {
-            //by.J:230728 이미지 추가 작업
+            //이미지 추가
             Sprite[] sprites = Resources.LoadAll<Sprite>("Item");
             Sprite milk = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_0"));
             Sprite egg = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_1"));

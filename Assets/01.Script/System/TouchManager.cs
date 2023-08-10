@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//by.J:230725 터치 관련 시스템
 public class TouchManager : MonoBehaviour
 {
     private Camera mainCamera;
@@ -13,20 +14,18 @@ public class TouchManager : MonoBehaviour
     {
         if (Input.touchCount > 0)
         {
-            // 모든 터치 이벤트를 가져옵니다.
+            //모든 터치 이벤트 가져오기
             Touch[] touches = Input.touches;
 
-            // 터치된 모든 위치를 레이캐스트로 검사합니다.
+            //터치된 모든 위치 레이캐스트 검사
             foreach (Touch touch in touches)
             {
-                // 터치된 화면 좌표를 월드 좌표로 변환합니다.
-                Vector3 touchPosition = mainCamera.ScreenToWorldPoint(touch.position);
-                touchPosition.z = 0f; // 화면 좌표 z값은 카메라와의 거리이므로 0으로 고정합니다.
+                Vector3 touchPosition = mainCamera.ScreenToWorldPoint(touch.position); //터치된 화면 좌표 월드 좌표로 변환
+                touchPosition.z = 0f;                                                  //화면 좌표 z값 0 고정
 
-                // 레이캐스트를 쏩니다.
                 RaycastHit2D hit = Physics2D.Raycast(touchPosition, Vector2.zero);
 
-                // 레이캐스트가 충돌한 오브젝트를 처리합니다.
+                //레이캐스터 충돌 오브젝트
                 if (hit.collider != null)
                 {
                     // 여기에 오브젝트를 클릭한 경우의 동작을 작성합니다.

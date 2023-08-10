@@ -1,10 +1,11 @@
 using UnityEngine;
-using System.Collections.Generic; //by.J:230721 List 변경화 
+using System.Collections.Generic;
 
 //by.J:230720 농장밭 오브젝트 
+//by.J:230721 List 변경화 
 namespace JinnyFarm
 {
-    //by.J:230720 구조체 정의
+    //구조체 정의
     [System.Serializable]
     public struct FarmDataInfo
     {
@@ -13,9 +14,11 @@ namespace JinnyFarm
         public int farmHaverst;     //작물 수확량 
         public float farmGrowTime;  //작물 성장 시간
         public Sprite farmImage;    //농장밭 이미지
+
+        public GameObject farmPrefab;//농장밭 프리팹
     }
 
-    //by.J:230720 IFarm 인터페이스 정의
+    //IFarm 인터페이스 정의
     public class Farm : MonoBehaviour, IFarm
     {
         [SerializeField] public List<FarmDataInfo> farmDataList = new List<FarmDataInfo>();
@@ -74,17 +77,17 @@ namespace JinnyFarm
       
         }
 
-        ////by.J:230720 시작시 초기화 기능 시작
+        //시작시 초기화 기능 시작
         private void Start()
         {
             InitializeFarms();
             Debug.Log("농장밭 리스트 크기 : " + farmDataList.Count);
         }
 
-        //by.J:230720 초기화 기능
+        //초기화 기능
         private void InitializeFarms()
         {
-            // 밀밭
+            //밀밭
             farmDataList.Add(new FarmDataInfo()
             {
                 farmName = "밀밭",
@@ -93,7 +96,7 @@ namespace JinnyFarm
                 farmGrowTime = 1.0f
             });
 
-            // 옥수수밭
+            //옥수수밭
             farmDataList.Add(new FarmDataInfo()
             {
                 farmName = "옥수밭",
@@ -102,7 +105,7 @@ namespace JinnyFarm
                 farmGrowTime = 1.0f
             });
 
-            // 콩밭
+            //콩밭
             farmDataList.Add(new FarmDataInfo()
             {
                 farmName = "콩밭",
@@ -111,7 +114,7 @@ namespace JinnyFarm
                 farmGrowTime = 1.0f
             });
 
-            // 토마토밭
+            //토마토밭
             farmDataList.Add(new FarmDataInfo()
             {
                 farmName = "토마토밭",
@@ -120,7 +123,7 @@ namespace JinnyFarm
                 farmGrowTime = 1.0f
             });
 
-            // 당근밭
+            //당근밭
             farmDataList.Add(new FarmDataInfo()
             {
                 farmName = "당근밭",

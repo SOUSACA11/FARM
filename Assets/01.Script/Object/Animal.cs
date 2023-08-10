@@ -4,28 +4,30 @@ using System.Collections.Generic;
 //by.J:230725 동물
 namespace JinnyAnimal
 {
-    //by.J:230725 구조체 정의
+    //구조체 정의
     [System.Serializable]
     public struct AnimalDataInfo
     {
-        public string animalName;   //이름
-        public int animalCost;     //가격
-        public Sprite animalImage; //동물이미지
+        public string animalName;      //이름
+        public int animalCost;         //가격
+        public Sprite animalImage;     //동물이미지
+        public GameObject animalPrefab;//동물 프리팹
+
     }
 
-    //by.J:230725 IItem 인터페이스 정의
+    //IItem 인터페이스 정의
     public class Animal : MonoBehaviour, IItem
     {
-        [SerializeField] public List<AnimalDataInfo> animalDataInfoList = new List<AnimalDataInfo>();
+        [SerializeField] public List<AnimalDataInfo> animalDataList = new List<AnimalDataInfo>();
 
         public string[] ItemName
         {
             get
             {
-                string[] names = new string[animalDataInfoList.Count];
-                for (int i = 0; i < animalDataInfoList.Count; i++)
+                string[] names = new string[animalDataList.Count];
+                for (int i = 0; i < animalDataList.Count; i++)
                 {
-                    names[i] = animalDataInfoList[i].animalName;
+                    names[i] = animalDataList[i].animalName;
                 }
                 return names;
             }
@@ -36,10 +38,10 @@ namespace JinnyAnimal
         {
             get
             {
-                int[] costs = new int[animalDataInfoList.Count];
-                for (int i = 0; i < animalDataInfoList.Count; i++)
+                int[] costs = new int[animalDataList.Count];
+                for (int i = 0; i < animalDataList.Count; i++)
                 {
-                    costs[i] = animalDataInfoList[i].animalCost;
+                    costs[i] = animalDataList[i].animalCost;
                 }
                 return costs;
             }
@@ -50,27 +52,27 @@ namespace JinnyAnimal
         {
             get
             {
-                Sprite[] images = new Sprite[animalDataInfoList.Count];
-                for (int i = 0; i < animalDataInfoList.Count; i++)
+                Sprite[] images = new Sprite[animalDataList.Count];
+                for (int i = 0; i < animalDataList.Count; i++)
                 {
-                    images[i] = animalDataInfoList[i].animalImage;
+                    images[i] = animalDataList[i].animalImage;
                 }
                 return images;
             }
         }
 
-        //by.J:230725 시작시 초기화 기능 시작
+        //시작시 초기화 기능 시작
         private void Start()
         {
             InitializeCropItems();
-            Debug.Log("동물 리스트 크기 : " + animalDataInfoList.Count);
+            Debug.Log("동물 리스트 크기 : " + animalDataList.Count);
         }
 
-        //by.J:230725 초기화 기능
+        //초기화 기능
         private void InitializeCropItems()
         {
             //닭
-            animalDataInfoList.Add(new AnimalDataInfo()
+            animalDataList.Add(new AnimalDataInfo()
             {
                 animalName = "닭",
                 animalCost = 10
@@ -78,7 +80,7 @@ namespace JinnyAnimal
             });
 
             //소
-            animalDataInfoList.Add(new AnimalDataInfo()
+            animalDataList.Add(new AnimalDataInfo()
             {
                 animalName = "소",
                 animalCost = 10
@@ -86,7 +88,7 @@ namespace JinnyAnimal
             });
 
             //돼지
-            animalDataInfoList.Add(new AnimalDataInfo()
+            animalDataList.Add(new AnimalDataInfo()
             {
                 animalName = "돼지",
                 animalCost = 10

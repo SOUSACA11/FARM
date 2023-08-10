@@ -1,10 +1,12 @@
 using UnityEngine;
-using System.Collections.Generic; //by.J:230720 List 변경화 
+using System.Collections.Generic;
 
-//by.J:230719 건물 오브젝트 
+//by.J:230719 건물 오브젝트
+// by.J:230720 List 변경화
+//by.J:230724 이미지 추가 작업
 namespace JinnyBuilding
 {
-    //by.J:230719 구조체 정의
+    //구조체 정의
     [System.Serializable]
     public struct BuildingDataInfo
     {
@@ -13,11 +15,11 @@ namespace JinnyBuilding
         public float buildingBuildTime; //건축 시간
         public Sprite buildingImage;    //건물 이미지
 
-        public GameObject buildingPrefab;    //건물 프리팹
+        public GameObject buildingPrefab;//건물 프리팹
 
     }
 
-    //by.J:230719 IBuilding 인터페이스 정의
+    //IBuilding 인터페이스 정의
     public class Building : MonoBehaviour, IBuilding
     {
         [SerializeField] public List<BuildingDataInfo> buildingDataList = new List<BuildingDataInfo>();
@@ -64,18 +66,18 @@ namespace JinnyBuilding
           
         }
 
-        ////by.J:230719 시작시 초기화 기능 시작
-        private void Start()  //시작하고나서 한번 실행
+        //시작시 초기화 기능 시작
+        private void Start() 
         {
             InitializeBuildings();
             Debug.Log("빌딩 리스트 크기 : " + buildingDataList.Count);
 
         }
 
-        //by.J:230719 초기화 기능
+        //초기화 기능
         private void InitializeBuildings()
         {
-            //by.J:230724 이미지 추가 작업
+            //이미지 추가
             Sprite[] sprites = Resources.LoadAll<Sprite>("Buid_1");
             Sprite buid_1_1 = System.Array.Find(sprites, sprite => sprite.name.Equals("Buid_1_1"));
             Sprite buid_1_2 = System.Array.Find(sprites, sprite => sprite.name.Equals("Buid_1_2"));
@@ -116,13 +118,14 @@ namespace JinnyBuilding
                 buildingImage = buid_1_3
             });
 
-            ////유제품 가공소
-            //buildingDataList.Add(new BuildingDataInfo()
-            //{
-            //    buildingName = "유제품 가공소",
-            //    buildingCost = 10,
-            //    buildingBuildTime = 5.0f
-            //});
+            //유제품 가공소
+            buildingDataList.Add(new BuildingDataInfo()
+            {
+                buildingName = "유제품 가공소",
+                buildingCost = 10,
+                buildingBuildTime = 5.0f,
+                buildingImage = buid_1_3
+            });
 
             ////쥬스가게
             //buildingDataList.Add(new BuildingDataInfo()
@@ -132,7 +135,7 @@ namespace JinnyBuilding
             //    buildingBuildTime = 5.0f
             //});
 
-            
+
         }
 
         private void Update()

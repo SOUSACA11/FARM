@@ -15,7 +15,7 @@ public class ItemDic : MonoBehaviour
     ProcessItem processItem;
     Animal animal;
    
-    //by.J:230721 아이템 사전 선언
+    //아이템 사전 선언
     public Dictionary<string, object> Item = new Dictionary<string, object>();
 
     public void Awake()
@@ -35,7 +35,7 @@ public class ItemDic : MonoBehaviour
         Item.Add("농장밭", farm.farmDataList);
         Item.Add("농장 생산품", cropItem.cropItemDataInfoList);
         Item.Add("가공 생산품", processItem.processitemDataInfoList);
-        Item.Add("동물", animal.animalDataInfoList);
+        Item.Add("동물", animal.animalDataList);
 
         Debug.Log("아이템 리스트 갯수: " + Item.Count);
 

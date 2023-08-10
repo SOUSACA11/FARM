@@ -1,7 +1,8 @@
 using UnityEngine;
-using System.Collections.Generic; //by.J:230720 List 변경화
+using System.Collections.Generic;
 
 //by.J:230719 건물 오브젝트 스크립터블 / 건물정보 저장
+//by.J:230720 List 변경화
 namespace JinnyBuildingData
 {
     [CreateAssetMenu(fileName = "NewBuilding", menuName = "Building")]

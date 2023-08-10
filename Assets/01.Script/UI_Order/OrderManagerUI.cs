@@ -5,12 +5,11 @@ using UnityEngine.UI;
 //by.J:230809 주문 창 클릭시 활성화 / 메뉴 버튼 비활성화 / 닫기 버튼
 public class OrderManagerUI : MonoBehaviour
 {
-    public Image image; //움직일 이미지
+    public Image image;         //움직일 이미지
     public Vector3 endPosition; //마지막 이동 위치
-    public float speed; //이동 속도
+    public float speed;         //이동 속도
 
-    public Button closeButton; //닫기 버튼
-
+    public Button closeButton;      //닫기 버튼
     public Button inviButton1;      //비활성화 할 버튼 1번
     public Button inviButton2;      //비활성화 할 버튼 2번
     public Button inviButton3;      //비활성화 할 버튼 3번

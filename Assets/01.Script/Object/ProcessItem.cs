@@ -1,10 +1,12 @@
 using UnityEngine;
-using System.Collections.Generic; //by.J:230721 List 변경화
+using System.Collections.Generic;
 
 //by.J:230720 생산품 (가공품) 오브젝트 
+//by.J:230721 List 변경화
+//by.J:230728 이미지 추가 작업
 namespace JinnyProcessItem
 {
-    //by.J:230720 구조체 정의
+    //구조체 정의
     [System.Serializable]
     public struct ProcessItemDataInfo
     {
@@ -13,7 +15,7 @@ namespace JinnyProcessItem
         public Sprite processItemImage;//생산품 이미지
     }
 
-    //by.J:230720 IItem 인터페이스 정의
+    //IItem 인터페이스 정의
     public class ProcessItem : MonoBehaviour, IItem
     {
         [SerializeField] public List<ProcessItemDataInfo> processitemDataInfoList = new List<ProcessItemDataInfo>();
@@ -57,17 +59,17 @@ namespace JinnyProcessItem
             }
         }
 
-        ////by.J:230720 시작시 초기화 기능 시작
+        //시작시 초기화 기능 시작
         private void Start()
         {
             InitializeProcessItems();
             Debug.Log("가공 생산품 리스트 크기 : " + processitemDataInfoList.Count);
         }
 
-        //by.J:230720 초기화 기능
+        //초기화 기능
         private void InitializeProcessItems()
         {
-            //by.J:230728 이미지 추가 작업
+            //이미지 추가
             Sprite[] sprites = Resources.LoadAll<Sprite>("Item");
             Sprite bread = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_8"));
             Sprite bagutte = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_9"));
