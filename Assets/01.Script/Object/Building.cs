@@ -17,6 +17,8 @@ namespace JinnyBuilding
 
         public GameObject buildingPrefab;//건물 프리팹
 
+
+        //public bool isValid;
     }
 
     //IBuilding 인터페이스 정의

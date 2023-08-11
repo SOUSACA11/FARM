@@ -1,13 +1,18 @@
 using UnityEngine;
+using System;
 
-//by.J:230719 재화시스템 싱글톤 
+//by.J:230719 재화시스템 싱글톤
+//by.J:230811 재화 변경시에만 UI 업데이트
 public class MoneySystem : MonoBehaviour
 {
     private static MoneySystem instance;
 
     private int gold; //재화 변수
-    
+   
     public int Gold { get { return gold; } } //접근자 프로퍼티
+
+    public delegate void MoneyChange(); //delegate -> 함수를 변수처럼 취급하여 사용 / 메서드 참조 / 메개변수 같아야 가능
+    public event MoneyChange OnMoneychange;
 
     //싱글톤 인스턴스 접근자
     public static MoneySystem Instance
@@ -58,12 +63,15 @@ public class MoneySystem : MonoBehaviour
     public void AddGold(int amount)
     {
         gold += amount;
+        Debug.Log("현재 재화 플 증가됨?" + gold);
+        OnMoneychange?.Invoke(); //? -> null 아니라면(이벤트 핸들러 1개 이상 연결된 경우) Invoke 호출
     }
 
     //재화 감소 기능(마이너스 방지)
     public void DeductGold(int amount)
     {
-        //Mathf.Max(float a, float b) -> a와 b 중에 더 큰 값을 반환
-        gold = Mathf.Max(gold - amount, 0);
+        Debug.Log("재화감소 됨?" + amount);
+        gold = Mathf.Max(gold - amount, 0); //Mathf.Max(float a, float b)->a와 b 중에 더 큰 값을 반환
+        OnMoneychange?.Invoke();            //? -> null 아니라면(이벤트 핸들러 1개 이상 연결된 경우) Invoke 호출
     }
 }

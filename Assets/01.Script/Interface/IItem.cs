@@ -7,5 +7,6 @@ public interface IItem
     string[] ItemName { get; }    //이름
     int[] ItemCost { get; }       //가격
     Sprite[] ItemImage { get; }   //이미지
+    string[] ItemId { get; } //고유 ID
 
 }

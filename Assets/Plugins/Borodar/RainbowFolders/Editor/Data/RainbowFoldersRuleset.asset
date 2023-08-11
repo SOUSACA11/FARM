@@ -497,7 +497,7 @@ MonoBehaviour:
     Key: Assets/01.Script/System
     Ordinal: 40
     Priority: 0
-    IconType: 10
+    IconType: 90
     SmallIcon: {fileID: 0}
     LargeIcon: {fileID: 0}
     IsIconRecursive: 0

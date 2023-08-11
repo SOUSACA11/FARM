@@ -65,13 +65,13 @@ public class DragAndDropCamera : MonoBehaviour
     public void OkDrag()
     {
         dragOk = true;
-        //Debug.Log("움직임");
+        Debug.Log("움직임");
     }
 
     public void NoDrag()
     {
         dragOk = false;
-        //Debug.Log("안움직임");
+        Debug.Log("안움직임");
     }
 }
 

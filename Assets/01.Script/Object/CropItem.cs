@@ -13,6 +13,7 @@ namespace JinnyCropItem
         public string cropItemName;   //이름
         public int cropItemCost;      //가격
         public Sprite cropItemImage;  //생산품 이미지
+        public string cropItemId;             //아이템 고유 ID
     }
 
     //IItem 인터페이스 정의
@@ -61,6 +62,20 @@ namespace JinnyCropItem
             }
         }
 
+        public string[] ItemId
+        {
+            get
+            {
+                string[] names = new string[cropItemDataInfoList.Count];
+                for (int i = 0; i < cropItemDataInfoList.Count; i++)
+                {
+                    names[i] = cropItemDataInfoList[i].cropItemId;
+                }
+                return names;
+            }
+
+        }
+
         //시작시 초기화 기능 시작
         private void Start()
         {
@@ -87,7 +102,8 @@ namespace JinnyCropItem
             {
                 cropItemName = "우유",
                 cropItemCost = 10,
-                cropItemImage = milk
+                cropItemImage = milk,
+                cropItemId = "animal_01"
             });
 
             //달걀
@@ -95,7 +111,8 @@ namespace JinnyCropItem
             {
                 cropItemName = "달걀",
                 cropItemCost = 10,
-                cropItemImage = egg
+                cropItemImage = egg,
+                cropItemId = "animal_02"
             });
 
             //돼지고기
@@ -103,7 +120,8 @@ namespace JinnyCropItem
             {
                 cropItemName = "돼지고기",
                 cropItemCost = 10,
-                cropItemImage = pork
+                cropItemImage = pork,
+                cropItemId = "animal_03"
             });
 
 
@@ -112,7 +130,8 @@ namespace JinnyCropItem
             {
                 cropItemName = "밀",
                 cropItemCost = 10,
-                cropItemImage = wheat
+                cropItemImage = wheat,
+                cropItemId = "crop_01"
             });
 
             //옥수수
@@ -120,7 +139,8 @@ namespace JinnyCropItem
             {
                 cropItemName = "옥수수",
                 cropItemCost = 10,
-                cropItemImage = corn
+                cropItemImage = corn,
+                cropItemId = "crop_02"
             });
 
             //콩
@@ -128,7 +148,8 @@ namespace JinnyCropItem
             {
                 cropItemName = "콩",
                 cropItemCost = 10,
-                cropItemImage = bean
+                cropItemImage = bean,
+                cropItemId = "crop_03"
             });
 
             //토마토
@@ -136,7 +157,8 @@ namespace JinnyCropItem
             {
                 cropItemName = "토마토",
                 cropItemCost = 10,
-                cropItemImage = tomato
+                cropItemImage = tomato,
+                cropItemId = "crop_04"
             });
 
             //당근
@@ -144,7 +166,8 @@ namespace JinnyCropItem
             {
                 cropItemName = "당근",
                 cropItemCost = 10,
-                cropItemImage = carrot
+                cropItemImage = carrot,
+                cropItemId = "crop_05"
             });
             
         }

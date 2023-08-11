@@ -13,6 +13,12 @@ namespace JinnyProcessItem
         public string processItemName; //이름
         public int processItemCost;    //가격
         public Sprite processItemImage;//생산품 이미지
+        public string processItemId;              //아이템 고유 ID
+
+
+        public string ItemId => processItemId;
+        public Sprite ItemImage => processItemImage;
+        public int ItemCost => processItemCost;
     }
 
     //IItem 인터페이스 정의
@@ -59,6 +65,20 @@ namespace JinnyProcessItem
             }
         }
 
+        public string[] ItemId
+        {
+            get
+            {
+                string[] names = new string[processitemDataInfoList.Count];
+                for (int i = 0; i < processitemDataInfoList.Count; i++)
+                {
+                    names[i] = processitemDataInfoList[i].processItemId;
+                }
+                return names;
+            }
+        }
+
+
         //시작시 초기화 기능 시작
         private void Start()
         {
@@ -90,7 +110,8 @@ namespace JinnyProcessItem
             {
                 processItemName = "식빵",
                 processItemCost = 10,
-                processItemImage = bread
+                processItemImage = bread,
+                processItemId = "bread_01"
             });
 
             //바게트
@@ -98,7 +119,8 @@ namespace JinnyProcessItem
             {
                 processItemName = "바게트",
                 processItemCost = 10,
-                processItemImage = bagutte
+                processItemImage = bagutte,
+                processItemId = "bread_02"
             });
 
             //크루와상
@@ -106,7 +128,8 @@ namespace JinnyProcessItem
             {
                 processItemName = "크루와상",
                 processItemCost = 10,
-                processItemImage = croissant
+                processItemImage = croissant,
+                processItemId = "bread_03"
             });
 
             //밀가루
@@ -114,7 +137,8 @@ namespace JinnyProcessItem
             {
                 processItemName = "밀가루",
                 processItemCost = 10,
-                processItemImage = flour
+                processItemImage = flour,
+                processItemId = "windmill_01"
             });
 
             //닭 사료
@@ -122,7 +146,8 @@ namespace JinnyProcessItem
             {
                 processItemName = "닭 사료",
                 processItemCost = 10,
-                processItemImage = chickenfeed
+                processItemImage = chickenfeed,
+                processItemId = "windmill_02"
             });
 
             //돼지 사료
@@ -130,7 +155,8 @@ namespace JinnyProcessItem
             {
                 processItemName = "돼지 사료",
                 processItemCost = 10,
-                processItemImage = pigfeed
+                processItemImage = pigfeed,
+                processItemId = "windmill_03"
             });
 
             //소 사료
@@ -138,7 +164,8 @@ namespace JinnyProcessItem
             {
                 processItemName = "소 사료",
                 processItemCost = 10,
-                processItemImage = cowfeed
+                processItemImage = cowfeed,
+                processItemId = "windmill_04"
             });
 
             //계란후라이
@@ -146,7 +173,8 @@ namespace JinnyProcessItem
             {
                 processItemName = "게란후라이",
                 processItemCost = 10,
-                processItemImage = eggflower
+                processItemImage = eggflower,
+                processItemId = "grill_01"
             });
 
             //베이컨
@@ -154,7 +182,8 @@ namespace JinnyProcessItem
             {
                 processItemName = "베이컨",
                 processItemCost = 10,
-                processItemImage = bacon
+                processItemImage = bacon,
+                processItemId = "grill_02"
             });
 
             //토마토 쥬스
@@ -162,7 +191,8 @@ namespace JinnyProcessItem
             {
                 processItemName = "토마토 쥬스",
                 processItemCost = 10,
-                processItemImage = tomatojuice
+                processItemImage = tomatojuice,
+                processItemId = "juice_01"
             });
 
             //당근 쥬스
@@ -170,7 +200,8 @@ namespace JinnyProcessItem
             {
                 processItemName = "당근 쥬스",
                 processItemCost = 10,
-                processItemImage = carrotjuice
+                processItemImage = carrotjuice,
+                processItemId = "juice_02"
             });
 
             //버터
@@ -178,7 +209,8 @@ namespace JinnyProcessItem
             {
                 processItemName = "버터",
                 processItemCost = 10,
-                processItemImage = butter
+                processItemImage = butter,
+                processItemId = "dairy_01"
             });
 
             //치즈
@@ -186,7 +218,8 @@ namespace JinnyProcessItem
             {
                 processItemName = "치즈",
                 processItemCost = 10,
-                processItemImage = cheese
+                processItemImage = cheese,
+                processItemId = "dairy_02"
             });
         }
     }
