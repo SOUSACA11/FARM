@@ -4,6 +4,7 @@ using System.Collections.Generic;
 //by.J:230720 생산품 (가공품) 오브젝트 
 //by.J:230721 List 변경화
 //by.J:230728 이미지 추가 작업
+//by.J:230814 IItem 수정에 따른 작업
 namespace JinnyProcessItem
 {
     //구조체 정의
@@ -13,74 +14,74 @@ namespace JinnyProcessItem
         public string processItemName; //이름
         public int processItemCost;    //가격
         public Sprite processItemImage;//생산품 이미지
-        public string processItemId;              //아이템 고유 ID
+        public string processItemId;   //아이템 고유 ID
 
-
-        public string ItemId => processItemId;
-        public Sprite ItemImage => processItemImage;
-        public int ItemCost => processItemCost;
+        //public string ItemName => processItemName;
+        //public string ItemId => processItemId;
+        //public Sprite ItemImage => processItemImage;
+        //public int ItemCost => processItemCost;
     }
 
     //IItem 인터페이스 정의
-    public class ProcessItem : MonoBehaviour, IItem
+    public class ProcessItem : MonoBehaviour //, IItem
     {
         [SerializeField] public List<ProcessItemDataInfo> processitemDataInfoList = new List<ProcessItemDataInfo>();
 
-        public string[] ItemName
-        {
-            get
-            {
-                string[] names = new string[processitemDataInfoList.Count];
-                for (int i = 0; i < processitemDataInfoList.Count; i++)
-                {
-                    names[i] = processitemDataInfoList[i].processItemName;
-                }
-                return names;
-            }
-        }
+        //public string[] ItemName
+        //{
+        //    get
+        //    {
+        //        string[] names = new string[processitemDataInfoList.Count];
+        //        for (int i = 0; i < processitemDataInfoList.Count; i++)
+        //        {
+        //            names[i] = processitemDataInfoList[i].processItemName;
+        //        }
+        //        return names;
+        //    }
+        //}
 
-        public int[] ItemCost
-        {
-            get
-            {
-                int[] costs = new int[processitemDataInfoList.Count];
-                for (int i = 0; i < processitemDataInfoList.Count; i++)
-                {
-                    costs[i] = processitemDataInfoList[i].processItemCost;
-                }
-                return costs;
-            }
-        }
+        //public int[] ItemCost
+        //{
+        //    get
+        //    {
+        //        int[] costs = new int[processitemDataInfoList.Count];
+        //        for (int i = 0; i < processitemDataInfoList.Count; i++)
+        //        {
+        //            costs[i] = processitemDataInfoList[i].processItemCost;
+        //        }
+        //        return costs;
+        //    }
+        //}
 
-        public Sprite[] ItemImage
-        {
-            get
-            {
-                Sprite[] images = new Sprite[processitemDataInfoList.Count];
-                for (int i = 0; i < processitemDataInfoList.Count; i++)
-                {
-                    images[i] = processitemDataInfoList[i].processItemImage;
-                }
-                return images;
-            }
-        }
+        //public Sprite[] ItemImage
+        //{
+        //    get
+        //    {
+        //        Sprite[] images = new Sprite[processitemDataInfoList.Count];
+        //        for (int i = 0; i < processitemDataInfoList.Count; i++)
+        //        {
+        //            images[i] = processitemDataInfoList[i].processItemImage;
+        //        }
+        //        return images;
+        //    }
+        //}
 
-        public string[] ItemId
-        {
-            get
-            {
-                string[] names = new string[processitemDataInfoList.Count];
-                for (int i = 0; i < processitemDataInfoList.Count; i++)
-                {
-                    names[i] = processitemDataInfoList[i].processItemId;
-                }
-                return names;
-            }
-        }
+        //public string[] ItemId
+        //{
+        //    get
+        //    {
+        //        string[] names = new string[processitemDataInfoList.Count];
+        //        for (int i = 0; i < processitemDataInfoList.Count; i++)
+        //        {
+        //            names[i] = processitemDataInfoList[i].processItemId;
+        //        }
+        //        return names;
+        //    }
+        //}
 
 
         //시작시 초기화 기능 시작
-        private void Start()
+        private void Awake()
         {
             InitializeProcessItems();
             Debug.Log("가공 생산품 리스트 크기 : " + processitemDataInfoList.Count);

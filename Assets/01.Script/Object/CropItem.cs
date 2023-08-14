@@ -4,6 +4,7 @@ using System.Collections.Generic;
 //by.J:230720 생산품 (작물/동물) 오브젝트
 //by.J:230721 List 변경화
 //by.J:230728 이미지 추가 작업
+//by.J:230814 IItem 수정에 따른 작업
 namespace JinnyCropItem
 {
     //구조체 정의
@@ -17,67 +18,67 @@ namespace JinnyCropItem
     }
 
     //IItem 인터페이스 정의
-    public class CropItem : MonoBehaviour, IItem
+    public class CropItem : MonoBehaviour //, IItem
     {
         [SerializeField] public List<CropItemDataInfo> cropItemDataInfoList = new List<CropItemDataInfo>();
 
-        public string[] ItemName
-        {
-            get
-            {
-                string[] names = new string[cropItemDataInfoList.Count];
-                for (int i = 0; i < cropItemDataInfoList.Count; i++)
-                {
-                    names[i] = cropItemDataInfoList[i].cropItemName;
-                }
-                return names;
-            }
+        //public string[] ItemName
+        //{
+        //    get
+        //    {
+        //        string[] names = new string[cropItemDataInfoList.Count];
+        //        for (int i = 0; i < cropItemDataInfoList.Count; i++)
+        //        {
+        //            names[i] = cropItemDataInfoList[i].cropItemName;
+        //        }
+        //        return names;
+        //    }
             
-        }
+        //}
 
-        public int[] ItemCost
-        {
-            get
-            {
-                int[] costs = new int[cropItemDataInfoList.Count];
-                for (int i = 0; i < cropItemDataInfoList.Count; i++)
-                {
-                    costs[i] = cropItemDataInfoList[i].cropItemCost;
-                }
-                return costs;
-            }
+        //public int[] ItemCost
+        //{
+        //    get
+        //    {
+        //        int[] costs = new int[cropItemDataInfoList.Count];
+        //        for (int i = 0; i < cropItemDataInfoList.Count; i++)
+        //        {
+        //            costs[i] = cropItemDataInfoList[i].cropItemCost;
+        //        }
+        //        return costs;
+        //    }
             
-        }
+        //}
 
-        public Sprite[] ItemImage
-        {
-            get
-            {
-                Sprite[] images = new Sprite[cropItemDataInfoList.Count];
-                for (int i = 0; i < cropItemDataInfoList.Count; i++)
-                {
-                    images[i] = cropItemDataInfoList[i].cropItemImage;
-                }
-                return images;
-            }
-        }
+        //public Sprite[] ItemImage
+        //{
+        //    get
+        //    {
+        //        Sprite[] images = new Sprite[cropItemDataInfoList.Count];
+        //        for (int i = 0; i < cropItemDataInfoList.Count; i++)
+        //        {
+        //            images[i] = cropItemDataInfoList[i].cropItemImage;
+        //        }
+        //        return images;
+        //    }
+        //}
 
-        public string[] ItemId
-        {
-            get
-            {
-                string[] names = new string[cropItemDataInfoList.Count];
-                for (int i = 0; i < cropItemDataInfoList.Count; i++)
-                {
-                    names[i] = cropItemDataInfoList[i].cropItemId;
-                }
-                return names;
-            }
+        //public string[] ItemId
+        //{
+        //    get
+        //    {
+        //        string[] names = new string[cropItemDataInfoList.Count];
+        //        for (int i = 0; i < cropItemDataInfoList.Count; i++)
+        //        {
+        //            names[i] = cropItemDataInfoList[i].cropItemId;
+        //        }
+        //        return names;
+        //    }
 
-        }
+        //}
 
         //시작시 초기화 기능 시작
-        private void Start()
+        private void Awake()
         {
             InitializeCropItems();
             Debug.Log("농장 생산품 리스트 크기 : " + cropItemDataInfoList.Count);
