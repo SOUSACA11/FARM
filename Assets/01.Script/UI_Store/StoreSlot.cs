@@ -16,6 +16,7 @@ public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     public GameObject currentPrefab;            //배치할 아이템 프리팹
     private GameObject clone;                   //드래그 중인 건물 복제본
     private SpriteRenderer itemSpriteRenderer;  //아이템 스프라이트 렌더러 이미지
+    public BuildingType currentBuildingType;    //건물 타입
 
     private BuildingDataInfo currentBuildingData = new BuildingDataInfo(); //현재 설정 건물 데이터
     private FarmDataInfo currentFarmData = new FarmDataInfo();             //현재 설정 농장밭 데이터
@@ -35,6 +36,7 @@ public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         itemName.text = buildingData.buildingName;
         itemCost.text = buildingData.buildingCost.ToString();
         itemImage.sprite = buildingData.buildingImage;
+        currentBuildingType = buildingData.buildingType;
 
         if (itemSpriteRenderer != null) //스프라이트 렌더러가 있다면 스프라이트 설정
         {
@@ -101,8 +103,8 @@ public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
                 cloneSpriteRenderer.sprite = itemImage.sprite;
             }
 
-            Debug.Log("슬롯에서 드래그 시작: " + gameObject.name + " 빌딩 가격: " + currentBuildingData.buildingCost);
-            Debug.Log("드래그중인 건물 현재 가격: " + JsonUtility.ToJson(currentBuildingData));
+            //Debug.Log("슬롯에서 드래그 시작: " + gameObject.name + " 빌딩 가격: " + currentBuildingData.buildingCost);
+            //Debug.Log("드래그중인 건물 현재 가격: " + JsonUtility.ToJson(currentBuildingData));
 
         }
     }
@@ -125,10 +127,16 @@ public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
         if (clone != null)
         {
+            WorkBuilding workBuilding = clone.GetComponent<WorkBuilding>();
+            if (workBuilding != null)
+            {
+                workBuilding.buildingType = currentBuildingType; //복제본 건물 타입 배정
+            }
+
             //드래그가 끝나면 복제본 게임 오브젝트로 존재
             clone = null;
 
-            Debug.Log("현재 빌딩 가격" + currentBuildingData.buildingCost);
+            //Debug.Log("현재 빌딩 가격" + currentBuildingData.buildingCost);
             MoneySystem.Instance.DeductGold(currentBuildingData.buildingCost);
         }
     }

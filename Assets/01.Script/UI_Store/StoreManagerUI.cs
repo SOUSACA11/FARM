@@ -90,19 +90,7 @@ public class StoreManagerUI : MonoBehaviour
             nextButton.interactable = false;
         }
     }
-    //public void NextPage2()
-    //{
-    //    if (currentTab == TabType.Building && (currentPage + 1) * itemsPerPage >= FindObjectOfType<Building>().buildingDataList.Count)
-    //        return;
-    //    if (currentTab == TabType.Farm && (currentPage + 1) * itemsPerPage >= FindObjectOfType<Farm>().farmDataList.Count)
-    //        return;
-    //    if (currentTab == TabType.Animal && (currentPage + 1) * itemsPerPage >= FindObjectOfType<Animal>().animalDataList.Count)
-    //        return;
-
-    //    currentPage++;
-    //    DisplayItems();
-    //}
-
+  
     //빌딩 페이지
     void DisplayBuilding(List<BuildingDataInfo> buildingList) 
     {

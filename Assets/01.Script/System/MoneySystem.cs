@@ -1,5 +1,4 @@
 using UnityEngine;
-using System;
 
 //by.J:230719 재화시스템 싱글톤
 //by.J:230811 재화 변경시에만 UI 업데이트

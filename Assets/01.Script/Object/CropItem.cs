@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-//by.J:230720 생산품 (작물/동물) 오브젝트
+//by.J:230720 생산품 (작물) 오브젝트
 //by.J:230721 List 변경화
 //by.J:230728 이미지 추가 작업
 //by.J:230814 IItem 수정에 따른 작업
@@ -89,42 +89,11 @@ namespace JinnyCropItem
         {
             //이미지 추가
             Sprite[] sprites = Resources.LoadAll<Sprite>("Item");
-            Sprite milk = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_0"));
-            Sprite egg = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_1"));
-            Sprite pork = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_2"));
             Sprite wheat = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_3"));
             Sprite corn = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_4"));
             Sprite bean = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_5"));
             Sprite tomato = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_6"));
             Sprite carrot = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_7"));
-
-            //우유
-            cropItemDataInfoList.Add(new CropItemDataInfo()
-            {
-                cropItemName = "우유",
-                cropItemCost = 10,
-                cropItemImage = milk,
-                cropItemId = "animal_01"
-            });
-
-            //달걀
-            cropItemDataInfoList.Add(new CropItemDataInfo()
-            {
-                cropItemName = "달걀",
-                cropItemCost = 10,
-                cropItemImage = egg,
-                cropItemId = "animal_02"
-            });
-
-            //돼지고기
-            cropItemDataInfoList.Add(new CropItemDataInfo()
-            {
-                cropItemName = "돼지고기",
-                cropItemCost = 10,
-                cropItemImage = pork,
-                cropItemId = "animal_03"
-            });
-
 
             //밀
             cropItemDataInfoList.Add(new CropItemDataInfo()

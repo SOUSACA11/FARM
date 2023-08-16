@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using TMPro;
 
 //by.J:230814 주문서 표시 UI / 리셋 버튼
+//by.J:230816 주문 클릭 후 납부시 재화증가
 public class OrderSlotManagerUI : MonoBehaviour
 {
     public OrderPaper orderPaper;
@@ -12,7 +13,9 @@ public class OrderSlotManagerUI : MonoBehaviour
     public TextMeshProUGUI totalCostText; //주문서 총 가격
     public GameObject orderSheetPrefab;   //주문서 총 UI 프리팹
 
-    private int currentOrderCount = 0;    //현재 주문서 개수
+    private int currentOrderCount = 0;     //현재 주문서 개수
+    private static GameObject selectedOrderPaper; //현재 선택된 주문서 / 같은 변수 공유하도록 static
+
 
     //주문서 표시
     public void TriggerOrder()
@@ -23,10 +26,10 @@ public class OrderSlotManagerUI : MonoBehaviour
     //랜덤 아이템 발동
     public void TriggerRandomOrder()
     {
-        DisplayOrders();
+        DisplayOrder();
     }
 
-    public void DisplayOrders()
+    public void DisplayOrder()
     {
         //주문서 생성
         List<Order> orders = orderPaper.RandomOrder(3); //아이템 3개 배정
@@ -47,7 +50,7 @@ public class OrderSlotManagerUI : MonoBehaviour
         }
         //총 가격 표시
         int totalCost = orderPaper.TotalCost(orders);
-        totalCostText.text = totalCost + " ";
+        totalCostText.text = totalCost.ToString();
         //Debug.Log("총 가격 표시");
     }
 
@@ -88,7 +91,7 @@ public class OrderSlotManagerUI : MonoBehaviour
     }
 
     //리셋 버튼
-    public void ResetOrders()
+    public void ResetOrder()
     {
         //모든 주문서 오브젝트 삭제
         foreach (Transform child in orderListParent)
@@ -98,7 +101,41 @@ public class OrderSlotManagerUI : MonoBehaviour
 
         //현재 주문서 개수 초기화
         currentOrderCount = 0;
+    }
 
+    //주문서 선택
+    public void SelectOrder(GameObject orderPaper)
+    {
+        selectedOrderPaper = orderPaper;
+        //Debug.Log("선택 주문서");
+        //Debug.Log("주문서 선택쓰" + selectedOrderPaper);
+    }
+
+    //납부하기 버튼
+    public void PayButtonClick()
+    {
+        //Debug.Log("납부하기 버튼 클릭");
+        //Debug.Log("selectedOrderPaper 값: " + selectedOrderPaper);
+        if (selectedOrderPaper != null)
+        {
+            //Debug.Log("selectedOrderPaper는 null이 아닙니다.");
+
+            TextMeshProUGUI totalCostText = selectedOrderPaper.transform.Find("gold count").GetComponent<TextMeshProUGUI>();
+            //Debug.Log("ㅋ" + totalCostText);
+
+            if (totalCostText == null)
+            {
+                //Debug.Log("costText는 null입니다." + totalCostText);
+                return;
+            }
+
+            //Debug.Log("총 가격: " + totalCostText.text);
+            int cost = int.Parse(totalCostText.text); //텍스트에서 비용 추출
+            MoneySystem.Instance.AddGold(cost);       //재화 증가
+            Destroy(selectedOrderPaper);              //납부한 주문서 삭제
+            selectedOrderPaper = null;                //선택 초기화
+        }
+       
     }
 }
 

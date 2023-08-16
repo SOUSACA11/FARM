@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-//by.J:230720 생산품 (가공품) 오브젝트 
+//by.J:230720 생산품 (가공품 / 동물) 오브젝트 
 //by.J:230721 List 변경화
 //by.J:230728 이미지 추가 작업
 //by.J:230814 IItem 수정에 따른 작업
@@ -92,6 +92,9 @@ namespace JinnyProcessItem
         {
             //이미지 추가
             Sprite[] sprites = Resources.LoadAll<Sprite>("Item");
+            Sprite milk = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_0"));
+            Sprite egg = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_1"));
+            Sprite pork = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_2"));
             Sprite bread = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_8"));
             Sprite bagutte = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_9"));
             Sprite croissant = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_10"));
@@ -105,6 +108,34 @@ namespace JinnyProcessItem
             Sprite carrotjuice = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_18"));
             Sprite butter = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_19"));
             Sprite cheese = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_20"));
+
+            //우유
+            processitemDataInfoList.Add(new ProcessItemDataInfo()
+            {
+                processItemName = "우유",
+                processItemCost = 10,
+                processItemImage = milk,
+                processItemId = "animal_01"
+            });
+
+            //달걀
+            processitemDataInfoList.Add(new ProcessItemDataInfo()
+            {
+                processItemName = "달걀",
+                processItemCost = 10,
+                processItemImage = egg,
+                processItemId = "animal_02"
+            });
+
+            //돼지고기
+            processitemDataInfoList.Add(new ProcessItemDataInfo()
+            {
+                processItemName = "돼지고기",
+                processItemCost = 10,
+                processItemImage = pork,
+                processItemId = "animal_03"
+            });
+
 
             //식빵
             processitemDataInfoList.Add(new ProcessItemDataInfo()
@@ -172,7 +203,7 @@ namespace JinnyProcessItem
             //계란후라이
             processitemDataInfoList.Add(new ProcessItemDataInfo()
             {
-                processItemName = "게란후라이",
+                processItemName = "계란후라이",
                 processItemCost = 10,
                 processItemImage = eggflower,
                 processItemId = "grill_01"

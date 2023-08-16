@@ -6,14 +6,25 @@ using System.Collections.Generic;
 //by.J:230724 이미지 추가 작업
 namespace JinnyBuilding
 {
+    public enum BuildingType
+    {
+        cage,       //축사
+        Bakery,     //빵집
+        Windmill,   //정미소
+        GrillShop,  //철판가게
+        Dairy,      //유제품가공소
+        JuiceShop   //쥬스가게
+    }
+
     //구조체 정의
     [System.Serializable]
     public struct BuildingDataInfo
     {
-        public string buildingName;     //이름
-        public int buildingCost;        //가격
-        public float buildingBuildTime; //건축 시간
-        public Sprite buildingImage;    //건물 이미지
+        public string buildingName;       //이름
+        public int buildingCost;          //가격
+        public float buildingBuildTime;   //건축 시간
+        public Sprite buildingImage;      //건물 이미지
+        public BuildingType buildingType; //건물 타입
 
         public GameObject buildingPrefab;//건물 프리팹
 
@@ -88,6 +99,7 @@ namespace JinnyBuilding
             // 빵집
             buildingDataList.Add(new BuildingDataInfo()
             {
+                buildingType = BuildingType.Bakery,
                 buildingName = "빵집",
                 buildingCost = 10,
                 buildingBuildTime = 5.0f,
@@ -97,6 +109,7 @@ namespace JinnyBuilding
             // 축사
             buildingDataList.Add(new BuildingDataInfo()
             {
+                buildingType = BuildingType.cage,
                 buildingName = "축사",
                 buildingCost = 10,
                 buildingBuildTime = 5.0f,
@@ -106,6 +119,7 @@ namespace JinnyBuilding
             //// 정미소
             //buildingDataList.Add(new BuildingDataInfo()
             //{
+            //    buildingType = BuildingType.Windmill,
             //    buildingName = "정미소",
             //    buildingCost = 10,
             //    buildingBuildTime = 5.0f
@@ -114,6 +128,7 @@ namespace JinnyBuilding
             // 철판가게
             buildingDataList.Add(new BuildingDataInfo()
             {
+                buildingType = BuildingType.GrillShop,
                 buildingName = "철판 가게",
                 buildingCost = 10,
                 buildingBuildTime = 5.0f,
@@ -123,6 +138,7 @@ namespace JinnyBuilding
             //유제품 가공소
             buildingDataList.Add(new BuildingDataInfo()
             {
+                buildingType = BuildingType.Dairy,
                 buildingName = "유제품 가공소",
                 buildingCost = 10,
                 buildingBuildTime = 5.0f,
@@ -132,6 +148,7 @@ namespace JinnyBuilding
             ////쥬스가게
             //buildingDataList.Add(new BuildingDataInfo()
             //{
+            //    buildingType = BuildingType.JuiceShop
             //    buildingName = "쥬스 가게",
             //    buildingCost = 10,
             //    buildingBuildTime = 5.0f
@@ -140,19 +157,19 @@ namespace JinnyBuilding
 
         }
 
-        private void Update()
-        {
-            //Debug.Log("빌딩 리스트 크기 : " + buildingDataList.Count);
+        //private void Update()
+        //{
+        //Debug.Log("빌딩 리스트 크기 : " + buildingDataList.Count);
 
 
-                //foreach (var building in buildingDataList)
-                //{
-                //    if (building.buildingName == "빵집")
-                //    {
-                //        Debug.Log("빵집 건물의 이미지 이름 : " + building.buildingImage.name);
-                //    }
-                //}
-            
-        }
+        //foreach (var building in buildingDataList)
+        //{
+        //    if (building.buildingName == "빵집")
+        //    {
+        //        Debug.Log("빵집 건물의 이미지 이름 : " + building.buildingImage.name);
+        //    }
+        //}
+
+        //}
     }
 }
