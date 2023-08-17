@@ -6,7 +6,8 @@ using JinnyBuilding;
 using JinnyFarm;
 using JinnyAnimal;
 
-//by.J:230810 상점 슬롯 정보
+//by.J:230810 상점 슬롯 정보 / 상점 건물 드래그
+//by.J:230817 건물 드래그 시 스냅 활성화
 public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     private Camera mainCamera;                  //메인 카메라
@@ -80,9 +81,11 @@ public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             currentPrefab = animalData.animalPrefab;
         }
 
-        currentAnimalData = animalData; // currentAnimalData 업데이트
+        currentAnimalData = animalData; //currentAnimalData 업데이트
         //Debug.Log("동물 가격 불러오기 성공 " + animalData.animalCost);
     }
+
+    // *드래그 기능*
 
     //드래그 시작시
     public void OnBeginDrag(PointerEventData eventData)
@@ -102,10 +105,9 @@ public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             {
                 cloneSpriteRenderer.sprite = itemImage.sprite;
             }
-
+            BoxColliderSize(clone);
             //Debug.Log("슬롯에서 드래그 시작: " + gameObject.name + " 빌딩 가격: " + currentBuildingData.buildingCost);
             //Debug.Log("드래그중인 건물 현재 가격: " + JsonUtility.ToJson(currentBuildingData));
-
         }
     }
 
@@ -116,25 +118,26 @@ public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
         if (clone != null)
         {
-            //복제본 마우스 따라 이동
-            clone.transform.position = GetWorldPosition(eventData);
+            Vector3 mousePosition = GetWorldPosition(eventData);
+            clone.transform.position = GridSnap(mousePosition);
         }
     }
 
     //드래그 끝난 후
     public void OnEndDrag(PointerEventData eventData)
     {
-
         if (clone != null)
         {
             WorkBuilding workBuilding = clone.GetComponent<WorkBuilding>();
-            if (workBuilding != null)
+
+            if (clone != null)
             {
-                workBuilding.buildingType = currentBuildingType; //복제본 건물 타입 배정
+                Vector3 mousePosition = GetWorldPosition(eventData);
+                clone.transform.position = GridSnap(mousePosition);
             }
 
-            //드래그가 끝나면 복제본 게임 오브젝트로 존재
-            clone = null;
+                //드래그가 끝나면 복제본 게임 오브젝트로 존재
+                clone = null;
 
             //Debug.Log("현재 빌딩 가격" + currentBuildingData.buildingCost);
             MoneySystem.Instance.DeductGold(currentBuildingData.buildingCost);
@@ -147,6 +150,34 @@ public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         Vector3 worldPosition = mainCamera.ScreenToWorldPoint(eventData.position);
         worldPosition.z = 0; //2D 게임이라 z 좌표 0으로 설정
         return worldPosition;
+    }
+
+    //스냅 기능
+    private Vector3 GridSnap(Vector3 position)
+    {
+        int xCount = Mathf.RoundToInt(position.x);
+        int yCount = Mathf.RoundToInt(position.y);
+        int zCount = Mathf.RoundToInt(position.z);
+
+        return new Vector3(xCount, yCount, zCount);
+    }
+
+    //박스 콜라이더 
+    private void BoxColliderSize(GameObject buildingClone)
+    {
+        //스프라이트 렌더러 가져오기
+        SpriteRenderer spriteRenderer = buildingClone.GetComponent<SpriteRenderer>();
+        if (spriteRenderer == null) return; 
+
+        //BoxCollider2D를 가져오거나, 없으면 추가
+        BoxCollider2D collider = buildingClone.GetComponent<BoxCollider2D>();
+        if (collider == null)
+        {
+            collider = buildingClone.AddComponent<BoxCollider2D>();
+        }
+
+        //Box Collider의 크기를 SpriteRenderer의 bounds 크기로 설정
+        collider.size = spriteRenderer.bounds.size;
     }
 }
 

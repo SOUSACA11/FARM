@@ -38,16 +38,5 @@ public class Recipe
         this.outputCount = outputCount;
     }
 }
-    //public class Recipe<TInput, TOutput> //제네릭 클래스 -> 타입 규격화, 정해놓는 것
-    //{
-    //    public List<Ingredient<TInput>> ingredients;
-    //    public TOutput outputItem;
-    //    public int outputCount;
-
-    //    public Recipe(List<Ingredient<TInput>> ingredients, TOutput outputItem, int outputCount)
-    //    {
-    //        this.ingredients = ingredients; //원재료
-    //        this.outputItem = outputItem;   //가공품 아이템
-    //        this.outputCount = outputCount; //가공품 수량
-    //    }
+   
 

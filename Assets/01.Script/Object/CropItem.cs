@@ -9,12 +9,17 @@ namespace JinnyCropItem
 {
     //구조체 정의
     [System.Serializable]
-    public struct CropItemDataInfo
+    public struct CropItemDataInfo : IItem
     {
         public string cropItemName;   //이름
         public int cropItemCost;      //가격
         public Sprite cropItemImage;  //생산품 이미지
-        public string cropItemId;             //아이템 고유 ID
+        public string cropItemId;     //아이템 고유 ID
+
+        public string ItemName => cropItemName;
+        public int ItemCost => cropItemCost;
+        public Sprite ItemImage => cropItemImage;
+        public string ItemId => cropItemId;
     }
 
     //IItem 인터페이스 정의

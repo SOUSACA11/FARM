@@ -157,7 +157,7 @@ public class StoreManagerUI : MonoBehaviour
     //아이템 정보 보여주기
     void DisplayItems()
     {
-        if (currentTab == TabType.Building) // 건물 탭 처리
+        if (currentTab == TabType.Building) //건물 탭 처리
         {
             Building buildingComponent = FindObjectOfType<Building>();
             if (buildingComponent != null)
@@ -166,7 +166,7 @@ public class StoreManagerUI : MonoBehaviour
                 DisplayBuilding(buildingList);
             }
         }
-        else if (currentTab == TabType.Farm) // 농장밭 탭 처리
+        else if (currentTab == TabType.Farm) //농장밭 탭 처리
         {
             Farm farmComponent = FindObjectOfType<Farm>();
             if (farmComponent != null)
@@ -175,7 +175,7 @@ public class StoreManagerUI : MonoBehaviour
                 DisplayFarm(farmList);
             }
         }
-        else if (currentTab == TabType.Animal) // 동물 탭 처리
+        else if (currentTab == TabType.Animal) //동물 탭 처리
         {
             Animal animalComponent = FindObjectOfType<Animal>();
             if (animalComponent != null)
@@ -231,25 +231,25 @@ public class StoreManagerUI : MonoBehaviour
         //처음 y값    : -846
         //마지막 y값  : 318
 
-        float t = 0f; // 시간 변수
+        float t = 0f; //시간 변수
 
-        Vector3 startPosition = image.transform.position;  // 시작 위치 저장
+        Vector3 startPosition = image.transform.position;  //시작 위치 저장
 
         endPosition = new Vector3(948, image.rectTransform.position.y + 1150, 0); //마지막 위치 저장
 
-        while (t < 1f) // t가 1이 될 때까지
+        while (t < 1f) //t가 1이 될 때까지
         {
             if (image.rectTransform.position.y >= 318) //y값이 318 이상이면 멈춤
             {
                 yield break;
             }
 
-            t += Time.deltaTime * speed; // 시간 누적
+            t += Time.deltaTime * speed; //시간 누적
 
-            // Lerp를 이용해 현재 위치에서 endPosition까지 부드럽게 이동
+            //Lerp를 이용해 현재 위치에서 endPosition까지 부드럽게 이동
             image.transform.position = Vector3.Lerp(startPosition, endPosition, t);
 
-            yield return null; // 프레임 간격대로 실행
+            yield return null; //프레임 간격대로 실행
         }
     }
 
@@ -264,23 +264,23 @@ public class StoreManagerUI : MonoBehaviour
         //Debug.Log("상점 창 내리기 시그널");
         float t = 0f; // 시간 변수
 
-        Vector3 startPosition = image.transform.position;  // 시작 위치 저장
+        Vector3 startPosition = image.transform.position;  //시작 위치 저장
 
         endPosition = new Vector3(948, image.rectTransform.position.y - 480, 0); //마지막 위치 저장
 
-        while (t < 1f) // t가 1이 될 때까지
+        while (t < 1f) //t가 1이 될 때까지
         {
             if (image.rectTransform.position.y >= 2000) //y값 2000 이상이면 멈춤
             {
                 yield break;
             }
 
-            t += Time.deltaTime * speed; // 시간 누적
+            t += Time.deltaTime * speed; //시간 누적
 
-            // Lerp를 이용해 현재 위치에서 endPosition까지 부드럽게 이동
+            //Lerp를 이용해 현재 위치에서 endPosition까지 부드럽게 이동
             image.transform.position = Vector3.Lerp(startPosition, endPosition, t);
 
-            yield return null; // 프레임 간격대로 실행
+            yield return null; //프레임 간격대로 실행
 
         }
     }
@@ -295,23 +295,23 @@ public class StoreManagerUI : MonoBehaviour
         //Debug.Log("상점 창 올리기 시그널");
         float t = 0f; // 시간 변수
 
-        Vector3 startPosition = image.transform.position;  // 시작 위치 저장
+        Vector3 startPosition = image.transform.position;  //시작 위치 저장
 
         endPosition = new Vector3(948, image.rectTransform.position.y + 480, 0); //마지막 위치 저장
 
-        while (t < 1f) // t가 1이 될 때까지
+        while (t < 1f) //t가 1이 될 때까지
         {
             if (image.rectTransform.position.y >= 2000) //y값 2000 이상이면 멈춤
             {
                 yield break;
             }
 
-            t += Time.deltaTime * speed; // 시간 누적
+            t += Time.deltaTime * speed; //시간 누적
 
-            // Lerp를 이용해 현재 위치에서 endPosition까지 부드럽게 이동
+            //Lerp를 이용해 현재 위치에서 endPosition까지 부드럽게 이동
             image.transform.position = Vector3.Lerp(startPosition, endPosition, t);
 
-            yield return null; // 프레임 간격대로 실행
+            yield return null; //프레임 간격대로 실행
 
         }
     }

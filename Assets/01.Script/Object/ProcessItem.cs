@@ -9,17 +9,17 @@ namespace JinnyProcessItem
 {
     //구조체 정의
     [System.Serializable]
-    public struct ProcessItemDataInfo
+    public struct ProcessItemDataInfo : IItem
     {
         public string processItemName; //이름
         public int processItemCost;    //가격
         public Sprite processItemImage;//생산품 이미지
         public string processItemId;   //아이템 고유 ID
 
-        //public string ItemName => processItemName;
-        //public string ItemId => processItemId;
-        //public Sprite ItemImage => processItemImage;
-        //public int ItemCost => processItemCost;
+        public string ItemName => processItemName;
+        public int ItemCost => processItemCost;
+        public Sprite ItemImage => processItemImage;
+        public string ItemId => processItemId;
     }
 
     //IItem 인터페이스 정의

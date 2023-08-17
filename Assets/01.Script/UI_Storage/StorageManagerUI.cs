@@ -5,11 +5,11 @@ using UnityEngine.UI;
 //by.J:230808 창고 창 클릭시 활성화 / 메뉴 버튼 비활성화 / 닫기 버튼 
 public class StorageManagerUI : MonoBehaviour
 {
-    public Image image; //움직일 이미지
+    public Image image;         //움직일 이미지
     public Vector3 endPosition; //마지막 이동 위치
-    public float speed; //이동 속도
+    public float speed;         //이동 속도
 
-    public Button closeButton; //닫기 버튼
+    public Button closeButton;  //닫기 버튼
 
     public Button inviButton1;      //비활성화 할 버튼 1번
     public Button inviButton2;      //비활성화 할 버튼 2번
@@ -52,25 +52,25 @@ public class StorageManagerUI : MonoBehaviour
         //처음 y값    : -1824
         //마지막 y값  : 526
 
-        float t = 0f; // 시간 변수
+        float t = 0f; //시간 변수
 
-        Vector3 startPosition = image.transform.position;  // 시작 위치 저장
+        Vector3 startPosition = image.transform.position;  //시작 위치 저장
 
         endPosition = new Vector3(977, image.rectTransform.position.y + 2350, 0); //마지막 위치 저장
 
-        while (t < 1f) // t가 1이 될 때까지
+        while (t < 1f) //t가 1이 될 때까지
         {
             if (image.rectTransform.position.y >= 480) //y값 480 이상이면 멈춤
             {
                 yield break;
             }
 
-            t += Time.deltaTime * speed; // 시간 누적
+            t += Time.deltaTime * speed; //시간 누적
 
-            // Lerp를 이용해 현재 위치에서 endPosition까지 부드럽게 이동
+            //Lerp를 이용해 현재 위치에서 endPosition까지 부드럽게 이동
             image.transform.position = Vector3.Lerp(startPosition, endPosition, t);
 
-            yield return null; // 프레임 간격대로 실행
+            yield return null; //프레임 간격대로 실행
 
         }
     }

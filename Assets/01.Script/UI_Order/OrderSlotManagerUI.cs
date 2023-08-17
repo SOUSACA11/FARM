@@ -2,9 +2,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
 //by.J:230814 주문서 표시 UI / 리셋 버튼
 //by.J:230816 주문 클릭 후 납부시 재화증가
+//by.J:230817 주문서 클릭시 효과 적용
 public class OrderSlotManagerUI : MonoBehaviour
 {
     public OrderPaper orderPaper;
@@ -13,8 +15,30 @@ public class OrderSlotManagerUI : MonoBehaviour
     public TextMeshProUGUI totalCostText; //주문서 총 가격
     public GameObject orderSheetPrefab;   //주문서 총 UI 프리팹
 
-    private int currentOrderCount = 0;     //현재 주문서 개수
+    private int currentOrderCount = 0;            //현재 주문서 개수
     private static GameObject selectedOrderPaper; //현재 선택된 주문서 / 같은 변수 공유하도록 static
+
+    private Vector3 originalOrderSize;  //주문서의 원래 크기
+    public float enlargedScale = 0.5f;  //크게 할 때의 스케일 값
+
+    private void Start()
+    {
+        // 초기 설정 시 주문서의 원래 크기 저장
+        originalOrderSize = orderPaper.transform.localScale;
+    }
+
+    private void Update()
+    {
+        //마우스 클릭, 터치시 UI 오브젝트 아닐경우 원래 크기대로
+        if (IsInputDetected() && !IsPointerOverUIObject())
+        {
+            if (selectedOrderPaper != null)
+            {
+                ResetOrderSize(selectedOrderPaper);
+                selectedOrderPaper = null;
+            }
+        }
+    }
 
 
     //주문서 표시
@@ -29,6 +53,7 @@ public class OrderSlotManagerUI : MonoBehaviour
         DisplayOrder();
     }
 
+    //주문서
     public void DisplayOrder()
     {
         //주문서 생성
@@ -54,6 +79,7 @@ public class OrderSlotManagerUI : MonoBehaviour
         //Debug.Log("총 가격 표시");
     }
 
+    //주문서 여러개
     public void MultipleOrder(int count)
     {
         //최대 3개까지만 생성
@@ -106,9 +132,28 @@ public class OrderSlotManagerUI : MonoBehaviour
     //주문서 선택
     public void SelectOrder(GameObject orderPaper)
     {
-        selectedOrderPaper = orderPaper;
         //Debug.Log("선택 주문서");
         //Debug.Log("주문서 선택쓰" + selectedOrderPaper);
+
+        //이전 선택 주문서와 클릭 주문서 같을 경우
+        if (selectedOrderPaper == orderPaper)
+        {
+            //주문서 크기 원래대로 후 선택 해제
+            ResetOrderSize(orderPaper);
+            selectedOrderPaper = null;
+        }
+        else
+        {
+            //이전 선택 주문서 크기 원래대로
+            if (selectedOrderPaper != null)
+            {
+                ResetOrderSize(selectedOrderPaper);
+            }
+
+            //새로운 주문서 선택 및 크기 증가
+            selectedOrderPaper = orderPaper;
+            EnlargeOrderSize(orderPaper);
+        }
     }
 
     //납부하기 버튼
@@ -135,8 +180,48 @@ public class OrderSlotManagerUI : MonoBehaviour
             Destroy(selectedOrderPaper);              //납부한 주문서 삭제
             selectedOrderPaper = null;                //선택 초기화
         }
-       
+
+    }
+
+    //주문서 크기 증가
+    private void EnlargeOrderSize(GameObject orderPaper)
+    {
+        orderPaper.transform.localScale = originalOrderSize * enlargedScale;
+    }
+
+    //주문서 크기 원래대로
+    private void ResetOrderSize(GameObject orderPaper)
+    {
+        orderPaper.transform.localScale = originalOrderSize;
+    }
+
+
+
+    //마우스 클릭, 터치 감지
+    private bool IsInputDetected()
+    {
+        //마우스 클릭
+        if (Input.GetMouseButtonDown(0))
+            return true;
+
+        //터치 입력
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+            return true;
+
+        return false;
+    }
+
+    //마우스 포인터, 터치가 UI 오브젝트 위에 있는지 확인
+    private bool IsPointerOverUIObject()
+    {
+        //마우스 포지션
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current)
+        {
+            position = new Vector2(Input.mousePosition.x, Input.mousePosition.y)
+        };
+
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        return results.Count > 0;
     }
 }
-
-
