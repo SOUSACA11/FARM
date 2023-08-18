@@ -7,9 +7,9 @@ public class IngredientSlot : MonoBehaviour
     public Image ingredientImage;
     //public TextMeshProUGUI ingredientName;
 
-    public void SetIngredient(IItem ingredient)
+    public void SetIngredient(IItem production)
     {
-        ingredientImage.sprite = ingredient.ItemImage;
+        ingredientImage.sprite = production.ItemImage;
         //ingredientName.text = ingredient.ItemName();
     }
 }

@@ -5,6 +5,7 @@ using JinnyProcessItem;
 using JinnyBuilding;
 
 //by.J:230816 레시피 데이터
+//by.J:230818 완성품 ID 추가
 public class RecipeManager : MonoBehaviour
 {
     public static RecipeManager Instance; //싱글톤 처리
@@ -31,6 +32,7 @@ public class RecipeManager : MonoBehaviour
     public CropItem cropItems;
     public ProcessItem processItems;
 
+
     private void Awake()
     {
         if (Instance == null)
@@ -43,10 +45,11 @@ public class RecipeManager : MonoBehaviour
             return;
         }
 
+        Debug.Log("레시피매니저 초기화 실시 시작");
         InitializeRecipes();
     }
 
-    //레시피 모음
+    //레시피 모음 초기화
     private void InitializeRecipes()
     {
         // JinnyCropItem에서 아이템 가져오기
@@ -57,9 +60,9 @@ public class RecipeManager : MonoBehaviour
         CropItemDataInfo carrot = cropItems.cropItemDataInfoList.Find(item => item.cropItemId == "crop_05"); //당근
 
         // JinnyProcessItem에서 아이템 가져오기
-        ProcessItemDataInfo milk = processItems.processitemDataInfoList.Find(item => item.processItemId == "animal_01"); //우유
-        ProcessItemDataInfo egg = processItems.processitemDataInfoList.Find(item => item.processItemId == "animal_02"); //달걀
-        ProcessItemDataInfo pork = processItems.processitemDataInfoList.Find(item => item.processItemId == "animal_03"); //돼지고기
+        ProcessItemDataInfo milk = processItems.processitemDataInfoList.Find(item => item.processItemId == "animal_01");          //우유
+        ProcessItemDataInfo egg = processItems.processitemDataInfoList.Find(item => item.processItemId == "animal_02");           //달걀
+        ProcessItemDataInfo pork = processItems.processitemDataInfoList.Find(item => item.processItemId == "animal_03");          //돼지고기
         ProcessItemDataInfo bread = processItems.processitemDataInfoList.Find(item => item.processItemId == "bread_01");          //식빵
         ProcessItemDataInfo baguette = processItems.processitemDataInfoList.Find(item => item.processItemId == "bread_02");       //바게트
         ProcessItemDataInfo croissant = processItems.processitemDataInfoList.Find(item => item.processItemId == "bread_03");      //크루와상
@@ -76,7 +79,7 @@ public class RecipeManager : MonoBehaviour
 
 
         //건물 타입별 레시피 정의
-        buildingRecipes[BuildingType.cage] = new List<Recipe> { milkRecipe, eggRecipe, breadRecipe };                               //축사
+        buildingRecipes[BuildingType.Cage] = new List<Recipe> { milkRecipe, eggRecipe, breadRecipe };                               //축사
         buildingRecipes[BuildingType.Bakery] = new List<Recipe> { breadRecipe, baguetteRecipe, croissantRecipe };                   //빵집
         buildingRecipes[BuildingType.Windmill] = new List<Recipe> { flourRecipe, chickenfeedRecipe, pigfeedRecipe, cowfeedRecipe }; //정미소
         buildingRecipes[BuildingType.GrillShop] = new List<Recipe> { eggflowerRecipe, baconRecipe };                                //철판가게
@@ -90,6 +93,7 @@ public class RecipeManager : MonoBehaviour
            new Ingredient<ProcessItemDataInfo>(cowfeed, 1)
         };
         milkRecipe = new Recipe(milkIngredients, milk, 1);
+        milkRecipe.finishedProductId = "animal_01";
 
         //달걀
         List<object> eggIngredients = new List<object>
@@ -97,6 +101,7 @@ public class RecipeManager : MonoBehaviour
            new Ingredient<ProcessItemDataInfo>(chickenfeed, 1)
         };
         eggRecipe = new Recipe(eggIngredients, egg, 1);
+        eggRecipe.finishedProductId = "animal_02";
 
         //돼지고기
         List<object> porkIngredients = new List<object>
@@ -104,6 +109,7 @@ public class RecipeManager : MonoBehaviour
            new Ingredient<ProcessItemDataInfo>(pigfeed, 1)
         };
         porkRecipe = new Recipe(porkIngredients, pork, 1);
+        porkRecipe.finishedProductId = "animal_03";
 
 
         //식빵
@@ -112,6 +118,7 @@ public class RecipeManager : MonoBehaviour
            new Ingredient<CropItemDataInfo>(wheat, 1)
         };
         breadRecipe = new Recipe(breadIngredients, bread, 1);
+        breadRecipe.finishedProductId = "bread_01";
 
         //바게트
         List<object> baguetteIngredients = new List<object>
@@ -119,6 +126,7 @@ public class RecipeManager : MonoBehaviour
            new Ingredient<CropItemDataInfo>(wheat, 1)
         };
         baguetteRecipe = new Recipe(baguetteIngredients, baguette, 1);
+        baguetteRecipe.finishedProductId = "bread_02";
 
         //크루와상 (조합)
         List<Ingredient<CropItemDataInfo>> croissantCropIngredients = new List<Ingredient<CropItemDataInfo>>
@@ -133,6 +141,7 @@ public class RecipeManager : MonoBehaviour
           croissantAllIngredients.AddRange(croissantCropIngredients);
           croissantAllIngredients.AddRange(croissantProcessIngredients);
         croissantRecipe = new Recipe(croissantAllIngredients, croissant, 1);
+        croissantRecipe.finishedProductId = "bread_03";
 
         //밀가루
         List<object> flourIngredients = new List<object>
@@ -140,6 +149,7 @@ public class RecipeManager : MonoBehaviour
            new Ingredient<CropItemDataInfo>(wheat, 1)
         };
         flourRecipe = new Recipe(flourIngredients, flour, 1);
+        flourRecipe.finishedProductId = "windmill_01";
 
         //닭 사료
         List<object> chickenfeedIngredients = new List<object>
@@ -147,6 +157,7 @@ public class RecipeManager : MonoBehaviour
            new Ingredient<CropItemDataInfo>(corn, 1)
         };
         chickenfeedRecipe = new Recipe(chickenfeedIngredients, chickenfeed, 1);
+        chickenfeedRecipe.finishedProductId = "windmill_02";
 
         //돼지 사료
         List<object> pigfeedIngredients = new List<object>
@@ -154,6 +165,7 @@ public class RecipeManager : MonoBehaviour
            new Ingredient<CropItemDataInfo>(corn, 1)
         };
         pigfeedRecipe = new Recipe(pigfeedIngredients, pigfeed, 1);
+        pigfeedRecipe.finishedProductId = "windmill_03";
 
         //소 사료
         List<object> cowfeedIngredients = new List<object>
@@ -161,6 +173,7 @@ public class RecipeManager : MonoBehaviour
            new Ingredient<CropItemDataInfo>(bean, 1)
         };
         cowfeedRecipe = new Recipe(pigfeedIngredients, cowfeed, 1);
+        cowfeedRecipe.finishedProductId = "windmill_04";
 
         //계란후라이
         List<object> eggflowerIngredients = new List<object>
@@ -168,6 +181,7 @@ public class RecipeManager : MonoBehaviour
            new Ingredient<ProcessItemDataInfo>(egg, 1)
         };
         eggflowerRecipe = new Recipe(eggflowerIngredients, eggflower, 1);
+        eggflowerRecipe.finishedProductId = "grill_01";
 
         //베이컨 
         List<object> baconIngredients = new List<object>
@@ -175,6 +189,7 @@ public class RecipeManager : MonoBehaviour
            new Ingredient<ProcessItemDataInfo>(pork, 1)
         };
         baconRecipe = new Recipe(baconIngredients, bacon, 1);
+        baconRecipe.finishedProductId = "grill_02";
 
         //토마토 쥬스
         List<object> tomatojuiceIngredients = new List<object>
@@ -182,6 +197,7 @@ public class RecipeManager : MonoBehaviour
            new Ingredient<CropItemDataInfo>(tomato, 1)
         };
         tomatojuiceRecipe = new Recipe(tomatojuiceIngredients, tomatojuice, 1);
+        tomatojuiceRecipe.finishedProductId = "juice_01";
 
         //당근 쥬스
         List<object> carrotjuiceIngredients = new List<object>
@@ -189,6 +205,7 @@ public class RecipeManager : MonoBehaviour
            new Ingredient<CropItemDataInfo>(carrot, 1)
         };
         carrotjuiceRecipe = new Recipe(carrotjuiceIngredients, carrotjuice, 1);
+        carrotjuiceRecipe.finishedProductId = "juice_02";
 
         //버터
         List<object> butterIngredients = new List<object>
@@ -196,6 +213,7 @@ public class RecipeManager : MonoBehaviour
            new Ingredient<ProcessItemDataInfo>(milk, 1)
         };
         butterRecipe = new Recipe(butterIngredients, butter, 1);
+        butterRecipe.finishedProductId = "dairy_01";
 
         //치즈
         List<object> cheeseIngredients = new List<object>
@@ -203,5 +221,6 @@ public class RecipeManager : MonoBehaviour
            new Ingredient<ProcessItemDataInfo>(milk, 1)
         };
         cheeseRecipe = new Recipe(cheeseIngredients, cheese, 1);
+        cheeseRecipe.finishedProductId = "dairy_02";
     }
 }

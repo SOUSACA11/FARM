@@ -99,6 +99,13 @@ public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             clone = Instantiate(currentPrefab);
             clone.transform.position = GetWorldPosition(eventData);
 
+            // 복제된 건물을 초기화합니다.
+            WorkBuilding workBuilding = clone.GetComponent<WorkBuilding>();
+            if (workBuilding != null)
+            {
+                workBuilding.Initialize(currentBuildingType);
+            }
+
             //복제본 스프라이트 렌더러 설정
             SpriteRenderer cloneSpriteRenderer = clone.GetComponent<SpriteRenderer>();
             if (cloneSpriteRenderer != null)

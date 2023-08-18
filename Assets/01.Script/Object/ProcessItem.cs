@@ -5,6 +5,7 @@ using System.Collections.Generic;
 //by.J:230721 List 변경화
 //by.J:230728 이미지 추가 작업
 //by.J:230814 IItem 수정에 따른 작업
+//by.J:230818 싱글톤 추가 (완성품 이미지 접근 위해)
 namespace JinnyProcessItem
 {
     //구조체 정의
@@ -25,6 +26,8 @@ namespace JinnyProcessItem
     //IItem 인터페이스 정의
     public class ProcessItem : MonoBehaviour //, IItem
     {
+        public static ProcessItem Instance; //싱글톤
+
         [SerializeField] public List<ProcessItemDataInfo> processitemDataInfoList = new List<ProcessItemDataInfo>();
 
         //public string[] ItemName
@@ -83,6 +86,15 @@ namespace JinnyProcessItem
         //시작시 초기화 기능 시작
         private void Awake()
         {
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+
             InitializeProcessItems();
             Debug.Log("가공 생산품 리스트 크기 : " + processitemDataInfoList.Count);
         }

@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 using JinnyBuilding;
 using JinnyProcessItem;
 
-//by.J:230811 복제된 건물 생산품 제작
+//by.J:230811 복제된 건물 관련 정보 / 생산품 제작
 //by.J:230816 레시피 적용 추가
 public class WorkBuilding : MonoBehaviour
 {
@@ -16,9 +16,19 @@ public class WorkBuilding : MonoBehaviour
     public IItem product;                                       //생산 완료 아이템
     public BuildingType buildingType;                           //생산 건물 타입
     public Recipe currentRecipe;                                //현재 건물에서 사용할 레시피
+
+    public Sprite finishedProductImage;
+
+
     private void Update()
     {
         CheckProduction();
+    }
+
+    //빌딩 타입 자동 설정
+    public void Initialize(BuildingType type)
+    {
+        this.buildingType = type;
     }
 
     public void SetRecipe(Recipe recipe) //레시피 설정
@@ -39,7 +49,7 @@ public class WorkBuilding : MonoBehaviour
 
     public void AddItem(IItem item) //재료 추가
     {
-        if (needIngredient.Contains(item)) //레시피에 필요한 재료인지 확인
+        if (!isProducing && needIngredient.Contains(item)) //레시피에 필요한 재료인지 확인 및 생산 중이 아닌지 확인
         {
             ingredientList.Add(item);
 
@@ -76,14 +86,18 @@ public class WorkBuilding : MonoBehaviour
 
         //재료 목록 초기화
         ingredientList.Clear();
+
+        //재료가 사용되면 저장소에서 재료를 제거하는 추가 로직을 여기에 삽입할 수 있습니다.
     }
 
-    void OnMouseDown() //건물 클릭
-    {
-        if (EventSystem.current.IsPointerOverGameObject()) // UI 클릭을 방지
-            return;
+    //void OnMouseDown() //건물 클릭
+    //{
+    //    if (EventSystem.current.IsPointerOverGameObject()) // UI 클릭을 방지
+    //        return;
 
-        // 해당 건물의 레시피에 따라 UI 업데이트
-        IngredientUI.Instance.ShowIngredient(currentRecipe);
-    }
+    //    // 해당 건물의 레시피에 따라 UI 업데이트
+    //    IngredientUI.Instance.IngredientClick();
+    //    Debug.Log("여기 작동됨?");
+
+    //}
 }

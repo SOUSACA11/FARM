@@ -8,7 +8,7 @@ namespace JinnyBuilding
 {
     public enum BuildingType
     {
-        cage,       //축사
+        Cage,       //축사
         Bakery,     //빵집
         Windmill,   //정미소
         GrillShop,  //철판가게
@@ -109,7 +109,7 @@ namespace JinnyBuilding
             // 축사
             buildingDataList.Add(new BuildingDataInfo()
             {
-                buildingType = BuildingType.cage,
+                buildingType = BuildingType.Cage,
                 buildingName = "축사",
                 buildingCost = 10,
                 buildingBuildTime = 5.0f,
