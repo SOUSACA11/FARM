@@ -17,7 +17,7 @@ public class WorkBuilding : MonoBehaviour
     public BuildingType buildingType;                           //생산 건물 타입
     public Recipe currentRecipe;                                //현재 건물에서 사용할 레시피
 
-    public Sprite finishedProductImage;
+    public Sprite finishedProductImage; //완성품 이미지
 
 
     private void Update()

@@ -37,20 +37,42 @@ public class Recipe
             Debug.Log("프로퍼티 시작쓰");
 
             Sprite resultSprite = null;
+
             if (finishedProductId.StartsWith("crop_"))
             {
-                resultSprite = CropItem.Instance.cropItemDataInfoList
-                    .Find(item => item.cropItemId == finishedProductId).cropItemImage;
-            }
-            else
-            {
-                resultSprite = ProcessItem.Instance.processitemDataInfoList
-                    .Find(item => item.processItemId == finishedProductId).processItemImage;
+                Debug.Log("크롭쓰");
+                var foundItem = CropItem.Instance.cropItemDataInfoList
+                    .Find(item => item.cropItemId == finishedProductId);
+
+                if (!foundItem.Equals(default(CropItemDataInfo)))
+                {
+                    resultSprite = foundItem.cropItemImage;
+                }
             }
 
-            Debug.Log("Finished Product Image: " + (resultSprite ? resultSprite.name : "None"));
+            else if (finishedProductId.StartsWith("animal_") ||
+                     finishedProductId.StartsWith("bread_") ||
+                     finishedProductId.StartsWith("windmill_") ||
+                     finishedProductId.StartsWith("grill_") ||
+                     finishedProductId.StartsWith("juice_") ||
+                     finishedProductId.StartsWith("dairy_"))
+            {
+                Debug.Log("찾는다");
+                var foundItem = ProcessItem.Instance.processitemDataInfoList
+                    .Find(item => item.processItemId == finishedProductId);
+                
+                if (!foundItem.Equals(default(ProcessItemDataInfo)))
+                {
+                    resultSprite = foundItem.processItemImage;
+                }
+            }
+
+            Debug.Log("Finished Product ID: " + finishedProductId);
+            Debug.Log("완성품 이미지 : " + (resultSprite ? resultSprite.name : "None"));
             return resultSprite;
         }
+
+
 
     }
 

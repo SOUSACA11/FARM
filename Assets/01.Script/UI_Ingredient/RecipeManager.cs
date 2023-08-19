@@ -45,13 +45,13 @@ public class RecipeManager : MonoBehaviour
             return;
         }
 
-        Debug.Log("레시피매니저 초기화 실시 시작");
         InitializeRecipes();
     }
 
     //레시피 모음 초기화
-    private void InitializeRecipes()
+    private void InitializeRecipes() 
     {
+        Debug.Log("레시피매니저 초기화 실시 시작");
         // JinnyCropItem에서 아이템 가져오기
         CropItemDataInfo wheat = cropItems.cropItemDataInfoList.Find(item => item.cropItemId == "crop_01");  //밀
         CropItemDataInfo corn = cropItems.cropItemDataInfoList.Find(item => item.cropItemId == "crop_02");   //옥수수
@@ -77,14 +77,11 @@ public class RecipeManager : MonoBehaviour
         ProcessItemDataInfo butter = processItems.processitemDataInfoList.Find(item => item.processItemId == "dairy_01");         //버터
         ProcessItemDataInfo cheese = processItems.processitemDataInfoList.Find(item => item.processItemId == "dairy_02");         //치즈
 
-
-        //건물 타입별 레시피 정의
-        buildingRecipes[BuildingType.Cage] = new List<Recipe> { milkRecipe, eggRecipe, breadRecipe };                               //축사
-        buildingRecipes[BuildingType.Bakery] = new List<Recipe> { breadRecipe, baguetteRecipe, croissantRecipe };                   //빵집
-        buildingRecipes[BuildingType.Windmill] = new List<Recipe> { flourRecipe, chickenfeedRecipe, pigfeedRecipe, cowfeedRecipe }; //정미소
-        buildingRecipes[BuildingType.GrillShop] = new List<Recipe> { eggflowerRecipe, baconRecipe };                                //철판가게
-        buildingRecipes[BuildingType.JuiceShop] = new List<Recipe> { tomatojuiceRecipe, carrotjuiceRecipe };                        //쥬스가게
-        buildingRecipes[BuildingType.Dairy] = new List<Recipe> { butterRecipe, cheeseRecipe };                                      //유제품 가공소
+        if (cropItems == null || processItems == null)
+        {
+            Debug.LogError("농작물 , 생산품 있냐");
+            return;
+        }
 
 
         //우유
@@ -222,5 +219,15 @@ public class RecipeManager : MonoBehaviour
         };
         cheeseRecipe = new Recipe(cheeseIngredients, cheese, 1);
         cheeseRecipe.finishedProductId = "dairy_02";
+
+
+        //건물 타입별 레시피 정의
+        buildingRecipes[BuildingType.Cage] = new List<Recipe> { milkRecipe, eggRecipe, breadRecipe };                               //축사
+        buildingRecipes[BuildingType.Bakery] = new List<Recipe> { breadRecipe, baguetteRecipe, croissantRecipe };                   //빵집
+        buildingRecipes[BuildingType.Windmill] = new List<Recipe> { flourRecipe, chickenfeedRecipe, pigfeedRecipe, cowfeedRecipe }; //정미소
+        buildingRecipes[BuildingType.GrillShop] = new List<Recipe> { eggflowerRecipe, baconRecipe };                                //철판가게
+        buildingRecipes[BuildingType.JuiceShop] = new List<Recipe> { tomatojuiceRecipe, carrotjuiceRecipe };                        //쥬스가게
+        buildingRecipes[BuildingType.Dairy] = new List<Recipe> { butterRecipe, cheeseRecipe };                                      //유제품 가공소
+
     }
 }
