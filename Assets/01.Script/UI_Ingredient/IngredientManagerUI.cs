@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 //by.J:230817 건물에 원재료 넣는 UI / 원재료 창 이동
 //by.J:230818 완성품 이미지 ID 추가
-//by.J:230819 완성품 이미지 보여지게
+//by.J:230819 ㅜㅜㅜㅜㅠㅠㅠㅠ
 public class IngredientManagerUI : MonoBehaviour
 {
 
@@ -23,6 +23,10 @@ public class IngredientManagerUI : MonoBehaviour
     public GameObject arrow;  // Arrow 게임 오브젝트에 대한 참조
     public RectTransform arrowRectTransform; // Arrow 오브젝트의 RectTransform 참조
     public Image arrowImage;
+    public Transform copyFinishSlot; // 완성품 슬롯에 대한 참조
+    private GameObject clonedIngredientUI;
+    private Transform currentClickedFinishImage; // 현재 클릭된 finish Image(Clone)
+
 
 
 
@@ -70,23 +74,6 @@ public class IngredientManagerUI : MonoBehaviour
 
 
 
-        // 복제본에서 arrowImage 참조를 설정
-        Transform arrowTransform = copyBuilding.transform.Find("finish image/arrow");
-        if (arrowTransform != null)
-        {
-            arrowImage = arrowTransform.GetComponent<Image>();
-            if (arrowImage == null)
-            {
-                Debug.LogError("The 'arrow' GameObject in the copy does not have an Image component.");
-            }
-        }
-        else
-        {
-            Debug.LogError("Cannot find 'finish image/arrow' GameObject in the copy.");
-        }
-
-
-
 
         //UI 창 이동
         SetUIPosition(clickedBuilding);
@@ -121,6 +108,39 @@ public class IngredientManagerUI : MonoBehaviour
                 Debug.LogError("빌딩타입 " + buildingType + " is not present in buildingRecipes dictionary.");
             }
         }
+
+
+
+        // ingredient의 모든 인스턴스를 찾습니다.
+        GameObject[] allIngredientUIs = GameObject.FindGameObjectsWithTag("ingredient");
+        clonedIngredientUI = null;
+
+        Debug.Log("순서 왔나?");
+
+
+        // 복제본을 찾습니다. (원본은 "(Clone)" 접미사가 없습니다.)
+        foreach (var ui in allIngredientUIs)
+        {
+            Debug.Log("복제본 ㅇㅇ?");
+            if (ui.name.Contains("(Clone)"))
+            {
+                
+                clonedIngredientUI = ui;
+                Debug.Log(clonedIngredientUI);
+                break;
+            }
+        }
+
+        if (clonedIngredientUI == null)
+        {
+            Debug.LogError("Ingredient UI의 복제본을 찾을 수 없습니다.");
+            return;
+        }
+
+
+
+
+
     }
 
     public void ShowfinishIngredient(Recipe recipe)
@@ -130,23 +150,54 @@ public class IngredientManagerUI : MonoBehaviour
         ShowIngredient(recipe);
     }
 
-    public void ProductImageClicked(int index)
+
+
+
+    public void ProductImageClicked(int index)//완성품 이미지 클릭
     {
         Debug.Log("클릭 실행");
         // 클릭된 이미지의 인덱스를 사용하여 해당 레시피를 찾습니다.
         BuildingType currentBuildingType = copyBuilding.GetComponent<WorkBuilding>().buildingType;
         Recipe clickedRecipe = RecipeManager.Instance.buildingRecipes[currentBuildingType][index];
 
+        Debug.Log("clickedRecipe" + clickedRecipe);
+
+        // 현재 클릭된 finish Image(Clone) 업데이트
+        currentClickedFinishImage = productImageDisplays[index].transform;
+
+        Debug.Log("클릭된 이미지" + productImageDisplays[index].transform);
+
         // 해당 레시피의 원재료 표시
         ShowfinishIngredient(clickedRecipe);
+
+        ShowIngredient(clickedRecipe);
+
+        // Ingredient Slot(Clone) 생성
+        CreateIngredientSlot(clickedRecipe, currentClickedFinishImage);
+
+        // 여기서 클릭된 이미지의 위치를 참조합니다.
+        RectTransform clickedImageTransform = productImageDisplays[index].rectTransform;
+
+        /// Ingredient Slot(Clone)의 위치를 설정합니다. 위치는 클릭된 이미지 아래에 있어야 합니다.
+        for (int i = 0; i < ingredientSlots.Count; i++)
+        {
+            RectTransform slotRect = ingredientSlots[i].GetComponent<RectTransform>();
+
+            // 클릭된 이미지 아래에 Ingredient Slot(Clone)을 배치합니다.
+            float offsetY = (i + 1) * slotRect.sizeDelta.y;
+            //slotRect.position = new Vector3(clickedImageTransform.position.x, clickedImageTransform.position.y - offsetY, clickedImageTransform.position.z);
+            slotRect.position = new Vector3(currentClickedFinishImage.position.x, currentClickedFinishImage.position.y - offsetY, currentClickedFinishImage.position.z);
+        }
     }
+
+
 
     //레시피 별 원재료 보여주기
     public void ShowIngredient(Recipe recipe)
     {
         Debug.Log("원재료 함수쓰");
 
-        CreateIngredientSlot(recipe);
+        CreateIngredientSlot(recipe, currentClickedFinishImage);
 
         for (int i = 0; i < ingredientSlots.Count; i++)
         {
@@ -234,11 +285,11 @@ public class IngredientManagerUI : MonoBehaviour
     //원재료 슬롯 생성
 
 
-    public void CreateIngredientSlot(Recipe recipe)
+    public void CreateIngredientSlot(Recipe recipe, Transform clickedFinishImage)
     {
         Debug.Log("원재료 슬롯 활성화?");
 
-        //현재 슬롯 모두 비활성화
+        // 현재 슬롯 모두 비활성화
         foreach (var slot in ingredientSlots)
         {
             Debug.Log("비활성화");
@@ -246,86 +297,45 @@ public class IngredientManagerUI : MonoBehaviour
         }
         ingredientSlots.Clear();
 
-        
+        // 클릭된 finish Image(Clone)의 arrow 참조를 가져옵니다.
+        //RectTransform arrowInClickedFinishImage = currentClickedFinishImage ? currentClickedFinishImage.Find("arrow").GetComponent<RectTransform>() : null;
+        RectTransform arrowInClickedFinishImage = clickedFinishImage ? clickedFinishImage.Find("arrow").GetComponent<RectTransform>() : null;
 
+
+
+        if (arrowInClickedFinishImage == null)
+        {
+            Debug.LogError("클릭된 finish Image(Clone)에 arrow가 없습니다.");
+            return;
+        }
 
         // 레시피의 원재료 수에 맞게 슬롯 생성
-        foreach (var ingredientObj in recipe.ingredients)
+        for (int i = 0; i < recipe.ingredients.Count; i++)
         {
             Debug.Log("원재료 슬롯 생성 가능?");
-            IngredientSlot newSlot = Instantiate(ingredientSlotPrefab, arrow.transform);
-            
+            IngredientSlot newSlot = Instantiate(ingredientSlotPrefab, clonedIngredientUI.transform);
 
+            newSlot.gameObject.SetActive(true);
 
             // 새로운 슬롯의 RectTransform을 가져옵니다
             RectTransform newSlotRectTransform = newSlot.GetComponent<RectTransform>();
 
-            // 새로운 슬롯의 위치를 arrow의 아래로 설정합니다
-            //newSlotRectTransform.anchoredPosition = arrowRectTransform.anchoredPosition; // - new Vector2(0, (newSlotRectTransform.sizeDelta.y + arrowRectTransform.sizeDelta.y) * (ingredientSlots.Count + 1));
-
             // 새로운 슬롯의 위치를 finish image 아래로 설정
-            newSlotRectTransform.anchoredPosition = arrowImage.rectTransform.anchoredPosition - new Vector2(0, (newSlotRectTransform.sizeDelta.y + arrowImage.rectTransform.sizeDelta.y) * (ingredientSlots.Count + 1));
+            newSlotRectTransform.anchoredPosition = arrowInClickedFinishImage.anchoredPosition - new Vector2(0, (newSlotRectTransform.sizeDelta.y + arrowImage.rectTransform.sizeDelta.y) * (i + 1));
 
-            Debug.Log("원재료 슬롯 위치" + arrowRectTransform.anchoredPosition);
-
-            // 원재료가 IItem 타입
+            object ingredientObj = recipe.ingredients[i];
             if (ingredientObj is Ingredient<IItem> itemIngredient)
             {
                 Debug.Log("if문");
                 newSlot.SetIngredient(itemIngredient.item, itemIngredient.quantity);
             }
-
-            // 원재료가 ProcessItemDataInfo 타입
             else if (ingredientObj is Ingredient<ProcessItemDataInfo> processedIngredient)
             {
                 Debug.Log("else if문");
                 newSlot.SetIngredient(new ProcessItemIItem(processedIngredient.item), processedIngredient.quantity);
             }
             ingredientSlots.Add(newSlot);
-
         }
     }
-
-
-
-
-
-    //public void CreateIngredientSlot(Recipe recipe)
-    //{
-    //    Debug.Log("원재료 슬롯 활성화?");
-
-    //    //현재 슬롯 모두 비활성화
-    //    foreach (var slot in ingredientSlots)
-    //    {
-    //        Debug.Log("비활성화");
-    //        Destroy(slot.gameObject);
-    //    }
-    //    ingredientSlots.Clear();
-
-    //    // 레시피의 원재료 수에 맞게 슬롯 생성
-    //    foreach (var ingredientObj in recipe.ingredients)
-    //    {
-    //        Debug.Log("원재료 슬롯 생성 가능?");
-    //        IngredientSlot newSlot = Instantiate(ingredientSlotPrefab, transform);
-
-    //        Debug.Log("원재료 슬롯 위치" + transform);
-
-    //        // 원재료가 CropItemDataInfo 타입
-    //        if (ingredientObj is Ingredient<CropItemDataInfo> cropedIngredient)
-    //        { dlz
-    //            Debug.Log("if문");
-    //            newSlot.SetIngredient(cropedIngredient.item, cropedIngredient.quantity);
-    //        }
-
-    //        // 원재료가 ProcessItemDataInfo 타입
-    //        else if (ingredientObj is Ingredient<ProcessItemDataInfo> processedIngredient)
-    //        {
-    //            Debug.Log("else if문");
-    //            newSlot.SetIngredient(new ProcessItemIItem(processedIngredient.item), processedIngredient.quantity);
-    //        }
-    //        ingredientSlots.Add(newSlot);
-
-    //    }
-    //}
 }
 
