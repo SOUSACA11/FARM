@@ -119,6 +119,7 @@ namespace JinnyCropItem
                 cropItemCost = 10,
                 cropItemImage = wheat,
                 cropItemId = "crop_01"
+
             });
 
             //¿Á¼ö¼ö

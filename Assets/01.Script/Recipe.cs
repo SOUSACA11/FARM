@@ -58,7 +58,7 @@ public class Recipe
                      finishedProductId.StartsWith("dairy_"))
             {
                 Debug.Log("Ã£´Â´Ù");
-                var foundItem = ProcessItem.Instance.processitemDataInfoList
+                var foundItem = ProcessItem.Instance.processItemDataInfoList
                     .Find(item => item.processItemId == finishedProductId);
                 
                 if (!foundItem.Equals(default(ProcessItemDataInfo)))

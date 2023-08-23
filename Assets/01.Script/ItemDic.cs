@@ -34,7 +34,7 @@ public class ItemDic : MonoBehaviour
         Item.Add("건물", building.buildingDataList);
         Item.Add("농장밭", farm.farmDataList);
         Item.Add("농장 생산품", cropItem.cropItemDataInfoList);
-        Item.Add("가공 생산품", processItem.processitemDataInfoList);
+        Item.Add("가공 생산품", processItem.processItemDataInfoList);
         Item.Add("동물", animal.animalDataList);
 
         Debug.Log("아이템 리스트 갯수: " + Item.Count);

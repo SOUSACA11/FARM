@@ -1,7 +1,9 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 //by.J:230719 재화시스템 싱글톤
 //by.J:230811 재화 변경시에만 UI 업데이트
+//by.J:230823 엔딩씬 전환
 public class MoneySystem : MonoBehaviour
 {
     private static MoneySystem instance;
@@ -64,6 +66,8 @@ public class MoneySystem : MonoBehaviour
         gold += amount;
         Debug.Log("현재 재화 플 증가됨?" + gold);
         OnMoneychange?.Invoke(); //? -> null 아니라면(이벤트 핸들러 1개 이상 연결된 경우) Invoke 호출
+
+        CheckForEnding();
     }
 
     //재화 감소 기능(마이너스 방지)
@@ -72,5 +76,14 @@ public class MoneySystem : MonoBehaviour
         Debug.Log("재화감소 됨?" + amount);
         gold = Mathf.Max(gold - amount, 0); //Mathf.Max(float a, float b)->a와 b 중에 더 큰 값을 반환
         OnMoneychange?.Invoke();            //? -> null 아니라면(이벤트 핸들러 1개 이상 연결된 경우) Invoke 호출
+    }
+    
+    //엔딩 조건
+    private void CheckForEnding()
+    {
+        if (gold >= 200) //금화200
+        {
+            SceneManager.LoadScene("Epilogue");
+        }
     }
 }

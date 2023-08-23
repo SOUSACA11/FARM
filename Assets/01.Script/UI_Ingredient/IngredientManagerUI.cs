@@ -4,49 +4,70 @@ using JinnyCropItem;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 //by.J:230817 건물에 원재료 넣는 UI / 원재료 창 이동
 //by.J:230818 완성품 이미지 ID 추가
 //by.J:230819 ㅜㅜㅜㅜㅠㅠㅠㅠ
 public class IngredientManagerUI : MonoBehaviour
 {
-
-    //public Image image;            //움직일 상점 창 이미지 
-    //public Vector3 endPosition;    //마지막 이동 위치
-    //public float speed = 120f;     //이동 속도
-
     public GameObject copyBuilding;                   //건물 복제본
     public Vector3 uiOffset = new Vector3(-1, 1, 0);  //UI 위치 오프셋. 건물의 좌측 상단 모서리에 나타나게 만드는데 사용
 
+    public GameObject arrow;                      //Arrow 게임 오브젝트
+    public RectTransform arrowRectTransform;      //Arrow 오브젝트 RectTransform
+    public Image arrowImage;                      //Arrow 이미지
+    public Transform copyFinishSlot;              //완성품 슬롯
 
-    //public RectTransform ret;
-    public GameObject arrow;  // Arrow 게임 오브젝트에 대한 참조
-    public RectTransform arrowRectTransform; // Arrow 오브젝트의 RectTransform 참조
-    public Image arrowImage;
-    public Transform copyFinishSlot; // 완성품 슬롯에 대한 참조
-    private GameObject clonedIngredientUI;
-    private Transform currentClickedFinishImage; // 현재 클릭된 finish Image(Clone)
-
-
-
+    private GameObject clonedIngredientUI;        //원재료 UI창
+    private Transform currentClickedFinishImage;  //현재 클릭된 finish Image(Clone)
 
     public static IngredientManagerUI Instance; //싱글톤
-    //public IngredientSlot[] ingredientSlots;   //원재료 슬롯
-    public Recipe specificRecipe;              //레시피
-    public IngredientSlot ingredientSlotPrefab; // 원재료 프리팹
+    public Recipe specificRecipe;               //레시피
+    public IngredientSlot ingredientSlotPrefab; //원재료 프리팹
 
     public List<IngredientSlot> ingredientSlots = new List<IngredientSlot>(); //원재료 이미지 할당 슬롯
-    public List<Image> productImageDisplays = new List<Image>();    //UI에 표시될 완성품 이미지
-    public Image imagePrefab;                                      //완성품 프리팹
+    public List<Image> productImageDisplays = new List<Image>();              //UI에 표시될 완성품 이미지
+    public Image imagePrefab;                                                 //완성품 프리팹
 
     private void Awake()
     {
+        //싱글톤
         Debug.Log("원재료 스크립트");
         if (Instance == null)
             Instance = this;
         else
             Destroy(gameObject);
+
     }
+
+    private void Start()
+    {
+        for (int i = 0; i < productImageDisplays.Count; i++)
+        {
+            AddEventTriggerToImage(productImageDisplays[i], i);
+        }
+    }
+
+
+    void AddEventTriggerToImage(Image targetImage, int index)
+    {
+        Debug.Log("함수 추가 기능" + index);
+        
+        EventTrigger eventTrigger = targetImage.gameObject.GetComponent<EventTrigger>();
+        if (eventTrigger == null)
+            eventTrigger = targetImage.gameObject.AddComponent<EventTrigger>();
+
+        EventTrigger.Entry entry = new EventTrigger.Entry();
+        entry.eventID = EventTriggerType.PointerClick;
+        entry.callback.AddListener((eventData) => { ProductImageClicked(index); });
+
+        eventTrigger.triggers.Clear();
+        eventTrigger.triggers.Add(entry);
+
+        Debug.Log("함수 추가 기능 끝" + index);
+    }
+
 
     //건물 복제본 클릭시
     public void IngredientClick()
@@ -71,9 +92,6 @@ public class IngredientManagerUI : MonoBehaviour
 
         //클릭된 건물 copyBuilding에 저장
         copyBuilding = clickedBuilding;
-
-
-
 
         //UI 창 이동
         SetUIPosition(clickedBuilding);
@@ -100,7 +118,6 @@ public class IngredientManagerUI : MonoBehaviour
                 {
                     productImageDisplays[i].sprite = recipesForBuilding[i].FinishedProductImage;
                 }
-
             }
 
             else
@@ -109,22 +126,18 @@ public class IngredientManagerUI : MonoBehaviour
             }
         }
 
-
-
-        // ingredient의 모든 인스턴스를 찾습니다.
+        //ingredient의 모든 인스턴스 찾기
         GameObject[] allIngredientUIs = GameObject.FindGameObjectsWithTag("ingredient");
         clonedIngredientUI = null;
 
         Debug.Log("순서 왔나?");
 
-
-        // 복제본을 찾습니다. (원본은 "(Clone)" 접미사가 없습니다.)
+        //복제본 찾기
         foreach (var ui in allIngredientUIs)
         {
             Debug.Log("복제본 ㅇㅇ?");
             if (ui.name.Contains("(Clone)"))
-            {
-                
+            { 
                 clonedIngredientUI = ui;
                 Debug.Log(clonedIngredientUI);
                 break;
@@ -136,21 +149,16 @@ public class IngredientManagerUI : MonoBehaviour
             Debug.LogError("Ingredient UI의 복제본을 찾을 수 없습니다.");
             return;
         }
-
-
-
-
-
     }
 
+
+    
     public void ShowfinishIngredient(Recipe recipe)
     {
         //원재료 표시
         Debug.Log("완성품 클릭 유도");
         ShowIngredient(recipe);
     }
-
-
 
 
     public void ProductImageClicked(int index)//완성품 이미지 클릭
@@ -197,7 +205,7 @@ public class IngredientManagerUI : MonoBehaviour
     {
         Debug.Log("원재료 함수쓰");
 
-        CreateIngredientSlot(recipe, currentClickedFinishImage);
+        //CreateIngredientSlot(recipe, currentClickedFinishImage);
 
         for (int i = 0; i < ingredientSlots.Count; i++)
         {
@@ -261,6 +269,7 @@ public class IngredientManagerUI : MonoBehaviour
     //완성품 이미지 슬롯 생성
     public void CreateProductImageSlots(int numberOfSlots)
     {
+        Debug.Log("^ㅛ^");
         //기존 슬롯 비활성화
         foreach (Image img in productImageDisplays)
         {
@@ -274,11 +283,15 @@ public class IngredientManagerUI : MonoBehaviour
             {
                 Image newImage = Instantiate(imagePrefab, transform);
                 productImageDisplays.Add(newImage);
+                Debug.Log("Image created at: " + Time.time);
             }
             else
             {
                 productImageDisplays[i].gameObject.SetActive(true);
             }
+
+            // 여기서 각 이미지에 EventTrigger를 추가하고 해당 이미지의 인덱스를 설정합니다.
+            AddEventTriggerToImage(productImageDisplays[i], i);
         }
     }
 
@@ -324,15 +337,17 @@ public class IngredientManagerUI : MonoBehaviour
             newSlotRectTransform.anchoredPosition = arrowInClickedFinishImage.anchoredPosition - new Vector2(0, (newSlotRectTransform.sizeDelta.y + arrowImage.rectTransform.sizeDelta.y) * (i + 1));
 
             object ingredientObj = recipe.ingredients[i];
-            if (ingredientObj is Ingredient<IItem> itemIngredient)
+            if (ingredientObj is Ingredient<CropItemDataInfo> cropIngredient)
             {
                 Debug.Log("if문");
-                newSlot.SetIngredient(itemIngredient.item, itemIngredient.quantity);
+                newSlot.SetIngredient(new CropItemIItem(cropIngredient.item), cropIngredient.quantity);
+                Debug.Log("농작 아이템: " + cropIngredient.item.ToString());
             }
             else if (ingredientObj is Ingredient<ProcessItemDataInfo> processedIngredient)
             {
                 Debug.Log("else if문");
                 newSlot.SetIngredient(new ProcessItemIItem(processedIngredient.item), processedIngredient.quantity);
+                Debug.Log("가공 아이템: " + processedIngredient.item.ToString());
             }
             ingredientSlots.Add(newSlot);
         }

@@ -28,7 +28,7 @@ namespace JinnyProcessItem
     {
         public static ProcessItem Instance; //싱글톤
 
-        [SerializeField] public List<ProcessItemDataInfo> processitemDataInfoList = new List<ProcessItemDataInfo>();
+        [SerializeField] public List<ProcessItemDataInfo> processItemDataInfoList = new List<ProcessItemDataInfo>();
 
         //public string[] ItemName
         //{
@@ -96,7 +96,7 @@ namespace JinnyProcessItem
             }
 
             InitializeProcessItems();
-            Debug.Log("가공 생산품 리스트 크기 : " + processitemDataInfoList.Count);
+            Debug.Log("가공 생산품 리스트 크기 : " + processItemDataInfoList.Count);
         }
 
         //초기화 기능
@@ -122,7 +122,7 @@ namespace JinnyProcessItem
             Sprite cheese = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_20"));
 
             //우유
-            processitemDataInfoList.Add(new ProcessItemDataInfo()
+            processItemDataInfoList.Add(new ProcessItemDataInfo()
             {
                 processItemName = "우유",
                 processItemCost = 10,
@@ -131,7 +131,7 @@ namespace JinnyProcessItem
             });
 
             //달걀
-            processitemDataInfoList.Add(new ProcessItemDataInfo()
+            processItemDataInfoList.Add(new ProcessItemDataInfo()
             {
                 processItemName = "달걀",
                 processItemCost = 10,
@@ -140,7 +140,7 @@ namespace JinnyProcessItem
             });
 
             //돼지고기
-            processitemDataInfoList.Add(new ProcessItemDataInfo()
+            processItemDataInfoList.Add(new ProcessItemDataInfo()
             {
                 processItemName = "돼지고기",
                 processItemCost = 10,
@@ -150,7 +150,7 @@ namespace JinnyProcessItem
 
 
             //식빵
-            processitemDataInfoList.Add(new ProcessItemDataInfo()
+            processItemDataInfoList.Add(new ProcessItemDataInfo()
             {
                 processItemName = "식빵",
                 processItemCost = 10,
@@ -159,7 +159,7 @@ namespace JinnyProcessItem
             });
 
             //바게트
-            processitemDataInfoList.Add(new ProcessItemDataInfo()
+            processItemDataInfoList.Add(new ProcessItemDataInfo()
             {
                 processItemName = "바게트",
                 processItemCost = 10,
@@ -168,7 +168,7 @@ namespace JinnyProcessItem
             });
 
             //크루와상
-            processitemDataInfoList.Add(new ProcessItemDataInfo()
+            processItemDataInfoList.Add(new ProcessItemDataInfo()
             {
                 processItemName = "크루와상",
                 processItemCost = 10,
@@ -177,7 +177,7 @@ namespace JinnyProcessItem
             });
 
             //밀가루
-            processitemDataInfoList.Add(new ProcessItemDataInfo()
+            processItemDataInfoList.Add(new ProcessItemDataInfo()
             {
                 processItemName = "밀가루",
                 processItemCost = 10,
@@ -186,7 +186,7 @@ namespace JinnyProcessItem
             });
 
             //닭 사료
-            processitemDataInfoList.Add(new ProcessItemDataInfo()
+            processItemDataInfoList.Add(new ProcessItemDataInfo()
             {
                 processItemName = "닭 사료",
                 processItemCost = 10,
@@ -195,7 +195,7 @@ namespace JinnyProcessItem
             });
 
             //돼지 사료
-            processitemDataInfoList.Add(new ProcessItemDataInfo()
+            processItemDataInfoList.Add(new ProcessItemDataInfo()
             {
                 processItemName = "돼지 사료",
                 processItemCost = 10,
@@ -204,7 +204,7 @@ namespace JinnyProcessItem
             });
 
             //소 사료
-            processitemDataInfoList.Add(new ProcessItemDataInfo()
+            processItemDataInfoList.Add(new ProcessItemDataInfo()
             {
                 processItemName = "소 사료",
                 processItemCost = 10,
@@ -213,7 +213,7 @@ namespace JinnyProcessItem
             });
 
             //계란후라이
-            processitemDataInfoList.Add(new ProcessItemDataInfo()
+            processItemDataInfoList.Add(new ProcessItemDataInfo()
             {
                 processItemName = "계란후라이",
                 processItemCost = 10,
@@ -222,7 +222,7 @@ namespace JinnyProcessItem
             });
 
             //베이컨
-            processitemDataInfoList.Add(new ProcessItemDataInfo()
+            processItemDataInfoList.Add(new ProcessItemDataInfo()
             {
                 processItemName = "베이컨",
                 processItemCost = 10,
@@ -231,7 +231,7 @@ namespace JinnyProcessItem
             });
 
             //토마토 쥬스
-            processitemDataInfoList.Add(new ProcessItemDataInfo()
+            processItemDataInfoList.Add(new ProcessItemDataInfo()
             {
                 processItemName = "토마토 쥬스",
                 processItemCost = 10,
@@ -240,7 +240,7 @@ namespace JinnyProcessItem
             });
 
             //당근 쥬스
-            processitemDataInfoList.Add(new ProcessItemDataInfo()
+            processItemDataInfoList.Add(new ProcessItemDataInfo()
             {
                 processItemName = "당근 쥬스",
                 processItemCost = 10,
@@ -249,7 +249,7 @@ namespace JinnyProcessItem
             });
 
             //버터
-            processitemDataInfoList.Add(new ProcessItemDataInfo()
+            processItemDataInfoList.Add(new ProcessItemDataInfo()
             {
                 processItemName = "버터",
                 processItemCost = 10,
@@ -258,7 +258,7 @@ namespace JinnyProcessItem
             });
 
             //치즈
-            processitemDataInfoList.Add(new ProcessItemDataInfo()
+            processItemDataInfoList.Add(new ProcessItemDataInfo()
             {
                 processItemName = "치즈",
                 processItemCost = 10,

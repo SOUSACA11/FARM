@@ -87,22 +87,33 @@ namespace JinnyFarm
         //ÃÊ±âÈ­ ±â´É
         private void InitializeFarms()
         {
+            //ÀÌ¹ÌÁö Ãß°¡
+            Sprite[] sprites = Resources.LoadAll<Sprite>("FarmCrop");
+            Sprite wheat = System.Array.Find(sprites, sprite => sprite.name.Equals("FarmCrop_0")); //¹Ð
+            Sprite carrot = System.Array.Find(sprites, sprite => sprite.name.Equals("FarmCrop_3")); //´ç±Ù
+            Sprite bean = System.Array.Find(sprites, sprite => sprite.name.Equals("FarmCrop_6")); //Äá
+            Sprite tomato = System.Array.Find(sprites, sprite => sprite.name.Equals("FarmCrop_13")); //Åä¸¶Åä
+            Sprite corn = System.Array.Find(sprites, sprite => sprite.name.Equals("FarmCrop_14")); //¿Á¼ö¼ö
+
+
             //¹Ð¹ç
             farmDataList.Add(new FarmDataInfo()
             {
                 farmName = "¹Ð¹ç",
                 farmCost = 10,
                 farmHaverst = 3,
-                farmGrowTime = 1.0f
+                farmGrowTime = 1.0f,
+                farmImage = wheat
             });
 
             //¿Á¼ö¼ö¹ç
             farmDataList.Add(new FarmDataInfo()
             {
-                farmName = "¿Á¼ö¹ç",
+                farmName = "¿Á¼ö¼ö¹ç",
                 farmCost = 10,
                 farmHaverst = 3,
-                farmGrowTime = 1.0f
+                farmGrowTime = 1.0f,
+                farmImage = corn
             });
 
             //Äá¹ç
@@ -111,7 +122,8 @@ namespace JinnyFarm
                 farmName = "Äá¹ç",
                 farmCost = 10,
                 farmHaverst = 3,
-                farmGrowTime = 1.0f
+                farmGrowTime = 1.0f,
+                farmImage = bean
             });
 
             //Åä¸¶Åä¹ç
@@ -120,7 +132,8 @@ namespace JinnyFarm
                 farmName = "Åä¸¶Åä¹ç",
                 farmCost = 10,
                 farmHaverst = 3,
-                farmGrowTime = 1.0f
+                farmGrowTime = 1.0f,
+                farmImage = tomato
             });
 
             //´ç±Ù¹ç
@@ -129,11 +142,11 @@ namespace JinnyFarm
                 farmName = "´ç±Ù¹ç",
                 farmCost = 10,
                 farmHaverst = 3,
-                farmGrowTime = 1.0f
+                farmGrowTime = 1.0f,
+                farmImage = carrot
             });
 
 
-            //¹çÀº ÇÏ³ª·Î ÇÏ°í ¾¾¾ÑÀ¸·Î ¼öÁ¤ ÇÊ¿ä
         }
     }
 }

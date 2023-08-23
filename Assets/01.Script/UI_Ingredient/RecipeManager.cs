@@ -60,22 +60,22 @@ public class RecipeManager : MonoBehaviour
         CropItemDataInfo carrot = cropItems.cropItemDataInfoList.Find(item => item.cropItemId == "crop_05"); //당근
 
         // JinnyProcessItem에서 아이템 가져오기
-        ProcessItemDataInfo milk = processItems.processitemDataInfoList.Find(item => item.processItemId == "animal_01");          //우유
-        ProcessItemDataInfo egg = processItems.processitemDataInfoList.Find(item => item.processItemId == "animal_02");           //달걀
-        ProcessItemDataInfo pork = processItems.processitemDataInfoList.Find(item => item.processItemId == "animal_03");          //돼지고기
-        ProcessItemDataInfo bread = processItems.processitemDataInfoList.Find(item => item.processItemId == "bread_01");          //식빵
-        ProcessItemDataInfo baguette = processItems.processitemDataInfoList.Find(item => item.processItemId == "bread_02");       //바게트
-        ProcessItemDataInfo croissant = processItems.processitemDataInfoList.Find(item => item.processItemId == "bread_03");      //크루와상
-        ProcessItemDataInfo flour = processItems.processitemDataInfoList.Find(item => item.processItemId == "windmill_01");       //밀가루
-        ProcessItemDataInfo chickenfeed = processItems.processitemDataInfoList.Find(item => item.processItemId == "windmill_02"); //닭 사료
-        ProcessItemDataInfo pigfeed = processItems.processitemDataInfoList.Find(item => item.processItemId == "windmill_03");     //돼지 사료
-        ProcessItemDataInfo cowfeed = processItems.processitemDataInfoList.Find(item => item.processItemId == "windmill_04");     //소 사료
-        ProcessItemDataInfo eggflower = processItems.processitemDataInfoList.Find(item => item.processItemId == "grill_01");      //계란후라이
-        ProcessItemDataInfo bacon = processItems.processitemDataInfoList.Find(item => item.processItemId == "grill_02");          //베이컨
-        ProcessItemDataInfo tomatojuice = processItems.processitemDataInfoList.Find(item => item.processItemId == "juice_01");    //토마토 쥬스
-        ProcessItemDataInfo carrotjuice = processItems.processitemDataInfoList.Find(item => item.processItemId == "juice_02");    //당근 쥬스
-        ProcessItemDataInfo butter = processItems.processitemDataInfoList.Find(item => item.processItemId == "dairy_01");         //버터
-        ProcessItemDataInfo cheese = processItems.processitemDataInfoList.Find(item => item.processItemId == "dairy_02");         //치즈
+        ProcessItemDataInfo milk = processItems.processItemDataInfoList.Find(item => item.processItemId == "animal_01");          //우유
+        ProcessItemDataInfo egg = processItems.processItemDataInfoList.Find(item => item.processItemId == "animal_02");           //달걀
+        ProcessItemDataInfo pork = processItems.processItemDataInfoList.Find(item => item.processItemId == "animal_03");          //돼지고기
+        ProcessItemDataInfo bread = processItems.processItemDataInfoList.Find(item => item.processItemId == "bread_01");          //식빵
+        ProcessItemDataInfo baguette = processItems.processItemDataInfoList.Find(item => item.processItemId == "bread_02");       //바게트
+        ProcessItemDataInfo croissant = processItems.processItemDataInfoList.Find(item => item.processItemId == "bread_03");      //크루와상
+        ProcessItemDataInfo flour = processItems.processItemDataInfoList.Find(item => item.processItemId == "windmill_01");       //밀가루
+        ProcessItemDataInfo chickenfeed = processItems.processItemDataInfoList.Find(item => item.processItemId == "windmill_02"); //닭 사료
+        ProcessItemDataInfo pigfeed = processItems.processItemDataInfoList.Find(item => item.processItemId == "windmill_03");     //돼지 사료
+        ProcessItemDataInfo cowfeed = processItems.processItemDataInfoList.Find(item => item.processItemId == "windmill_04");     //소 사료
+        ProcessItemDataInfo eggflower = processItems.processItemDataInfoList.Find(item => item.processItemId == "grill_01");      //계란후라이
+        ProcessItemDataInfo bacon = processItems.processItemDataInfoList.Find(item => item.processItemId == "grill_02");          //베이컨
+        ProcessItemDataInfo tomatojuice = processItems.processItemDataInfoList.Find(item => item.processItemId == "juice_01");    //토마토 쥬스
+        ProcessItemDataInfo carrotjuice = processItems.processItemDataInfoList.Find(item => item.processItemId == "juice_02");    //당근 쥬스
+        ProcessItemDataInfo butter = processItems.processItemDataInfoList.Find(item => item.processItemId == "dairy_01");         //버터
+        ProcessItemDataInfo cheese = processItems.processItemDataInfoList.Find(item => item.processItemId == "dairy_02");         //치즈
 
         if (cropItems == null || processItems == null)
         {

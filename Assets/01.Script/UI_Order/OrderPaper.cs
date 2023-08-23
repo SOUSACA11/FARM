@@ -22,7 +22,7 @@ public class OrderPaper : MonoBehaviour
             //Debug.Log("농작물 추가 완");
         }
 
-        foreach (var item in processItemManager.processitemDataInfoList)
+        foreach (var item in processItemManager.processItemDataInfoList)
         {
             allItems.Add(new ProcessItemIItem(item));
             //Debug.Log("가공품 추가 완");
