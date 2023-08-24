@@ -81,6 +81,7 @@ public class Recipe
         this.ingredients = ingredients;
         this.outputItem = outputItem;
         this.outputCount = outputCount;
+//this.finishedProductId = finishedProductId;
     }
 }
    

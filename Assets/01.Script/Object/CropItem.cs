@@ -21,6 +21,7 @@ namespace JinnyCropItem
         public int ItemCost => cropItemCost;
         public Sprite ItemImage => cropItemImage;
         public string ItemId => cropItemId;
+
     }
 
     //IItem 인터페이스 정의
@@ -98,7 +99,23 @@ namespace JinnyCropItem
             }
 
             InitializeCropItems();
+
             Debug.Log("농장 생산품 리스트 크기 : " + cropItemDataInfoList.Count);
+
+
+
+            foreach (var item in cropItemDataInfoList)
+            {
+                Debug.Log("Item Name: " + item.cropItemName + ", Image: " + item.cropItemImage);
+                Debug.Log("Item ID: " + item.cropItemId);
+            }
+
+            Sprite[] sprites = Resources.LoadAll<Sprite>("Item");
+            Debug.Log("Loaded " + sprites.Length + " sprites from 'Item' folder.");
+            foreach (Sprite sprite in sprites)
+            {
+                Debug.Log("Loaded sprite name: " + sprite.name);
+            }
         }
 
         //초기화 기능
@@ -111,6 +128,17 @@ namespace JinnyCropItem
             Sprite bean = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_5"));
             Sprite tomato = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_6"));
             Sprite carrot = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_7"));
+
+
+            
+            if (wheat != null)
+            {
+                Debug.Log("Found the 'Item_3' sprite.");
+            }
+            else
+            {
+                Debug.LogError("Failed to find the 'Item_3' sprite.");
+            }
 
             //밀
             cropItemDataInfoList.Add(new CropItemDataInfo()

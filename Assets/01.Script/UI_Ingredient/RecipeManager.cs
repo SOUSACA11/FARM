@@ -45,13 +45,20 @@ public class RecipeManager : MonoBehaviour
             return;
         }
 
+    }
+
+
+    private void Start()
+    {
         InitializeRecipes();
     }
 
     //레시피 모음 초기화
-    private void InitializeRecipes() 
+    private void InitializeRecipes()
     {
         Debug.Log("레시피매니저 초기화 실시 시작");
+
+
         // JinnyCropItem에서 아이템 가져오기
         CropItemDataInfo wheat = cropItems.cropItemDataInfoList.Find(item => item.cropItemId == "crop_01");  //밀
         CropItemDataInfo corn = cropItems.cropItemDataInfoList.Find(item => item.cropItemId == "crop_02");   //옥수수
@@ -77,12 +84,12 @@ public class RecipeManager : MonoBehaviour
         ProcessItemDataInfo butter = processItems.processItemDataInfoList.Find(item => item.processItemId == "dairy_01");         //버터
         ProcessItemDataInfo cheese = processItems.processItemDataInfoList.Find(item => item.processItemId == "dairy_02");         //치즈
 
+
         if (cropItems == null || processItems == null)
         {
             Debug.LogError("농작물 , 생산품 있냐");
             return;
         }
-
 
         //우유
         List<object> milkIngredients = new List<object>
@@ -107,7 +114,6 @@ public class RecipeManager : MonoBehaviour
         };
         porkRecipe = new Recipe(porkIngredients, pork, 1);
         porkRecipe.finishedProductId = "animal_03";
-
 
         //식빵
         List<object> breadIngredients = new List<object>
@@ -134,9 +140,9 @@ public class RecipeManager : MonoBehaviour
         {
            new Ingredient<ProcessItemDataInfo>(butter, 1)
         };
-          List<object> croissantAllIngredients = new List<object>();
-          croissantAllIngredients.AddRange(croissantCropIngredients);
-          croissantAllIngredients.AddRange(croissantProcessIngredients);
+        List<object> croissantAllIngredients = new List<object>();
+        croissantAllIngredients.AddRange(croissantCropIngredients);
+        croissantAllIngredients.AddRange(croissantProcessIngredients);
         croissantRecipe = new Recipe(croissantAllIngredients, croissant, 1);
         croissantRecipe.finishedProductId = "bread_03";
 
