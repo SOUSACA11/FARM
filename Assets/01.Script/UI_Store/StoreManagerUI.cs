@@ -10,6 +10,7 @@ using JinnyAnimal;
 //by.J:230724 상점 탭 UI 설정 추가
 //by.J:230809 상점 아이템 살 경우 상점 창 아래로 내리고 배치 완료 할 경우 원위치
 //by.J:230810 상점 아이템 리스트 조회해서 순차적으로 슬롯에 배치 / 이전, 다음 버튼 클릭시 맞는 정보 제공
+
 public class StoreManagerUI : MonoBehaviour
 {
     public Image image;            //움직일 상점 창 이미지 

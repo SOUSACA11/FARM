@@ -69,8 +69,7 @@ public class IngredientManagerUI : MonoBehaviour
     //건물 복제본 클릭시
     public void IngredientClick()
     {
-        Debug.Log("원재료 띠용");
-
+        Debug.Log("건물 복제본 클릭");
         //레이 캐스팅해서 건물 클릭 인식
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
@@ -88,10 +87,21 @@ public class IngredientManagerUI : MonoBehaviour
         //클릭된 건물 copyBuilding에 저장
         copyBuilding = clickedBuilding;
 
+        WorkBuilding buildingComponent = copyBuilding.GetComponent<WorkBuilding>();
+        BuildingType type = buildingComponent.buildingType;
+        Debug.Log(buildingComponent.buildingType);
+
+       // Debug.Log("Clicked on building: " + copyBuilding.name);
+        //Debug.Log("Building type: " + buildingComponent.buildingType);
+
+        if (buildingComponent != null && buildingComponent.buildingType == BuildingType.None) return;
+
+        Debug.Log("원재료 띠용");
+
         //완성품 UI 창 이동
         SetUIPosition(clickedBuilding);
 
-        WorkBuilding buildingComponent = clickedBuilding.GetComponent<WorkBuilding>();
+        buildingComponent = clickedBuilding.GetComponent<WorkBuilding>();
 
         if (buildingComponent != null)
         {

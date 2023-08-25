@@ -8,6 +8,7 @@ using JinnyAnimal;
 
 //by.J:230810 상점 슬롯 정보 / 상점 건물 드래그
 //by.J:230817 건물 드래그 시 스냅 활성화
+//by.J:230825 아이소메트릭 셀 사이즈에 맞춘 스냅으로 변경
 public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     private Camera mainCamera;                  //메인 카메라
@@ -18,6 +19,7 @@ public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     private GameObject clone;                   //드래그 중인 건물 복제본
     private SpriteRenderer itemSpriteRenderer;  //아이템 스프라이트 렌더러 이미지
     public BuildingType currentBuildingType;    //건물 타입
+    public FarmType currentFarmType;            //농장 타입
 
     private BuildingDataInfo currentBuildingData = new BuildingDataInfo(); //현재 설정 건물 데이터
     private FarmDataInfo currentFarmData = new FarmDataInfo();             //현재 설정 농장밭 데이터
@@ -38,6 +40,7 @@ public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         itemCost.text = buildingData.buildingCost.ToString();
         itemImage.sprite = buildingData.buildingImage;
         currentBuildingType = buildingData.buildingType;
+        currentFarmType = FarmType.None;
 
         if (itemSpriteRenderer != null) //스프라이트 렌더러가 있다면 스프라이트 설정
         {
@@ -45,7 +48,7 @@ public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             currentPrefab = buildingData.buildingPrefab; 
         }
 
-        currentBuildingData = buildingData; // currentBuildingDat 업데이트
+        currentBuildingData = buildingData; //currentBuildingDat 업데이트
         Debug.Log("빌딩 가격 불러오기 성공 " + buildingData.buildingCost);///
         Debug.Log("슬롯에서 빌딩정보 " + gameObject.name + " 빌딩 가격: " + buildingData.buildingCost);///
         Debug.Log("현재 빌딩가격" + currentBuildingData.buildingCost);///
@@ -56,15 +59,17 @@ public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     {
         itemName.text = farmData.farmName;
         itemCost.text = farmData.farmCost.ToString();
-        itemImage.sprite = farmData.farmImage;
+        itemImage.sprite = farmData.farmImage[0];
+        currentFarmType = farmData.farmType;
+        currentBuildingType = BuildingType.None;
 
         if (itemSpriteRenderer != null) //스프라이트 렌더러가 있다면 스프라이트 설정
         {
-            itemSpriteRenderer.sprite = farmData.farmImage;
+            itemSpriteRenderer.sprite = farmData.farmImage[0];
             currentPrefab = farmData.farmPrefab;
         }
 
-        currentFarmData = farmData; // currentFarmData 업데이트
+        currentFarmData = farmData; //currentFarmData 업데이트
         //Debug.Log("농장 가격 불러오기 성공 " + farmData.farmCost);
     }
 
@@ -85,12 +90,13 @@ public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         //Debug.Log("동물 가격 불러오기 성공 " + animalData.animalCost);
     }
 
+
     // *드래그 기능*
 
     //드래그 시작시
     public void OnBeginDrag(PointerEventData eventData)
     {
-        //Debug.Log("순서 확인 : 드래그 ");
+        Debug.Log("순서 확인 : 드래그 ");
         //Debug.Log("OnBeginDrag: " + currentBuildingData.buildingName);
 
         if (currentPrefab != null)
@@ -103,7 +109,19 @@ public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             WorkBuilding workBuilding = clone.GetComponent<WorkBuilding>();
             if (workBuilding != null)
             {
-                workBuilding.Initialize(currentBuildingType);
+                if (currentBuildingType != BuildingType.None)
+                {
+                    workBuilding.Initialize(currentBuildingType);
+                   // WorkBuilding buildingComponent = clone.GetComponent<WorkBuilding>();
+                    //BuildingType type = buildingComponent.buildingType;
+                   // Debug.Log(buildingComponent.buildingType);
+                    //Debug.Log("빌딩쓰스");
+                }
+                else if (currentFarmType != FarmType.None) 
+                {
+                    workBuilding.Initialize(currentFarmType);
+                    //Debug.Log("농장쓰스");
+                }
             }
 
             //복제본 스프라이트 렌더러 설정
@@ -126,13 +144,17 @@ public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         if (clone != null)
         {
             Vector3 mousePosition = GetWorldPosition(eventData);
-            clone.transform.position = GridSnap(mousePosition);
+            clone.transform.position = IsoGridSnap(mousePosition);
         }
     }
 
     //드래그 끝난 후
     public void OnEndDrag(PointerEventData eventData)
     {
+        //WorkBuilding buildingComponent = clone.GetComponent<WorkBuilding>();
+        //BuildingType type = buildingComponent.buildingType;
+        //Debug.Log(buildingComponent.buildingType);
+
         if (clone != null)
         {
             WorkBuilding workBuilding = clone.GetComponent<WorkBuilding>();
@@ -140,15 +162,27 @@ public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             if (clone != null)
             {
                 Vector3 mousePosition = GetWorldPosition(eventData);
-                clone.transform.position = GridSnap(mousePosition);
+                clone.transform.position = IsoGridSnap(mousePosition);
+            }
+            if (currentBuildingType != BuildingType.None)
+            {
+                MoneySystem.Instance.DeductGold(currentBuildingData.buildingCost);
+            }
+            else if (currentFarmType != FarmType.None)
+            {
+                MoneySystem.Instance.DeductGold(currentFarmData.farmCost);
             }
 
-                //드래그가 끝나면 복제본 게임 오브젝트로 존재
-                clone = null;
+            //드래그가 끝나면 복제본 게임 오브젝트로 존재
+            clone = null;
+            
+           //Debug.Log(buildingComponent.buildingType);
 
             //Debug.Log("현재 빌딩 가격" + currentBuildingData.buildingCost);
             MoneySystem.Instance.DeductGold(currentBuildingData.buildingCost);
         }
+
+        //Debug.Log(buildingComponent.buildingType);
     }
 
     private Vector3 GetWorldPosition(PointerEventData eventData)
@@ -159,14 +193,22 @@ public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         return worldPosition;
     }
 
-    //스냅 기능
-    private Vector3 GridSnap(Vector3 position)
+    //아이소메트릭 스냅
+    private Vector3 IsoGridSnap(Vector3 position)
     {
-        int xCount = Mathf.RoundToInt(position.x);
-        int yCount = Mathf.RoundToInt(position.y);
-        int zCount = Mathf.RoundToInt(position.z);
+        float gridSizeX = 0.84f;
+        float gridSizeY = 0.47f;
 
-        return new Vector3(xCount, yCount, zCount);
+        float isoX = (position.x / gridSizeX) - (position.y / gridSizeY);
+        float isoY = (position.x / gridSizeX) + (position.y / gridSizeY);
+
+        int snappedIsoX = Mathf.RoundToInt(isoX);
+        int snappedIsoY = Mathf.RoundToInt(isoY);
+
+        float worldX = (snappedIsoX + snappedIsoY) * gridSizeX / 2;
+        float worldY = (-snappedIsoX + snappedIsoY) * gridSizeY / 2;
+
+        return new Vector3(worldX, worldY, position.z);
     }
 
     //박스 콜라이더 

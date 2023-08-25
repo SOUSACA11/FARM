@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4372e6e8b7d3f834684ee0d989dea72f
+guid: 1888ad0dfed96df40b4c6ca32c98960b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 700
+  spritePixelsToUnits: 600
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -117,34 +117,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: FarmCrop_0
-      rect:
-        serializedVersion: 2
-        x: 142
-        y: 4223
-        width: 862
-        height: 620
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e7fdc933926a83646920159a7a70e3e1
-      internalID: 40562486
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: FarmCrop_1
       rect:
         serializedVersion: 2
-        x: 1015
-        y: 4217
-        width: 922
-        height: 867
+        x: 1025
+        y: 4368
+        width: 903
+        height: 719
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -152,8 +131,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9471bea84b315c3478b02cd6278af685
-      internalID: 105610864
+      spriteID: 089ba622052ad3f41bbeb16a725043cf
+      internalID: 1692490250
       vertices: []
       indices: 
       edges: []
@@ -162,10 +141,10 @@ TextureImporter:
       name: FarmCrop_2
       rect:
         serializedVersion: 2
-        x: 1954
-        y: 4217
-        width: 926
-        height: 929
+        x: 1938
+        y: 4360
+        width: 893
+        height: 756
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -173,8 +152,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 154da987df8af5c4c9e3bcd1aea7bc22
-      internalID: -1465429594
+      spriteID: 1f4958ed7ff8dda469c8a73fd8fef23d
+      internalID: 567386569
       vertices: []
       indices: 
       edges: []
@@ -183,10 +162,10 @@ TextureImporter:
       name: FarmCrop_3
       rect:
         serializedVersion: 2
-        x: 142
-        y: 3233
-        width: 862
-        height: 621
+        x: 137
+        y: 4343
+        width: 867
+        height: 505
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -194,8 +173,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: add760c4bf550cc49a520900e15a8d72
-      internalID: 2037501394
+      spriteID: acaa7bf8a57bdb34081edd2b66375d27
+      internalID: -837734850
       vertices: []
       indices: 
       edges: []
@@ -204,10 +183,10 @@ TextureImporter:
       name: FarmCrop_4
       rect:
         serializedVersion: 2
-        x: 1064
-        y: 3233
-        width: 863
-        height: 706
+        x: 139
+        y: 3344
+        width: 865
+        height: 502
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -215,8 +194,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4f5034351ec6c2040bd5f05a9b6ede00
-      internalID: -905777404
+      spriteID: 1c523cda81698c14fb08a773fd29be5d
+      internalID: 1765075273
       vertices: []
       indices: 
       edges: []
@@ -225,10 +204,10 @@ TextureImporter:
       name: FarmCrop_5
       rect:
         serializedVersion: 2
-        x: 1979
-        y: 3233
-        width: 862
-        height: 745
+        x: 1067
+        y: 3345
+        width: 860
+        height: 568
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -236,8 +215,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 81a090809f8f5ea45b1c3444ae2bd449
-      internalID: 1666056562
+      spriteID: 76dd6c8f69ebb764cb48177387f8e0ef
+      internalID: -1055469815
       vertices: []
       indices: 
       edges: []
@@ -246,10 +225,10 @@ TextureImporter:
       name: FarmCrop_6
       rect:
         serializedVersion: 2
-        x: 142
-        y: 2181
+        x: 1974
+        y: 3352
         width: 862
-        height: 618
+        height: 600
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -257,8 +236,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 75670dd3477656d4ba88df2fe4524848
-      internalID: -680205674
+      spriteID: f4b38b8d285d4c04c89f4f3818fb070b
+      internalID: 1860061708
       vertices: []
       indices: 
       edges: []
@@ -267,10 +246,10 @@ TextureImporter:
       name: FarmCrop_7
       rect:
         serializedVersion: 2
-        x: 1059
-        y: 2181
-        width: 862
-        height: 683
+        x: 144
+        y: 2292
+        width: 863
+        height: 507
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -278,8 +257,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bcf675f4aaad56a47a8213c726089abe
-      internalID: 932273196
+      spriteID: 7c308e05a96009648a90333cff6a2857
+      internalID: -131893602
       vertices: []
       indices: 
       edges: []
@@ -288,10 +267,10 @@ TextureImporter:
       name: FarmCrop_8
       rect:
         serializedVersion: 2
-        x: 1971
-        y: 2181
-        width: 870
-        height: 936
+        x: 1064
+        y: 2289
+        width: 860
+        height: 554
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -299,20 +278,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f9fc9c862bcde4047b185226e35d2501
-      internalID: 1511500524
+      spriteID: 86a333e4cf29ce84a8c3fcb091fc490c
+      internalID: 58985167
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FarmCrop_10
+      name: FarmCrop_9
       rect:
         serializedVersion: 2
-        x: 1044
-        y: 1194
-        width: 877
-        height: 825
+        x: 1972
+        y: 2298
+        width: 859
+        height: 739
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -320,8 +299,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 76d6a10d480644d4ebf9cddfa1056216
-      internalID: 854942259
+      spriteID: 160f802226f2436419b3a2397bcd5039
+      internalID: -664605667
       vertices: []
       indices: 
       edges: []
@@ -330,10 +309,10 @@ TextureImporter:
       name: FarmCrop_11
       rect:
         serializedVersion: 2
-        x: 1971
-        y: 1194
-        width: 870
-        height: 799
+        x: 1050
+        y: 1298
+        width: 872
+        height: 659
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -341,20 +320,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c02817e1252e5244d83a843114ec3378
-      internalID: -882053762
+      spriteID: ccbe65ecd406d254b8a2191fbd564cfa
+      internalID: 336647941
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FarmCrop_13
+      name: FarmCrop_12
       rect:
         serializedVersion: 2
-        x: 142
-        y: 1194
-        width: 862
-        height: 619
+        x: 1964
+        y: 1295
+        width: 870
+        height: 665
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -362,8 +341,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3638e1b733132d44b916ebba20b9f79f
-      internalID: 1092567601
+      spriteID: 1d216fef62ef23947b8da2147ebd4522
+      internalID: 679319247
       vertices: []
       indices: 
       edges: []
@@ -373,9 +352,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 142
-        y: 186
-        width: 862
-        height: 618
+        y: 1298
+        width: 860
+        height: 501
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -383,8 +362,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5cea2fde9a0fb5a47b64e36780b63ab7
-      internalID: 531628091
+      spriteID: f7e6db27df27f1e4a9106462a48ee752
+      internalID: -67872650
       vertices: []
       indices: 
       edges: []
@@ -393,10 +372,10 @@ TextureImporter:
       name: FarmCrop_15
       rect:
         serializedVersion: 2
-        x: 1059
-        y: 186
+        x: 142
+        y: 297
         width: 862
-        height: 776
+        height: 502
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -404,8 +383,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e8f9e9cb5ec98ca4280bc7f9092b411d
-      internalID: -1234346975
+      spriteID: e11bfcf37b1ad8f4aad6fe8964b96f2f
+      internalID: 854998445
       vertices: []
       indices: 
       edges: []
@@ -414,10 +393,10 @@ TextureImporter:
       name: FarmCrop_16
       rect:
         serializedVersion: 2
-        x: 1979
-        y: 186
-        width: 862
-        height: 820
+        x: 1067
+        y: 300
+        width: 860
+        height: 649
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -425,8 +404,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b357105fbaceaf7479d3981268f2eb6e
-      internalID: 55574065
+      spriteID: cd198fb76eddd3545ae6764f65f18014
+      internalID: 526544749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarmCrop_17
+      rect:
+        serializedVersion: 2
+        x: 1975
+        y: 303
+        width: 861
+        height: 685
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2dc5278a1b647bc40abfa008442b8c6f
+      internalID: 341816759
       vertices: []
       indices: 
       edges: []
@@ -442,23 +442,24 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      FarmCrop_0: 40562486
-      FarmCrop_1: 105610864
-      FarmCrop_10: 854942259
-      FarmCrop_11: -882053762
-      FarmCrop_12: 1022462881
-      FarmCrop_13: 1092567601
-      FarmCrop_14: 531628091
-      FarmCrop_15: -1234346975
-      FarmCrop_16: 55574065
-      FarmCrop_2: -1465429594
-      FarmCrop_3: 2037501394
-      FarmCrop_4: -905777404
-      FarmCrop_5: 1666056562
-      FarmCrop_6: -680205674
-      FarmCrop_7: 932273196
-      FarmCrop_8: 1511500524
-      FarmCrop_9: -747857729
+      FarmCrop_0: 188447668
+      FarmCrop_1: 1692490250
+      FarmCrop_10: -745962972
+      FarmCrop_11: 336647941
+      FarmCrop_12: 679319247
+      FarmCrop_13: -1376246400
+      FarmCrop_14: -67872650
+      FarmCrop_15: 854998445
+      FarmCrop_16: 526544749
+      FarmCrop_17: 341816759
+      FarmCrop_2: 567386569
+      FarmCrop_3: -837734850
+      FarmCrop_4: 1765075273
+      FarmCrop_5: -1055469815
+      FarmCrop_6: 1860061708
+      FarmCrop_7: -131893602
+      FarmCrop_8: 58985167
+      FarmCrop_9: -664605667
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

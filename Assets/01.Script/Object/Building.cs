@@ -6,8 +6,10 @@ using System.Collections.Generic;
 //by.J:230724 이미지 추가 작업
 namespace JinnyBuilding
 {
+    //타입 정의
     public enum BuildingType
     {
+        None,
         Cage,       //축사
         Bakery,     //빵집
         Windmill,   //정미소
