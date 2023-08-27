@@ -154,7 +154,7 @@ public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         //WorkBuilding buildingComponent = clone.GetComponent<WorkBuilding>();
         //BuildingType type = buildingComponent.buildingType;
         //Debug.Log(buildingComponent.buildingType);
-
+        /////////////////////////////////////////////////////////
         if (clone != null)
         {
             WorkBuilding workBuilding = clone.GetComponent<WorkBuilding>();
@@ -175,14 +175,15 @@ public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
             //드래그가 끝나면 복제본 게임 오브젝트로 존재
             clone = null;
-            
-           //Debug.Log(buildingComponent.buildingType);
+
+            //Debug.Log(buildingComponent.buildingType);
 
             //Debug.Log("현재 빌딩 가격" + currentBuildingData.buildingCost);
             MoneySystem.Instance.DeductGold(currentBuildingData.buildingCost);
         }
 
         //Debug.Log(buildingComponent.buildingType);
+
     }
 
     private Vector3 GetWorldPosition(PointerEventData eventData)

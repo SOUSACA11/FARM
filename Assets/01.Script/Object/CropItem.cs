@@ -106,15 +106,15 @@ namespace JinnyCropItem
 
             foreach (var item in cropItemDataInfoList)
             {
-                Debug.Log("Item Name: " + item.cropItemName + ", Image: " + item.cropItemImage);
-                Debug.Log("Item ID: " + item.cropItemId);
+                //Debug.Log("Item Name: " + item.cropItemName + ", Image: " + item.cropItemImage);
+                //Debug.Log("Item ID: " + item.cropItemId);
             }
 
             Sprite[] sprites = Resources.LoadAll<Sprite>("Item");
             Debug.Log("Loaded " + sprites.Length + " sprites from 'Item' folder.");
             foreach (Sprite sprite in sprites)
             {
-                Debug.Log("Loaded sprite name: " + sprite.name);
+                //Debug.Log("Loaded sprite name: " + sprite.name);
             }
         }
 

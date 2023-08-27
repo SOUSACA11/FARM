@@ -25,6 +25,8 @@ public class FarmGrowth : MonoBehaviour
         {
             growthTimer += Time.deltaTime;
 
+        Debug.Log("농장 성장 체크");
+
             //성장 단계 변경하고 스프라이트를 업데이트
             if (currentStage == GrowthFarmType.Plant && growthTimer >= farmData.farmGrowTime / 2)
             {
@@ -41,6 +43,8 @@ public class FarmGrowth : MonoBehaviour
         //현재 성장 단계에 따른 스프라이트 업뎃
         private void UpdateSprite()
         {
+        Debug.Log("농장 성장 업뎃");    
+
             if (spriteRenderer && farmData.farmImage.Length > (int)currentStage)
             {
                 spriteRenderer.sprite = farmData.farmImage[(int)currentStage];

@@ -4,10 +4,12 @@ using UnityEngine.EventSystems;
 using JinnyBuilding;
 using JinnyProcessItem;
 using JinnyFarm;
+using System.Linq;
 
 //by.J:230811 복제된 건물 관련 정보 / 생산품 제작
 //by.J:230816 레시피 적용 추가
 //by.J:230825 타입 설정 추가
+//by.J:230827 완성품 이미지 드래그 드롭시 생산 시작
 public class WorkBuilding : MonoBehaviour
 {
     public bool isProducing = false;                            //생산중
@@ -22,6 +24,10 @@ public class WorkBuilding : MonoBehaviour
     public Recipe currentRecipe;                                //현재 건물에서 사용할 레시피
 
     public Sprite finishedProductImage; //완성품 이미지
+
+    public GameObject finishedProductUI; //드래그 할 완성품 창
+
+
 
     private void Update()
     {
@@ -40,13 +46,16 @@ public class WorkBuilding : MonoBehaviour
     //농장 타입 자동 설정
     public void Initialize(FarmType type)
     {
-        //Debug.Log("빌딩쓰스2");
+        Debug.Log("빌딩쓰스2");
         this.farmType = type;
         this.buildingType = BuildingType.None;
+
+
         //Debug.Log(farmType);
     }
 
-    public void SetRecipe(Recipe recipe) //레시피 설정
+    //레시피 설정
+    public void SetRecipe(Recipe recipe)
     {
         if (buildingType == BuildingType.None) return;
 
@@ -64,7 +73,8 @@ public class WorkBuilding : MonoBehaviour
         product = new ProcessItemIItem(recipe.outputItem);
     }
 
-    public void AddItem(IItem item) //재료 추가
+    //재료 추가
+    public void AddItem(IItem item)
     {
         if (buildingType == BuildingType.None) return;
 
@@ -84,13 +94,34 @@ public class WorkBuilding : MonoBehaviour
         }
     }
 
-    public void StartProduction() //생산 시작
+    //생산 시작
+    public void StartProduction() 
     {
+        // 필요한 재료가 충분한지 확인
+        foreach (IItem requiredItem in needIngredient)
+        {
+            int requiredCount = needIngredient.Count(item => item == requiredItem);
+            int availableCount = ingredientList.Count(item => item == requiredItem);
+
+            if (availableCount < requiredCount)
+            {
+                Debug.Log("재료가 부족합니다!");
+                return;
+            }
+        }
+
+        //이미지 숨기기
+        if (finishedProductUI)
+        {
+            finishedProductUI.SetActive(false);
+        }
+
         isProducing = true;
         startTime = Time.time;
     }
 
-    private void CheckProduction() //생산 완료 체크
+    //생산 완료 체크
+    private void CheckProduction() 
     {
         if (isProducing && Time.time - startTime >= productionDuration)
         {
@@ -99,7 +130,8 @@ public class WorkBuilding : MonoBehaviour
         }
     }
 
-    private void CompleteProduction() //생산 완료
+    //생산 완료
+    private void CompleteProduction() 
     {
        // product = new FinishedProduct();
 

@@ -159,6 +159,7 @@ public class IngredientManagerUI : MonoBehaviour
     //완성품 클릭시 원재료 표시
     public void ShowfinishIngredient(Recipe recipe)
     {
+        
         //원재료 표시
         Debug.Log("완성품 클릭 유도");
         ShowIngredient(recipe);
@@ -168,6 +169,14 @@ public class IngredientManagerUI : MonoBehaviour
     public void ProductImageClicked(int index)
     {
         Debug.Log("완성품 클릭 실행");
+
+        if (copyBuilding == null)
+        {
+            Debug.LogError("No building has been clicked yet.");
+            return;
+        }
+
+
         //클릭 이미지 인덱스로 해당 레시피 찾기 
         BuildingType currentBuildingType = copyBuilding.GetComponent<WorkBuilding>().buildingType;
         Recipe clickedRecipe = RecipeManager.Instance.buildingRecipes[currentBuildingType][index];
@@ -197,6 +206,14 @@ public class IngredientManagerUI : MonoBehaviour
             slotRect.position = new Vector3
                 (currentClickedFinishImage.position.x, currentClickedFinishImage.position.y - offsetY, currentClickedFinishImage.position.z);
         }
+
+
+        //이 부분에서 원재료 창을 활성화 시키도록 수정
+        if (clonedIngredientUI != null)
+        {
+            clonedIngredientUI.SetActive(true);
+        }
+
     }
 
 
@@ -287,6 +304,14 @@ public class IngredientManagerUI : MonoBehaviour
             {
                 productImageDisplays[i].gameObject.SetActive(true);
             }
+
+            // After creating or getting the productImageDisplay:
+            DragFinishItem dragItem = productImageDisplays[i].GetComponent<DragFinishItem>();
+            if (dragItem != null)
+            {
+                dragItem.index = i;
+            }
+
 
             //각 이미지에 EventTrigger 추가 및 인덱스 설정
             AddEventTriggerToImage(productImageDisplays[i], i);
