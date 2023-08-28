@@ -9,8 +9,10 @@ using JinnyAnimal;
 //by.J:230721 아이템 사전
 public class ItemDic : MonoBehaviour
 {
+    public static ItemDic Instance { get; private set; }
+
     Building building;
-    Farm farm;
+    public Farm farm;
     CropItem cropItem;
     ProcessItem processItem;
     Animal animal;
@@ -20,6 +22,16 @@ public class ItemDic : MonoBehaviour
 
     public void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+
 
         building = gameObject.AddComponent<Building>();
         farm = gameObject.AddComponent<Farm>();

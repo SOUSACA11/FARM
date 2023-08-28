@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using JinnyFarm;
 
 //by.J:230719 건물 오브젝트
 // by.J:230720 List 변경화
@@ -80,6 +81,7 @@ namespace JinnyBuilding
             }
           
         }
+
 
         //시작시 초기화 기능 시작
         private void Start() 

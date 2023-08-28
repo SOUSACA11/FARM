@@ -223,6 +223,11 @@ public class StoreManagerUI : MonoBehaviour
         inviButton2.gameObject.SetActive(false);
         inviButton3.gameObject.SetActive(false);
 
+        foreach (var slot in slots)
+        {
+            slot.ResetSlot();
+        }
+
         //상점 창 기능 활성화
         StartCoroutine(MoveImageUp());
     }

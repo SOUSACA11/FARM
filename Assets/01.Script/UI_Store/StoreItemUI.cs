@@ -3,7 +3,7 @@ using UnityEngine;
 using TMPro;
 
 //by.J:230724 상점UI 설정 도움
-//by.j:230809 상점UI 이미지와 배치할 이미지 연결 성공!
+//by.J:230809 상점UI 이미지와 배치할 이미지 연결 성공!
 public class StoreItemUI : MonoBehaviour
 {
     public TextMeshProUGUI itemNameText; //아이템 이름을 표시할 텍스트 컴포넌트

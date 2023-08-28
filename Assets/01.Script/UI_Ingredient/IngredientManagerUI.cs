@@ -5,14 +5,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using JinnyFarm;
 
 //by.J:230817 건물에 원재료 넣는 UI / 원재료 창 이동
 //by.J:230818 완성품 이미지 ID 추가
 //by.J:230824 완성품 이미지 클릭시 원재료 이미지 나타나기
-public class IngredientManagerUI : MonoBehaviour
+ public class IngredientManagerUI : MonoBehaviour
 {
     public GameObject copyBuilding;                   //건물 복제본
     public Vector3 uiOffset = new Vector3(-1, 1, 0);  //UI 위치 오프셋. 건물의 좌측 상단 모서리에 나타나게 만드는데 사용
+    private Vector3 finishOriginalUIPosition;         //완성품 이미지 위치값
 
     public GameObject arrow;                      //Arrow 게임 오브젝트
     public RectTransform arrowRectTransform;      //Arrow 오브젝트 RectTransform
@@ -31,6 +33,9 @@ public class IngredientManagerUI : MonoBehaviour
     public List<IngredientSlot> ingredientSlots = new List<IngredientSlot>(); //원재료 이미지 할당 슬롯
     public List<Image> productImageDisplays = new List<Image>();              //UI에 표시될 완성품 이미지
 
+    private FarmDataInfo farmData;
+
+
     private void Awake()
     {
         //싱글톤
@@ -39,6 +44,8 @@ public class IngredientManagerUI : MonoBehaviour
             Instance = this;
         else
             Destroy(gameObject);
+
+        finishOriginalUIPosition = transform.position;
     }
 
     private void Start()
@@ -91,10 +98,13 @@ public class IngredientManagerUI : MonoBehaviour
         BuildingType type = buildingComponent.buildingType;
         Debug.Log(buildingComponent.buildingType);
 
-       // Debug.Log("Clicked on building: " + copyBuilding.name);
+        // Debug.Log("Clicked on building: " + copyBuilding.name);
         //Debug.Log("Building type: " + buildingComponent.buildingType);
 
-        if (buildingComponent != null && buildingComponent.buildingType == BuildingType.None) return;
+        if (buildingComponent != null && buildingComponent.buildingType == BuildingType.None)
+        {
+            return; 
+        }
 
         Debug.Log("원재료 띠용");
 
@@ -176,7 +186,6 @@ public class IngredientManagerUI : MonoBehaviour
             return;
         }
 
-
         //클릭 이미지 인덱스로 해당 레시피 찾기 
         BuildingType currentBuildingType = copyBuilding.GetComponent<WorkBuilding>().buildingType;
         Recipe clickedRecipe = RecipeManager.Instance.buildingRecipes[currentBuildingType][index];
@@ -207,15 +216,12 @@ public class IngredientManagerUI : MonoBehaviour
                 (currentClickedFinishImage.position.x, currentClickedFinishImage.position.y - offsetY, currentClickedFinishImage.position.z);
         }
 
-
         //이 부분에서 원재료 창을 활성화 시키도록 수정
         if (clonedIngredientUI != null)
         {
             clonedIngredientUI.SetActive(true);
         }
-
     }
-
 
     //레시피 별 원재료 보여주기
     public void ShowIngredient(Recipe recipe)
@@ -369,6 +375,17 @@ public class IngredientManagerUI : MonoBehaviour
             }
         }
         ingredientSlots.Add(newSlot);
+    }
+
+    //완성품 창 초기화
+    public void CloseFinishUI()
+    {
+        Debug.Log("완성품 창 원래대로");
+        if (clonedIngredientUI != null)
+        {
+            clonedIngredientUI.SetActive(false);
+        }
+        transform.position = finishOriginalUIPosition;
     }
 }
 

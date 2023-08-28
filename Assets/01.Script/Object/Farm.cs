@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 
 //by.J:230720 ≥Û¿ÂπÁ ø¿∫Í¡ß∆Æ 
-//by.J:230721 List ∫Ø∞Ê»≠ 
+//by.J:230721 List ∫Ø∞Ê»≠ a
 namespace JinnyFarm
 {
     //≈∏¿‘ ¡§¿«
@@ -145,7 +145,7 @@ namespace JinnyFarm
                 farmName = "π–πÁ",
                 farmCost = 10,
                 farmHaverst = 3,
-                farmGrowTime = 1.0f,
+                farmGrowTime = 5.0f,
                 farmImage = wheat,
             });
 
@@ -156,7 +156,7 @@ namespace JinnyFarm
                 farmName = "ø¡ºˆºˆπÁ",
                 farmCost = 10,
                 farmHaverst = 3,
-                farmGrowTime = 1.0f,
+                farmGrowTime = 5.0f,
                 farmImage = corn
             });
 
@@ -167,7 +167,7 @@ namespace JinnyFarm
                 farmName = "ƒ·πÁ",
                 farmCost = 10,
                 farmHaverst = 3,
-                farmGrowTime = 1.0f,
+                farmGrowTime = 5.0f,
                 farmImage = bean
             });
 
@@ -178,7 +178,7 @@ namespace JinnyFarm
                 farmName = "≈‰∏∂≈‰πÁ",
                 farmCost = 10,
                 farmHaverst = 3,
-                farmGrowTime = 1.0f,
+                farmGrowTime = 5.0f,
                 farmImage = tomato
             });
 
@@ -189,7 +189,7 @@ namespace JinnyFarm
                 farmName = "¥Á±ŸπÁ",
                 farmCost = 10,
                 farmHaverst = 3,
-                farmGrowTime = 1.0f,
+                farmGrowTime = 5.0f,
                 farmImage = carrot
             });
 

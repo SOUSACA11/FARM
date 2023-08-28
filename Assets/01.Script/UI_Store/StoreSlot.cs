@@ -1,10 +1,10 @@
+using JinnyAnimal;
+using JinnyBuilding;
+using JinnyFarm;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using TMPro;
-using JinnyBuilding;
-using JinnyFarm;
-using JinnyAnimal;
 
 //by.J:230810 상점 슬롯 정보 / 상점 건물 드래그
 //by.J:230817 건물 드래그 시 스냅 활성화
@@ -25,10 +25,21 @@ public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     private FarmDataInfo currentFarmData = new FarmDataInfo();             //현재 설정 농장밭 데이터
     private AnimalDataInfo currentAnimalData = new AnimalDataInfo();       //현재 설정 동물 데이터
 
+
+    public static FarmDataInfo? SelectedFarmData = null;
+
     private void Awake()
     {
         mainCamera = Camera.main; //메인 카메라 가져오기
         itemSpriteRenderer = GetComponent<SpriteRenderer>(); //스프라이트 렌더러 가져오기
+    }
+
+    //초기화
+    public void ResetSlot()
+    {
+        
+        //변수 초기화
+        SelectedFarmData = null;
     }
 
     //빌딩 정보
@@ -45,10 +56,11 @@ public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         if (itemSpriteRenderer != null) //스프라이트 렌더러가 있다면 스프라이트 설정
         {
             itemSpriteRenderer.sprite = buildingData.buildingImage;
-            currentPrefab = buildingData.buildingPrefab; 
+            currentPrefab = buildingData.buildingPrefab;
         }
 
         currentBuildingData = buildingData; //currentBuildingDat 업데이트
+        currentFarmData = new FarmDataInfo();
         Debug.Log("빌딩 가격 불러오기 성공 " + buildingData.buildingCost);///
         Debug.Log("슬롯에서 빌딩정보 " + gameObject.name + " 빌딩 가격: " + buildingData.buildingCost);///
         Debug.Log("현재 빌딩가격" + currentBuildingData.buildingCost);///
@@ -57,11 +69,17 @@ public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     //농장밭 정보
     public void SetSlotFarm(FarmDataInfo farmData)
     {
+        Debug.Log("ㅋㅋㅋㅋㅋ" + $"Setting farm data for slot {gameObject.name}: {farmData.farmName}");
+
         itemName.text = farmData.farmName;
         itemCost.text = farmData.farmCost.ToString();
         itemImage.sprite = farmData.farmImage[0];
         currentFarmType = farmData.farmType;
         currentBuildingType = BuildingType.None;
+
+        //currentFarmData = farmData; //currentFarmData 업데이트
+        //SelectedFarmData = farmData; // 정적 변수 업데이트
+
 
         if (itemSpriteRenderer != null) //스프라이트 렌더러가 있다면 스프라이트 설정
         {
@@ -70,6 +88,9 @@ public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         }
 
         currentFarmData = farmData; //currentFarmData 업데이트
+        currentBuildingData = new BuildingDataInfo();
+        //SelectedFarmData = farmData;
+
         //Debug.Log("농장 가격 불러오기 성공 " + farmData.farmCost);
     }
 
@@ -112,14 +133,15 @@ public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
                 if (currentBuildingType != BuildingType.None)
                 {
                     workBuilding.Initialize(currentBuildingType);
-                   // WorkBuilding buildingComponent = clone.GetComponent<WorkBuilding>();
+                    // WorkBuilding buildingComponent = clone.GetComponent<WorkBuilding>();
                     //BuildingType type = buildingComponent.buildingType;
-                   // Debug.Log(buildingComponent.buildingType);
+                    // Debug.Log(buildingComponent.buildingType);
                     //Debug.Log("빌딩쓰스");
                 }
-                else if (currentFarmType != FarmType.None) 
+                else if (currentFarmType != FarmType.None)
                 {
                     workBuilding.Initialize(currentFarmType);
+                    SelectedFarmData = currentFarmData; /////////이부분이 농장탭 후 빌딩탭 시 빌딩 복제본 배치 안되는 증상 원인
                     //Debug.Log("농장쓰스");
                 }
             }
@@ -146,6 +168,8 @@ public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             Vector3 mousePosition = GetWorldPosition(eventData);
             clone.transform.position = IsoGridSnap(mousePosition);
         }
+
+
     }
 
     //드래그 끝난 후
@@ -217,7 +241,7 @@ public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     {
         //스프라이트 렌더러 가져오기
         SpriteRenderer spriteRenderer = buildingClone.GetComponent<SpriteRenderer>();
-        if (spriteRenderer == null) return; 
+        if (spriteRenderer == null) return;
 
         //BoxCollider2D를 가져오거나, 없으면 추가
         BoxCollider2D collider = buildingClone.GetComponent<BoxCollider2D>();
