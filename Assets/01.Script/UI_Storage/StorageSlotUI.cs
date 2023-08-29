@@ -10,15 +10,29 @@ public class StorageSlotUI : MonoBehaviour
     public GameObject slotPrefab;  //슬롯 프리팹
     private Storage storage;  //창고 데이터
 
+    private void Awake()
+    {
+        storage = Storage.Instance;
+        //storage = gameObject.AddComponent<Storage>();
+
+
+        storage.OnStorageChanged += UpdateUI; // 이벤트 구독
+    }
+
+
     //창고 생성
     private void Start() //아이템 획득시 추가 및 사용시 제거 기능 추가 필요
     {
-        Storage storage = gameObject.AddComponent<Storage>();
-        storage.Storages(100);  //용량이 100인 창고를 생성
+        //Storage storage = gameObject.AddComponent<Storage>();
+        //storage.Storages(100);  //용량이 100인 창고를 생성
+
+       
+        UpdateUI(); // 초기 UI 설정
 
 
-            //창고의 아이템 각각에 대해 슬롯을 생성
-            foreach (var item in storage.Items)
+
+        //창고의 아이템 각각에 대해 슬롯을 생성
+        foreach (var item in storage.Items)
         {
             AddItemSlot(item.Key, item.Value);
         }
@@ -27,12 +41,34 @@ public class StorageSlotUI : MonoBehaviour
     //새로운 슬롯을 생성하고 창고 UI에 추가
     private void AddItemSlot(IItem itemData, int count)
     {
+        Debug.Log("창고 슬롯 추가");
         GameObject slot = Instantiate(slotPrefab, transform);  //슬롯 프리팹을 생성
         //Debug.Log("슬롯 위치 :"+ transform);
         StorageSlot slotScript = slot.GetComponent<StorageSlot>();  //StarageSlot 스크립트를 참조
 
         //슬롯에 아이템 데이터를 설정
         slotScript.SetItem(itemData, count);
+    }
+
+    private void UpdateUI()
+    {
+        //기존 슬롯 삭제
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        // storage의 아이템 로그로 출력
+        foreach (var item in storage.Items)
+        {
+            Debug.Log($"Item: {item.Key.ItemName}, Count: {item.Value}");  //ItemName이 IItem에 있는 속성이라고 가정
+        }
+
+        //새 슬롯 추가
+        foreach (var item in storage.Items)
+        {
+            AddItemSlot(item.Key, item.Value);
+        }
     }
 }
 

@@ -10,6 +10,7 @@ using JinnyFarm;
 //by.J:230817 건물에 원재료 넣는 UI / 원재료 창 이동
 //by.J:230818 완성품 이미지 ID 추가
 //by.J:230824 완성품 이미지 클릭시 원재료 이미지 나타나기
+//by.J:230829 건물 복제본 클릭시 빌딩 타입이 할당 된 경우만 작동
  public class IngredientManagerUI : MonoBehaviour
 {
     public GameObject copyBuilding;                   //건물 복제본
@@ -33,7 +34,9 @@ using JinnyFarm;
     public List<IngredientSlot> ingredientSlots = new List<IngredientSlot>(); //원재료 이미지 할당 슬롯
     public List<Image> productImageDisplays = new List<Image>();              //UI에 표시될 완성품 이미지
 
-    private FarmDataInfo farmData;
+    public static bool ProcessedBuildingClick = false; //클릭 복제본
+    //private FarmDataInfo farmData;
+    //private bool ingredientClicked = false;
 
 
     private void Awake()
@@ -53,6 +56,14 @@ using JinnyFarm;
         for (int i = 0; i < productImageDisplays.Count; i++)
         {
             AddEventTriggerToImage(productImageDisplays[i], i);
+        }
+    }
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            CheckClick();
         }
     }
 
@@ -98,15 +109,40 @@ using JinnyFarm;
         BuildingType type = buildingComponent.buildingType;
         Debug.Log(buildingComponent.buildingType);
 
-        // Debug.Log("Clicked on building: " + copyBuilding.name);
-        //Debug.Log("Building type: " + buildingComponent.buildingType);
+        ////빌딩 타입이 none이 아닐경우만 작동, none일 경우 farmgrowth실행
+        //if (buildingComponent == null || buildingComponent.buildingType == BuildingType.None)
+        //{
+        //    Debug.Log("클릭된 건물 빌딩 타입 논");
+        //    ProcessedBuildingClick = false; //None일 경우 false
+        //    return;
+        //}
+        //else
+        //{
+        //    ProcessedBuildingClick = true; //None이 아닐 경우 true
+        //}
 
-        if (buildingComponent != null && buildingComponent.buildingType == BuildingType.None)
+
+        if (buildingComponent.buildingType != BuildingType.None && buildingComponent.farmType == FarmType.None)
         {
-            return; 
+            ProcessedBuildingClick = false; 
+        }
+        //else if (buildingComponent.buildingType == BuildingType.None && buildingComponent.farmType != null && buildingComponent.farmType != FarmType.None)
+        //{
+        //    // 이 부분은 실행하지 않을 것이므로 내용을 비워둘 수 있습니다.
+        //}
+
+        if (buildingComponent.farmType != FarmType.None && buildingComponent.buildingType == BuildingType.None)
+        {
+            ProcessedBuildingClick = true;
         }
 
-        Debug.Log("원재료 띠용");
+        //else
+        //{
+        //    Debug.Log("조건에 맞지 않는 상태");
+        //    ProcessedBuildingClick = false;
+        //}
+
+            Debug.Log("원재료 띠용");
 
         //완성품 UI 창 이동
         SetUIPosition(clickedBuilding);
@@ -141,6 +177,18 @@ using JinnyFarm;
             }
         }
 
+        //clonedIngredientUI가 존재하면 그 아래의 Ingredient Slot(Clone)들을 파괴
+        //if (clonedIngredientUI != null)
+        //{
+        //    foreach (Transform child in clonedIngredientUI.transform)
+        //    {
+        //        if (child.name.Contains("Ingredient Slot(Clone)"))
+        //        {
+        //            Destroy(child.gameObject);
+        //        }
+        //    }
+        //}
+
         //ingredient 태그 가진 모든 인스턴스 찾기
         GameObject[] allIngredientUIs = GameObject.FindGameObjectsWithTag("ingredient");
         clonedIngredientUI = null;
@@ -150,11 +198,12 @@ using JinnyFarm;
         //복제본 UI 찾기
         foreach (var ui in allIngredientUIs)
         {
-            Debug.Log("복제본 ㅇㅇ?");
-            if (ui.name.Contains("(Clone)"))
-            { 
+            Debug.Log("복제본 찾기 중: " + ui.name);
+
+            if (ui.name.StartsWith("finish Image(Clone)")) // 이름이 정확히 "finish image(Clone)"로 시작하는 경우만 선택
+            {
                 clonedIngredientUI = ui;
-                Debug.Log(clonedIngredientUI);
+                Debug.Log("선택된 복제본: " + clonedIngredientUI.name);
                 break;
             }
         }
@@ -164,6 +213,7 @@ using JinnyFarm;
             Debug.LogError("Ingredient UI의 복제본을 찾을 수 없습니다.");
             return;
         }
+
     }
     
     //완성품 클릭시 원재료 표시
@@ -179,6 +229,13 @@ using JinnyFarm;
     public void ProductImageClicked(int index)
     {
         Debug.Log("완성품 클릭 실행");
+
+        Debug.Log("ProductImageClicked 호출됨.");
+        if (copyBuilding == null)
+        {
+            Debug.LogError("copyBuilding이 null입니다.");
+            return;
+        }
 
         if (copyBuilding == null)
         {
@@ -375,17 +432,48 @@ using JinnyFarm;
             }
         }
         ingredientSlots.Add(newSlot);
+        Debug.Log("원재료 슬롯 끝");
+    }
+
+    //클릭 확인
+    void CheckClick()
+    {
+        if (EventSystem.current.IsPointerOverGameObject()) //마우스 포인터가 UI 위에 있는 경우
+        {
+            PointerEventData pointerData = new PointerEventData(EventSystem.current)
+            {
+                position = Input.mousePosition
+            };
+
+            List<RaycastResult> results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(pointerData, results);
+
+            foreach (RaycastResult result in results)
+            {
+                if (result.gameObject.CompareTag("ingredient") || result.gameObject.CompareTag("Building"))
+                {
+                    return; //원하는 UI 요소를 클릭한 경우
+                }
+            }
+        }
+
+        CloseFinishUI();
     }
 
     //완성품 창 초기화
     public void CloseFinishUI()
     {
         Debug.Log("완성품 창 원래대로");
-        if (clonedIngredientUI != null)
-        {
-            clonedIngredientUI.SetActive(false);
-        }
         transform.position = finishOriginalUIPosition;
+
+        //// clonedIngredientUI 비활성화
+        //if (clonedIngredientUI != null)
+        //{
+        //    //Destroy(clonedIngredientUI);
+        //    clonedIngredientUI.SetActive(false);
+
+        //}
+
     }
 }
 

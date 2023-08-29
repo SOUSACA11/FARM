@@ -5,11 +5,13 @@ using JinnyBuilding;
 using JinnyProcessItem;
 using JinnyFarm;
 using System.Linq;
+using System.Collections;
 
 //by.J:230811 복제된 건물 관련 정보 / 생산품 제작
 //by.J:230816 레시피 적용 추가
 //by.J:230825 타입 설정 추가
 //by.J:230827 완성품 이미지 드래그 드롭시 생산 시작
+//by.J:230829 생산완료시 반짝반짝 효과
 public class WorkBuilding : MonoBehaviour
 {
     public bool isProducing = false;                            //생산중
@@ -23,11 +25,21 @@ public class WorkBuilding : MonoBehaviour
 
     public Recipe currentRecipe;                                //현재 건물에서 사용할 레시피
 
-    public Sprite finishedProductImage; //완성품 이미지
+    public Sprite finishedProductImage;                         //완성품 이미지
+    public GameObject finishedProductUI;                        //드래그 할 완성품 창
 
-    public GameObject finishedProductUI; //드래그 할 완성품 창
+    private SpriteRenderer spriteRenderer;
+    private Color originalColor;
 
 
+    private void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+        {
+            originalColor = spriteRenderer.color;
+        }
+    }
 
     private void Update()
     {
@@ -97,6 +109,8 @@ public class WorkBuilding : MonoBehaviour
     //생산 시작
     public void StartProduction() 
     {
+        Debug.Log("생산 시작");
+
         // 필요한 재료가 충분한지 확인
         foreach (IItem requiredItem in needIngredient)
         {
@@ -123,6 +137,7 @@ public class WorkBuilding : MonoBehaviour
     //생산 완료 체크
     private void CheckProduction() 
     {
+
         if (isProducing && Time.time - startTime >= productionDuration)
         {
             isProducing = false;
@@ -133,22 +148,32 @@ public class WorkBuilding : MonoBehaviour
     //생산 완료
     private void CompleteProduction() 
     {
-       // product = new FinishedProduct();
-
+        Debug.Log("생산 완료");
+        
         //재료 목록 초기화
         ingredientList.Clear();
 
-        //재료가 사용되면 저장소에서 재료를 제거하는 추가 로직을 여기에 삽입할 수 있습니다.
+        if (spriteRenderer != null)
+        {
+            StartCoroutine(BlinkEffect());
+        }
+
     }
 
-    //void OnMouseDown() //건물 클릭
-    //{
-    //    if (EventSystem.current.IsPointerOverGameObject()) // UI 클릭을 방지
-    //        return;
+    IEnumerator BlinkEffect()
+    {
+        int blinkTimes = 5;
+        float blinkDuration = 0.1f;
 
-    //    // 해당 건물의 레시피에 따라 UI 업데이트
-    //    IngredientUI.Instance.IngredientClick();
-    //    Debug.Log("여기 작동됨?");
+        for (int i = 0; i < blinkTimes; i++)
+        {
+            // 투명하게 설정
+            spriteRenderer.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0.5f);
+            yield return new WaitForSeconds(blinkDuration);
 
-    //}
+            // 원래 색상으로 설정
+            spriteRenderer.color = originalColor;
+            yield return new WaitForSeconds(blinkDuration);
+        }
+    }
 }

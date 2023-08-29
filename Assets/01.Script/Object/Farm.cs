@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using JinnyCropItem;
 
 //by.J:230720 ≥Û¿ÂπÁ ø¿∫Í¡ß∆Æ 
 //by.J:230721 List ∫Ø∞Ê»≠ a
@@ -30,6 +31,8 @@ namespace JinnyFarm
         public float farmGrowTime;  //¿€π∞ º∫¿Â Ω√∞£
         public Sprite[] farmImage;  //≥Û¿ÂπÁ ¿ÃπÃ¡ˆ
         public FarmType farmType;   //≥Û¿Â ≈∏¿‘
+        public string farmItemId;   //≥Û¿ÂπÁ ∞Ì¿Ø ID
+        public string cropItemId;   //¿€π∞ ∞Ì¿Ø ID
 
         public GameObject farmPrefab;//≥Û¿ÂπÁ «¡∏Æ∆’
     }
@@ -147,6 +150,8 @@ namespace JinnyFarm
                 farmHaverst = 3,
                 farmGrowTime = 5.0f,
                 farmImage = wheat,
+                farmItemId = "farm_01",
+                cropItemId = "crop_01"
             });
 
             //ø¡ºˆºˆπÁ
@@ -157,7 +162,9 @@ namespace JinnyFarm
                 farmCost = 10,
                 farmHaverst = 3,
                 farmGrowTime = 5.0f,
-                farmImage = corn
+                farmImage = corn,
+                farmItemId = "farm_02",
+                cropItemId = "crop_02"
             });
 
             //ƒ·πÁ
@@ -168,7 +175,9 @@ namespace JinnyFarm
                 farmCost = 10,
                 farmHaverst = 3,
                 farmGrowTime = 5.0f,
-                farmImage = bean
+                farmImage = bean,
+                farmItemId = "farm_03",
+                cropItemId = "crop_03"
             });
 
             //≈‰∏∂≈‰πÁ
@@ -179,7 +188,9 @@ namespace JinnyFarm
                 farmCost = 10,
                 farmHaverst = 3,
                 farmGrowTime = 5.0f,
-                farmImage = tomato
+                farmImage = tomato,
+                farmItemId = "farm_04",
+                cropItemId = "crop_04"
             });
 
             //¥Á±ŸπÁ
@@ -190,7 +201,9 @@ namespace JinnyFarm
                 farmCost = 10,
                 farmHaverst = 3,
                 farmGrowTime = 5.0f,
-                farmImage = carrot
+                farmImage = carrot,
+                farmItemId = "farm_05",
+                cropItemId = "crop_05"
             });
 
 
