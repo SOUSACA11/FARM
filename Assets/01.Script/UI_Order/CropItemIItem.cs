@@ -2,6 +2,7 @@ using UnityEngine;
 using JinnyCropItem;
 
 //by.J:230814 래퍼클래스 / CropItemDataInfo 데이터를 IItem 맞게 포장
+//by,j:230829 CropItemIItem와 CropItemDataInfo 같은 메모리 사용을 위한 추가 작업
 public class CropItemIItem : IItem
 {
     private CropItemDataInfo _info;
@@ -16,4 +17,18 @@ public class CropItemIItem : IItem
     public int ItemCost => _info.cropItemCost;
     public Sprite ItemImage => _info.cropItemImage;
     public string ItemId => _info.cropItemId;
+
+    public override bool Equals(object obj)
+    {
+        if (obj is CropItemIItem other)
+        {
+            return this.ItemId == other.ItemId;
+        }
+        return false;
+    }
+
+    public override int GetHashCode()
+    {
+        return this.ItemId.GetHashCode();
+    }
 }

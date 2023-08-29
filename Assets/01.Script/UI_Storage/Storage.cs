@@ -42,7 +42,14 @@ public class Storage : MonoBehaviour
     public bool AddItem(IItem item, int count)
     {
         Debug.Log("창고 아이템 추가");
-        
+
+        if (item == null)
+        {
+            Debug.LogError("Attempting to add a null item to storage.");
+            return false;
+        }
+
+
         if (GetTotalItemCount() + count > capa)
         {
             //창고의 최대 용량을 초과하면 아이템을 추가하지 않음
@@ -59,6 +66,15 @@ public class Storage : MonoBehaviour
         }
 
         OnStorageChanged?.Invoke(); //아이템이 추가되면 이벤트 호출
+
+        Debug.Log($"[Storage] After adding item. Current item list:");
+        foreach (var pair in items)
+        {
+            Debug.Log($"- Item: {pair.Key.ItemName} | Count: {pair.Value}");
+        }
+
+
+
         return true;
     }
 
@@ -98,5 +114,24 @@ public class Storage : MonoBehaviour
             totalCount += count;
         }
         return totalCount;
+    }
+    
+    //창고 내 특정 아이템 수량 확인 기능
+    public int GetItemAmount(IItem item)
+    {
+        // 아이템 리스트에 있는 해당 아이템의 개수를 반환합니다.
+        if (items.TryGetValue(item, out int count))
+        {
+            Debug.Log($"[Storage] Current item list in storage:");
+            foreach (var pair in items)
+            {
+                Debug.Log($"- Item: {pair.Key.ItemName} | Count: {pair.Value}");
+            }
+            return count;
+        }
+        else
+        {
+            return 0; //아이템이 창고에 없으면 0을 반환합니다.
+        }
     }
 }

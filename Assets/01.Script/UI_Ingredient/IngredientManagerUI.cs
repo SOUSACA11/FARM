@@ -57,6 +57,8 @@ using JinnyFarm;
         {
             AddEventTriggerToImage(productImageDisplays[i], i);
         }
+
+        //FinishItemIdShow();
     }
 
     void Update()
@@ -109,40 +111,19 @@ using JinnyFarm;
         BuildingType type = buildingComponent.buildingType;
         Debug.Log(buildingComponent.buildingType);
 
-        ////빌딩 타입이 none이 아닐경우만 작동, none일 경우 farmgrowth실행
-        //if (buildingComponent == null || buildingComponent.buildingType == BuildingType.None)
-        //{
-        //    Debug.Log("클릭된 건물 빌딩 타입 논");
-        //    ProcessedBuildingClick = false; //None일 경우 false
-        //    return;
-        //}
-        //else
-        //{
-        //    ProcessedBuildingClick = true; //None이 아닐 경우 true
-        //}
-
-
-        if (buildingComponent.buildingType != BuildingType.None && buildingComponent.farmType == FarmType.None)
+        //빌딩 타입이 none이 아닐경우만 작동, none일 경우 farmgrowth실행
+        if (buildingComponent == null || buildingComponent.buildingType == BuildingType.None)
         {
-            ProcessedBuildingClick = false; 
+            Debug.Log("클릭된 건물 빌딩 타입 논");
+            ProcessedBuildingClick = false; //None일 경우 false
+            return;
         }
-        //else if (buildingComponent.buildingType == BuildingType.None && buildingComponent.farmType != null && buildingComponent.farmType != FarmType.None)
-        //{
-        //    // 이 부분은 실행하지 않을 것이므로 내용을 비워둘 수 있습니다.
-        //}
-
-        if (buildingComponent.farmType != FarmType.None && buildingComponent.buildingType == BuildingType.None)
+        else
         {
-            ProcessedBuildingClick = true;
+            ProcessedBuildingClick = true; //None이 아닐 경우 true
         }
 
-        //else
-        //{
-        //    Debug.Log("조건에 맞지 않는 상태");
-        //    ProcessedBuildingClick = false;
-        //}
-
-            Debug.Log("원재료 띠용");
+        Debug.Log("원재료 띠용");
 
         //완성품 UI 창 이동
         SetUIPosition(clickedBuilding);
@@ -465,15 +446,42 @@ using JinnyFarm;
     {
         Debug.Log("완성품 창 원래대로");
         transform.position = finishOriginalUIPosition;
-
-        //// clonedIngredientUI 비활성화
-        //if (clonedIngredientUI != null)
-        //{
-        //    //Destroy(clonedIngredientUI);
-        //    clonedIngredientUI.SetActive(false);
-
-        //}
-
     }
+
+    //public void FinishItemIdShow()
+    //{
+    //    Debug.Log("완성품 ID 출력");
+
+    //    List<Recipe> bakeryRecipes = RecipeManager.Instance.buildingRecipes[BuildingType.Bakery];
+    //    foreach (Recipe recipe in bakeryRecipes)
+    //    {
+    //        Debug.Log(recipe.finishedProductId);
+    //    }
+
+    //    List<Recipe> WindmillRecipes = RecipeManager.Instance.buildingRecipes[BuildingType.Windmill];
+    //    foreach (Recipe recipe in WindmillRecipes)
+    //    {
+    //        Debug.Log(recipe.finishedProductId);
+    //    }
+
+    //    List<Recipe> GrillShopRecipes = RecipeManager.Instance.buildingRecipes[BuildingType.GrillShop];
+    //    foreach (Recipe recipe in GrillShopRecipes)
+    //    {
+    //        Debug.Log(recipe.finishedProductId);
+    //    }
+
+    //    List<Recipe> DairyRecipes = RecipeManager.Instance.buildingRecipes[BuildingType.Dairy];
+    //    foreach (Recipe recipe in DairyRecipes)
+    //    {
+    //        Debug.Log(recipe.finishedProductId);
+    //    }
+
+    //    List<Recipe> JuiceShopRecipes = RecipeManager.Instance.buildingRecipes[BuildingType.JuiceShop];
+    //    foreach (Recipe recipe in JuiceShopRecipes)
+    //    {
+    //        Debug.Log(recipe.finishedProductId);
+    //    }
+    //}
+
 }
 

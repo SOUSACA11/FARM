@@ -11,9 +11,9 @@ public class DragFinishItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     private Vector3 startPosition;
     private GameObject clonedImage;
 
-
-    public DragAndDropCamera cameraDragScript; //카메라 드래그 드롭
+    public DragAndDropCamera cameraDragScript;      //카메라 드래그 드롭
     public IngredientManagerUI ingredientManagerUI; //원재료 창
+    public Recipe currentSelectedRecipe;            //현재 레시피
     //public GameObject clonedImage; //복제할 완성품 이미지
 
     public int index = -1;
@@ -40,51 +40,6 @@ public class DragFinishItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
             cameraDragScript.NoDrag();  // 드래그 시작시 카메라 드래그 비활성화
         }
         Debug.Log($"ingredientManagerUI: {ingredientManagerUI}, index: {index}");
-
-        //// 복제된 이미지 생성
-        //clonedImage = Instantiate(gameObject, transform.position, transform.rotation, transform.root);
-        //Image clonedImageComp = clonedImage.GetComponent<Image>();
-        //if (clonedImageComp != null)
-        //{
-        //    Debug.Log("이미지 복제");
-        //    clonedImageComp.raycastTarget = false;  // 복제된 이미지의 raycastTarget을 비활성화하여 클릭 이벤트에 영향을 주지 않도록 함
-        //}
-
-
-        //// 복제된 이미지 생성
-        //clonedImage = Instantiate(gameObject, transform.position, transform.rotation, transform.root);
-        //Image originalImageComp = GetComponent<Image>();
-        //Image clonedImageComp = clonedImage.GetComponent<Image>();
-        //if (originalImageComp != null && clonedImageComp != null)
-        //{
-        //    clonedImageComp.sprite = originalImageComp.sprite; // Sprite 설정
-        //    clonedImageComp.color = originalImageComp.color;   // Color 설정
-        //    clonedImageComp.raycastTarget = false;  // 복제된 이미지의 raycastTarget을 비활성화
-        //}
-
-
-
-        //// 복제된 이미지 생성
-        //clonedImage = Instantiate(gameObject, transform.position, transform.rotation);
-        //// 메인 캔버스를 찾아서 clonedImage의 부모로 설정
-        //Canvas mainCanvas = FindObjectOfType<Canvas>();
-        //if (mainCanvas)
-        //{
-        //    clonedImage.transform.SetParent(mainCanvas.transform, false);
-        //    clonedImage.transform.SetAsLastSibling();  // 확실하게 마지막 자식으로 설정
-        //}
-        //clonedImage.transform.SetAsLastSibling();  // 확실하게 마지막 자식으로 설정
-
-        //Image originalImageComp = GetComponent<Image>();
-        //Image clonedImageComp = clonedImage.GetComponent<Image>();
-        //if (originalImageComp != null && clonedImageComp != null)
-        //{
-        //    clonedImageComp.sprite = originalImageComp.sprite; // Sprite 설정
-        //    clonedImageComp.color = originalImageComp.color;   // Color 설정
-        //    clonedImageComp.raycastTarget = false;  // 복제된 이미지의 raycastTarget을 비활성화
-        //}
-
-
 
         // 복제된 이미지 생성
         clonedImage = Instantiate(gameObject, transform.position, transform.rotation);
@@ -160,18 +115,29 @@ public class DragFinishItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         GetComponent<Image>().raycastTarget = true;
 
 
-
         RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
         if (hit.collider != null && hit.collider.GetComponent<WorkBuilding>())
         {
-            // WorkBuilding의 StartProduction() 메서드 호출
-            hit.collider.GetComponent<WorkBuilding>().StartProduction();
+            // WorkBuilding 참조 얻기
+            WorkBuilding building = hit.collider.GetComponent<WorkBuilding>();
+
+            // 드래그된 레시피를 빌딩에 설정
+            if (currentSelectedRecipe != null)
+            {
+                building.SetRecipe(currentSelectedRecipe);
+            }
+
+
+            // 현재 선택된 레시피를 빌딩에 설정
+           // building.SetRecipe(currentSelectedRecipe);
+
+            // 이제 생산 시작!
+            building.StartProduction();
         }
         else
         {
             // 다시 원래 위치로 돌아가기
             transform.position = startPosition;
-            //transform.SetParent(originalParent);
         }
 
 

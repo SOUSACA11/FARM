@@ -12,6 +12,8 @@ namespace JinnyCropItem
     [System.Serializable]
     public struct CropItemDataInfo : IItem
     {
+        public bool IsInitialized;  //초기화 상태를 확인하기 위한 필드
+
         public string cropItemName;   //이름
         public int cropItemCost;      //가격
         public Sprite cropItemImage;  //생산품 이미지
@@ -143,6 +145,7 @@ namespace JinnyCropItem
             //밀
             cropItemDataInfoList.Add(new CropItemDataInfo()
             {
+                IsInitialized = true,
                 cropItemName = "밀",
                 cropItemCost = 10,
                 cropItemImage = wheat,
@@ -153,6 +156,7 @@ namespace JinnyCropItem
             //옥수수
             cropItemDataInfoList.Add(new CropItemDataInfo()
             {
+                IsInitialized = true,
                 cropItemName = "옥수수",
                 cropItemCost = 10,
                 cropItemImage = corn,
@@ -162,6 +166,7 @@ namespace JinnyCropItem
             //콩
             cropItemDataInfoList.Add(new CropItemDataInfo()
             {
+                IsInitialized = true,
                 cropItemName = "콩",
                 cropItemCost = 10,
                 cropItemImage = bean,
@@ -171,6 +176,7 @@ namespace JinnyCropItem
             //토마토
             cropItemDataInfoList.Add(new CropItemDataInfo()
             {
+                IsInitialized = true,
                 cropItemName = "토마토",
                 cropItemCost = 10,
                 cropItemImage = tomato,
@@ -180,6 +186,7 @@ namespace JinnyCropItem
             //당근
             cropItemDataInfoList.Add(new CropItemDataInfo()
             {
+                IsInitialized = true,
                 cropItemName = "당근",
                 cropItemCost = 10,
                 cropItemImage = carrot,

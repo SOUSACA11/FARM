@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
 using JinnyCropItem;
+using JinnyBuilding;
 
 //by.J:230825 시간 경과에 따른 이미지 추가(작물 성장)
 //by.J:230828 시간 경과시 이미지 자동 변화
@@ -84,6 +85,16 @@ public class FarmGrowth : MonoBehaviour
     {
         Debug.Log("농장밭 클릭");
 
+        WorkBuilding buildingComponent = GetComponent<WorkBuilding>();
+
+        //빌딩 타입이 None 이고 팜타입이 Farm이 아니면 return
+        if (buildingComponent == null || (buildingComponent.buildingType != BuildingType.None || buildingComponent.farmType != FarmType.Farm))
+        {
+            Debug.Log("조건이 만족되지 않습니다.");
+            return; // 아무것도 하지 않습니다.
+        }
+
+        //빌딩 타입이 None 이고 팜타입이 Farm일 경우만 실행
         if (IngredientManagerUI.ProcessedBuildingClick)//빌딩 타입 할당시 끝
             return;
 

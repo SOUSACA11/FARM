@@ -2,6 +2,7 @@ using UnityEngine;
 using JinnyProcessItem;
 
 //by.J:230814 래퍼클래스 / ProcessItemDataInfo 데이터를 IItem 맞게 포장
+//by,j:230829 ProcessItemIItem와 ProcessItemDataInfo 같은 메모리 사용을 위한 추가 작업
 public class ProcessItemIItem : IItem
 {
     private ProcessItemDataInfo _info;
@@ -16,4 +17,18 @@ public class ProcessItemIItem : IItem
     public int ItemCost => _info.processItemCost;
     public Sprite ItemImage => _info.processItemImage;
     public string ItemId => _info.processItemId;
+
+    public override bool Equals(object obj)
+    {
+        if (obj is ProcessItemIItem other)
+        {
+            return this.ItemId == other.ItemId;
+        }
+        return false;
+    }
+
+    public override int GetHashCode()
+    {
+        return this.ItemId.GetHashCode();
+    }
 }

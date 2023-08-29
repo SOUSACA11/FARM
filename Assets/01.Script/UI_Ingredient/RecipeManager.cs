@@ -6,6 +6,7 @@ using JinnyBuilding;
 
 //by.J:230816 레시피 데이터
 //by.J:230818 완성품 ID 추가
+//by.J:230829 생산시간 추가
 public class RecipeManager : MonoBehaviour
 {
     public static RecipeManager Instance; //싱글톤 처리
@@ -32,7 +33,6 @@ public class RecipeManager : MonoBehaviour
     public CropItem cropItems;
     public ProcessItem processItems;
 
-
     private void Awake()
     {
         if (Instance == null)
@@ -46,7 +46,22 @@ public class RecipeManager : MonoBehaviour
         }
 
     }
-
+    
+    //ID 기반으로 레시피 가져오기
+    public Recipe GetRecipeByProductId(string productId)
+    {
+        foreach (var recipes in buildingRecipes.Values)
+        {
+            foreach (var recipe in recipes)
+            {
+                if (recipe.finishedProductId == productId)
+                {
+                    return recipe;
+                }
+            }
+        }
+        return null;
+    }
 
     private void Start()
     {
@@ -96,7 +111,7 @@ public class RecipeManager : MonoBehaviour
         {
            new Ingredient<ProcessItemDataInfo>(cowfeed, 1)
         };
-        milkRecipe = new Recipe(milkIngredients, milk, 1);
+        milkRecipe = new Recipe(milkIngredients, milk, 1, 10f);
         milkRecipe.finishedProductId = "animal_01";
 
         //달걀
@@ -104,7 +119,7 @@ public class RecipeManager : MonoBehaviour
         {
            new Ingredient<ProcessItemDataInfo>(chickenfeed, 1)
         };
-        eggRecipe = new Recipe(eggIngredients, egg, 1);
+        eggRecipe = new Recipe(eggIngredients, egg, 1, 10f);
         eggRecipe.finishedProductId = "animal_02";
 
         //돼지고기
@@ -112,7 +127,7 @@ public class RecipeManager : MonoBehaviour
         {
            new Ingredient<ProcessItemDataInfo>(pigfeed, 1)
         };
-        porkRecipe = new Recipe(porkIngredients, pork, 1);
+        porkRecipe = new Recipe(porkIngredients, pork, 1, 10f);
         porkRecipe.finishedProductId = "animal_03";
 
         //식빵
@@ -120,7 +135,7 @@ public class RecipeManager : MonoBehaviour
         {
            new Ingredient<CropItemDataInfo>(wheat, 1)
         };
-        breadRecipe = new Recipe(breadIngredients, bread, 1);
+        breadRecipe = new Recipe(breadIngredients, bread, 1, 10f);
         breadRecipe.finishedProductId = "bread_01";
 
         //바게트
@@ -128,7 +143,7 @@ public class RecipeManager : MonoBehaviour
         {
            new Ingredient<CropItemDataInfo>(wheat, 1)
         };
-        baguetteRecipe = new Recipe(baguetteIngredients, baguette, 1);
+        baguetteRecipe = new Recipe(baguetteIngredients, baguette, 1, 10f);
         baguetteRecipe.finishedProductId = "bread_02";
 
         //크루와상 (조합)
@@ -143,7 +158,7 @@ public class RecipeManager : MonoBehaviour
         List<object> croissantAllIngredients = new List<object>();
         croissantAllIngredients.AddRange(croissantCropIngredients);
         croissantAllIngredients.AddRange(croissantProcessIngredients);
-        croissantRecipe = new Recipe(croissantAllIngredients, croissant, 1);
+        croissantRecipe = new Recipe(croissantAllIngredients, croissant, 1, 10f);
         croissantRecipe.finishedProductId = "bread_03";
 
         //밀가루
@@ -151,7 +166,7 @@ public class RecipeManager : MonoBehaviour
         {
            new Ingredient<CropItemDataInfo>(wheat, 1)
         };
-        flourRecipe = new Recipe(flourIngredients, flour, 1);
+        flourRecipe = new Recipe(flourIngredients, flour, 1, 10f);
         flourRecipe.finishedProductId = "windmill_01";
 
         //닭 사료
@@ -159,7 +174,7 @@ public class RecipeManager : MonoBehaviour
         {
            new Ingredient<CropItemDataInfo>(corn, 1)
         };
-        chickenfeedRecipe = new Recipe(chickenfeedIngredients, chickenfeed, 1);
+        chickenfeedRecipe = new Recipe(chickenfeedIngredients, chickenfeed, 1, 10f);
         chickenfeedRecipe.finishedProductId = "windmill_02";
 
         //돼지 사료
@@ -167,7 +182,7 @@ public class RecipeManager : MonoBehaviour
         {
            new Ingredient<CropItemDataInfo>(corn, 1)
         };
-        pigfeedRecipe = new Recipe(pigfeedIngredients, pigfeed, 1);
+        pigfeedRecipe = new Recipe(pigfeedIngredients, pigfeed, 1, 10f);
         pigfeedRecipe.finishedProductId = "windmill_03";
 
         //소 사료
@@ -175,7 +190,7 @@ public class RecipeManager : MonoBehaviour
         {
            new Ingredient<CropItemDataInfo>(bean, 1)
         };
-        cowfeedRecipe = new Recipe(pigfeedIngredients, cowfeed, 1);
+        cowfeedRecipe = new Recipe(pigfeedIngredients, cowfeed, 1, 10f);
         cowfeedRecipe.finishedProductId = "windmill_04";
 
         //계란후라이
@@ -183,7 +198,7 @@ public class RecipeManager : MonoBehaviour
         {
            new Ingredient<ProcessItemDataInfo>(egg, 1)
         };
-        eggflowerRecipe = new Recipe(eggflowerIngredients, eggflower, 1);
+        eggflowerRecipe = new Recipe(eggflowerIngredients, eggflower, 1, 10f);
         eggflowerRecipe.finishedProductId = "grill_01";
 
         //베이컨 
@@ -191,7 +206,7 @@ public class RecipeManager : MonoBehaviour
         {
            new Ingredient<ProcessItemDataInfo>(pork, 1)
         };
-        baconRecipe = new Recipe(baconIngredients, bacon, 1);
+        baconRecipe = new Recipe(baconIngredients, bacon, 1, 10f);
         baconRecipe.finishedProductId = "grill_02";
 
         //토마토 쥬스
@@ -199,7 +214,7 @@ public class RecipeManager : MonoBehaviour
         {
            new Ingredient<CropItemDataInfo>(tomato, 1)
         };
-        tomatojuiceRecipe = new Recipe(tomatojuiceIngredients, tomatojuice, 1);
+        tomatojuiceRecipe = new Recipe(tomatojuiceIngredients, tomatojuice, 1, 10f);
         tomatojuiceRecipe.finishedProductId = "juice_01";
 
         //당근 쥬스
@@ -207,7 +222,7 @@ public class RecipeManager : MonoBehaviour
         {
            new Ingredient<CropItemDataInfo>(carrot, 1)
         };
-        carrotjuiceRecipe = new Recipe(carrotjuiceIngredients, carrotjuice, 1);
+        carrotjuiceRecipe = new Recipe(carrotjuiceIngredients, carrotjuice, 1, 10f);
         carrotjuiceRecipe.finishedProductId = "juice_02";
 
         //버터
@@ -215,7 +230,7 @@ public class RecipeManager : MonoBehaviour
         {
            new Ingredient<ProcessItemDataInfo>(milk, 1)
         };
-        butterRecipe = new Recipe(butterIngredients, butter, 1);
+        butterRecipe = new Recipe(butterIngredients, butter, 1, 10f);
         butterRecipe.finishedProductId = "dairy_01";
 
         //치즈
@@ -223,7 +238,7 @@ public class RecipeManager : MonoBehaviour
         {
            new Ingredient<ProcessItemDataInfo>(milk, 1)
         };
-        cheeseRecipe = new Recipe(cheeseIngredients, cheese, 1);
+        cheeseRecipe = new Recipe(cheeseIngredients, cheese, 1, 10f);
         cheeseRecipe.finishedProductId = "dairy_02";
 
 

@@ -4,6 +4,7 @@ using JinnyProcessItem;
 using JinnyCropItem;
 
 //by.J:230816 아이템, 원재료, 레시피 설정
+//by.J;230829 생산시간 추가
 
 //원재료 설정 리스트 정의
 [System.Serializable]
@@ -23,20 +24,31 @@ public class Ingredient<T> //제네릭 -> 데이터 타입 유연화 / 타입 미리 지정하지 �
 [System.Serializable]
 public class Recipe
 {
-    public List<object> ingredients;  //여러 Ingredient 타입을 허용하기 위해 object 사용
-    public ProcessItemDataInfo outputItem;
-    public int outputCount;
-    public string finishedProductId; //완성품 ID 정보
+    //public List<object> ingredients;  //여러 Ingredient 타입을 허용하기 위해 object 사용
+    //public ProcessItemDataInfo outputItem;
+    //public int outputCount;
+    //public string finishedProductId; //완성품 ID 정보
+    //public float productionTime;     //생산 시간
+    public bool IsInitialized;
+
+    public List<object> ingredients;
+    public ProcessItemDataInfo finishedProduct;
+    public int finishedProductCount;
+    public float productionTime;
+    public string finishedProductId;
 
     //완성품 ID 정보에서 이미지 추가
     public Sprite FinishedProductImage
     {
-
         get
         {
             Debug.Log("프로퍼티 시작쓰");
 
             Sprite resultSprite = null;
+
+            Debug.Log("Instance: " + CropItem.Instance);
+            Debug.Log("List: " + CropItem.Instance.cropItemDataInfoList);
+            Debug.Log("Finished Product ID: " + finishedProductId);
 
             if (finishedProductId.StartsWith("crop_"))
             {
@@ -71,17 +83,17 @@ public class Recipe
             Debug.Log("완성품 이미지 : " + (resultSprite ? resultSprite.name : "None"));
             return resultSprite;
         }
-
-
-
     }
 
-    public Recipe(List<object> ingredients, ProcessItemDataInfo outputItem, int outputCount)
+
+    public Recipe(List<object> ingredients, ProcessItemDataInfo finishedProduct, int finishedProductCount, float productionTime)
     {
         this.ingredients = ingredients;
-        this.outputItem = outputItem;
-        this.outputCount = outputCount;
-//this.finishedProductId = finishedProductId;
+        this.finishedProduct = finishedProduct;
+        this.finishedProductCount = finishedProductCount;
+        this.productionTime = productionTime;
+        this.finishedProductId = finishedProduct.processItemId;
+        this.IsInitialized = true;
     }
 }
    
