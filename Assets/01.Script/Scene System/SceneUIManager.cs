@@ -12,9 +12,9 @@ public class SceneUIManager : MonoBehaviour
         SceneManager.LoadScene("Main");
     }
 
-    //public void ClickExit()
-    //{
-    //    Debug.Log("게임 종료");
-    //    Application.Quit();
-    //}
+    public void ClickExit()
+    {
+        Debug.Log("게임 종료");
+        Application.Quit();
+    }
 }

@@ -364,7 +364,7 @@ public class WorkBuilding : MonoBehaviour
     //생산 완료 체크
     private void CheckProduction() 
     {
-        Debug.Log("생산완료 체크");
+        //Debug.Log("생산완료 체크");
         //Debug.Log("Current Time: " + Time.time);
         //Debug.Log("Start Time: " + startTime);
         //Debug.Log("Difference: " + (Time.time - startTime));

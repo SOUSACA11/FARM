@@ -121,7 +121,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1723726168}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OrderSlotManagerUI, Assembly-CSharp
         m_MethodName: SelectOrder
         m_Mode: 2
@@ -183,14 +183,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 6978297376149432523}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10f899e1e7b772748b9f1ac2915db122, type: 3}
+  m_Script: {fileID: 11500000, guid: 66d86b9102ad0d34ba98dac479732fdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  orderPaper: {fileID: 0}
   orderItemPrefab: {fileID: 0}
   orderListParent: {fileID: 6978297376613897183}
   totalCostText: {fileID: 6978297376959040055}
   orderSheetPrefab: {fileID: 6978297376149432523}
+  orderPaper: {fileID: 0}
+  orderHolderTransform: {fileID: 0}
 --- !u!1 &6978297376613897180
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,7 +305,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6978297376754731268}
-  - component: {fileID: 6978297376754731271}
+  - component: {fileID: 1299918494}
   m_Layer: 5
   m_Name: slot
   m_TagString: Untagged
@@ -332,7 +333,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &6978297376754731271
+--- !u!114 &1299918494
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -341,14 +342,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6978297376754731269}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10f899e1e7b772748b9f1ac2915db122, type: 3}
+  m_Script: {fileID: 11500000, guid: b38dd6a746e65ed4a9dd7a15bb3d9509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  orderPaper: {fileID: 0}
-  orderItemPrefab: {fileID: 0}
-  orderListParent: {fileID: 0}
-  totalCostText: {fileID: 6978297376959040055}
-  orderSheetPrefab: {fileID: 6978297376149432523}
+  enlargedScale: 0.5
 --- !u!1 &6978297376893380563
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,12 +1,16 @@
+using JinnyCropItem;
+using JinnyProcessItem;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+using System.Linq;
 using TMPro;
+using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 //by.J:230814 주문서 표시 UI / 리셋 버튼
 //by.J:230816 주문 클릭 후 납부시 재화증가
 //by.J:230817 주문서 클릭시 효과 적용
+//by.J:230830 주문서 클릭 후 납부시 창고 아이템 차감
 public class OrderSlotManagerUI : MonoBehaviour
 {
     public OrderPaper orderPaper;
@@ -21,10 +25,23 @@ public class OrderSlotManagerUI : MonoBehaviour
     private Vector3 originalOrderSize;  //주문서의 원래 크기
     public float enlargedScale = 0.5f;  //크게 할 때의 스케일 값
 
+    //주문서 생성
+
+    //private static List<Order> orders; //아이템 3개 배정
+    //List<Order> test;
+
     private void Start()
     {
         // 초기 설정 시 주문서의 원래 크기 저장
         originalOrderSize = orderPaper.transform.localScale;
+        if(gameObject.name != "order slot")
+        {
+            Debug.Log(gameObject.name + "Start orders");
+            OrdersTable.orders = new List<Order>();
+        }
+        
+        //test = new List<Order>();
+
     }
 
     private void Update()
@@ -44,6 +61,7 @@ public class OrderSlotManagerUI : MonoBehaviour
     //주문서 표시
     public void TriggerOrder()
     {
+        Debug.Log("트리거");
         MultipleOrder(3);
     }
 
@@ -56,9 +74,13 @@ public class OrderSlotManagerUI : MonoBehaviour
     //주문서
     public void DisplayOrder()
     {
-        //주문서 생성
-        List<Order> orders = orderPaper.RandomOrder(3); //아이템 3개 배정
+        //Debug.Log("디플" + orders.Count);
 
+        ////주문서 생성
+        OrdersTable.orders = orderPaper.RandomOrder(3); //아이템 3개 배정
+        //test = orders;
+
+        Debug.Log(OrdersTable.orders.Count);
         //기존 주문 아이템 UI 삭제
         foreach (Transform child in orderListParent)
         {
@@ -66,47 +88,74 @@ public class OrderSlotManagerUI : MonoBehaviour
             //Debug.Log("기존 주문 삭제");
         }
         //새 주문 아이템 UI 생성
-        foreach (var order in orders)
+        foreach (var order in OrdersTable.orders)
         {
             GameObject orderItem = Instantiate(orderItemPrefab, orderListParent);
             orderItem.GetComponentInChildren<TextMeshProUGUI>().text = order.ItemName + " x" + order.Quantity;
             orderItem.GetComponentInChildren<Image>().sprite = order.ItemImage;
-            //Debug.Log("새 주문 생성");
+            
+            Debug.Log($"Order created with ItemId22222: {order.ItemId}");
+            //Order orderComponent = orderItem.GetComponent<Order>();
+            //if (orderComponent != null)
+            //{
+            //    orderComponent.ItemId = order.ItemId;
+            //    orderComponent.ItemName = order.ItemName;
+            //    orderComponent.ItemImage = order.ItemImage;
+            //    orderComponent.Quantity = order.Quantity;
+            //    orderComponent.TotalCost = order.TotalCost;
+            //}
+
+
         }
         //총 가격 표시
-        int totalCost = orderPaper.TotalCost(orders);
+        int totalCost = orderPaper.TotalCost(OrdersTable.orders);
         totalCostText.text = totalCost.ToString();
         //Debug.Log("총 가격 표시");
+
+        Debug.Log ("디플 마지막" + OrdersTable.orders.Count);
+
     }
 
     //주문서 여러개
     public void MultipleOrder(int count)
     {
+
+        Debug.Log(gameObject.name + "멀티플" + OrdersTable.orders.Count); 
         //최대 3개까지만 생성
         if (currentOrderCount >= 3)
         {
-            //Debug.Log("이미 최대 주문서를 생성했습니다.");
+            Debug.Log("이미 최대 주문서를 생성했습니다.");
             return;
         }
 
         for (int i = 0; i < count; i++)
         {
+            Debug.Log("멀티플2" + OrdersTable.orders.Count);
             GameObject orderSheet = Instantiate(orderSheetPrefab);
             orderSheet.transform.SetParent(orderListParent);
+
+
 
             OrderSlotManagerUI orderSlotManager = orderSheet.GetComponent<OrderSlotManagerUI>();
             if (orderSlotManager != null)
             {
+                
+                Debug.Log("멀티플3" + OrdersTable.orders.Count);
                 if (orderSlotManager.orderPaper == null || orderSlotManager.orderItemPrefab == null)
                 {
+                    Debug.Log("멀티플4" + OrdersTable.orders.Count);
                     continue;
                 }
                 orderSlotManager.TriggerRandomOrder();
+                Debug.Log("멀티플777" + OrdersTable.orders.Count);
             }
             //복제된 오브젝트 활성화
+            ;
             orderSheet.SetActive(true);
+            Debug.Log("멀티플888" + OrdersTable.orders.Count);
         }
 
+        Debug.Log("멀티플5" + OrdersTable.orders.Count);
         currentOrderCount += count;  //주문서를 생성한 후 현재 주문서 수를 증가
 
         //현재 주문서 수가 3개 이상이면 3개로 설정
@@ -114,6 +163,7 @@ public class OrderSlotManagerUI : MonoBehaviour
             currentOrderCount = 3;
 
         //Debug.Log("되나");
+        Debug.Log(gameObject.name + " : 멀티플6" + OrdersTable.orders.Count);
     }
 
     //리셋 버튼
@@ -122,6 +172,7 @@ public class OrderSlotManagerUI : MonoBehaviour
         //모든 주문서 오브젝트 삭제
         foreach (Transform child in orderListParent)
         {
+            Debug.Log("리셋");
             Destroy(child.gameObject);
         }
 
@@ -132,18 +183,22 @@ public class OrderSlotManagerUI : MonoBehaviour
     //주문서 선택
     public void SelectOrder(GameObject orderPaper)
     {
-        //Debug.Log("선택 주문서");
+        Debug.Log("선택 주문서");
         //Debug.Log("주문서 선택쓰" + selectedOrderPaper);
+        Debug.Log(gameObject.name +" : "+ OrdersTable.orders.Count);
+        //Debug.Log(test.Count);
 
         //이전 선택 주문서와 클릭 주문서 같을 경우
         if (selectedOrderPaper == orderPaper)
         {
+            Debug.Log("에스");
             //주문서 크기 원래대로 후 선택 해제
             ResetOrderSize(orderPaper);
             selectedOrderPaper = null;
         }
         else
         {
+            Debug.Log("노");
             //이전 선택 주문서 크기 원래대로
             if (selectedOrderPaper != null)
             {
@@ -161,27 +216,121 @@ public class OrderSlotManagerUI : MonoBehaviour
     {
         //Debug.Log("납부하기 버튼 클릭");
         //Debug.Log("selectedOrderPaper 값: " + selectedOrderPaper);
+
+        //Debug.Log("selectedOrderPaper는 null이 아닙니다.");
+
+        //Debug.Log(test.Count);
+        Debug.Log("납부" + OrdersTable.orders.Count);
+
         if (selectedOrderPaper != null)
         {
-            //Debug.Log("selectedOrderPaper는 null이 아닙니다.");
 
-            TextMeshProUGUI totalCostText = selectedOrderPaper.transform.Find("gold count").GetComponent<TextMeshProUGUI>();
-            //Debug.Log("ㅋ" + totalCostText);
 
-            if (totalCostText == null)
+
+            // 주문서에서 필요한 아이템 목록과 수량을 가져옵니다.
+            // Order orderDetails = selectedOrderPaper.GetComponent<Order>();
+         
+
+            if (OrdersTable.orders == null)
             {
-                //Debug.Log("costText는 null입니다." + totalCostText);
+                Debug.LogError("Order component not found on selectedOrderPaper!");
+                return;
+            }
+            Debug.Log(OrdersTable.orders.Count);
+           //Debug.Log(test.Count);
+           // Debug.Log("Checking itemId: " + test[1].ItemId);
+
+            
+
+
+            // 창고에서 해당 아이템의 수량을 확인합니다.
+            IItem requiredItem = GetItemFromID(OrdersTable.orders[1].ItemId);  // 이 함수는 아이템 ID를 받아 IItem을 반환해야합니다.
+            if (requiredItem == null)
+            {
+                Debug.Log("Checking itemId: " + OrdersTable.orders[1].ItemId);
+                Debug.LogError("No item found with the given ID!");
                 return;
             }
 
-            //Debug.Log("총 가격: " + totalCostText.text);
+            int storageAmount = Storage.Instance.GetItemAmount(requiredItem);
+            if (storageAmount < OrdersTable.orders[1].Quantity)
+            {
+                Debug.LogWarning("창고에 필요한 아이템이 부족합니다.");
+                return;
+            }
+
+            // 창고에서 필요한 아이템과 수량을 제거합니다.
+            Storage.Instance.RemoveItem(requiredItem, OrdersTable.orders[1].Quantity);
+
+            TextMeshProUGUI totalCostText = selectedOrderPaper.transform.Find("gold count").GetComponent<TextMeshProUGUI>();
+            if (totalCostText == null)
+            {
+                Debug.LogError("Failed to find gold count text component!");
+                return;
+            }
+
             int cost = int.Parse(totalCostText.text); //텍스트에서 비용 추출
             MoneySystem.Instance.AddGold(cost);       //재화 증가
             Destroy(selectedOrderPaper);              //납부한 주문서 삭제
             selectedOrderPaper = null;                //선택 초기화
         }
 
+
+
+
+
+
+
+        //    TextMeshProUGUI totalCostText = selectedOrderPaper.transform.Find("gold count").GetComponent<TextMeshProUGUI>();
+        //    //Debug.Log("ㅋ" + totalCostText);
+
+        //    if (totalCostText == null)
+        //    {
+        //        //Debug.Log("costText는 null입니다." + totalCostText);
+        //        return;
+        //    }
+
+        //    //Debug.Log("총 가격: " + totalCostText.text);
+        //    int cost = int.Parse(totalCostText.text); //텍스트에서 비용 추출
+        //    MoneySystem.Instance.AddGold(cost);       //재화 증가
+        //    Destroy(selectedOrderPaper);              //납부한 주문서 삭제
+        //    selectedOrderPaper = null;                //선택 초기화
+
+
     }
+
+
+
+    // 아이템 ID를 사용하여 IItem을 가져옴
+    private IItem GetItemFromID(string itemId)
+    {
+        // Crop items 확인
+        CropItemDataInfo cropItem = JinnyCropItem.CropItem.Instance.cropItemDataInfoList.FirstOrDefault(item => item.ItemId == itemId);
+       
+        if (cropItem.IsInitialized)
+        {
+            Debug.Log("Found in Crop Items: " + cropItem.ItemId);
+            return cropItem;
+        }
+
+        // Process items 확인
+        ProcessItemDataInfo processItem = JinnyProcessItem.ProcessItem.Instance.processItemDataInfoList.FirstOrDefault(item => item.ItemId == itemId);
+        if (processItem.IsInitialized)
+        {
+            return processItem;
+        }
+
+        // 해당 ID와 일치하는 아이템이 없음
+        return null;
+    }
+
+
+
+
+
+
+
+
 
     //주문서 크기 증가
     private void EnlargeOrderSize(GameObject orderPaper)

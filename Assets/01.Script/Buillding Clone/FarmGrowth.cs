@@ -65,6 +65,19 @@ public class FarmGrowth : MonoBehaviour
             UpdateSprite();
         }
 
+        // 마우스 클릭 또는 터치 감지
+        if (Input.GetMouseButtonDown(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))
+        {
+            // 터치된 위치 또는 클릭된 위치 가져오기
+            Vector3 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero);
+
+            if (hit.collider != null && hit.collider.gameObject == this.gameObject)
+            {
+                HandleFarmTouchOrClick();
+            }
+        }
+
         //Debug.Log("성장시간" + growthTimer);
         //Debug.Log("농장밭 성장 시간" + farmData.farmGrowTime);
     }
@@ -81,7 +94,7 @@ public class FarmGrowth : MonoBehaviour
     }
 
     //농장밭 클릭 시
-    void OnMouseDown()
+    void HandleFarmTouchOrClick()
     {
         Debug.Log("농장밭 클릭");
 

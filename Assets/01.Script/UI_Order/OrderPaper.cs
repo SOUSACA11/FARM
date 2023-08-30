@@ -10,6 +10,7 @@ public class OrderPaper : MonoBehaviour
     public CropItem cropItemManager;
     public ProcessItem processItemManager;
 
+    //랜덤으로 주문서 생성
     public List<Order> RandomOrder(int numberOfItems)
     {
         List<Order> orders = new List<Order>();
@@ -42,7 +43,15 @@ public class OrderPaper : MonoBehaviour
                 TotalCost = randomItem.ItemCost * randomQuantity
             });
 
-           // Debug.Log("새로운 주문");
+            // Debug.Log("새로운 주문");
+            Debug.Log("생성된 아이템의 ItemId: " + randomItem.ItemId);
+
+
+            foreach (var order in orders)
+            {
+                Debug.Log($"Order created with ItemId: {order.ItemId}");
+                // ... 중략
+            }
         }
 
         //Debug.Log("주문 관리 되나?");
