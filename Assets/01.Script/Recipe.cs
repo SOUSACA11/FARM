@@ -24,6 +24,7 @@ public class Ingredient<T> //제네릭 -> 데이터 타입 유연화 / 타입 미리 지정하지 �
 [System.Serializable]
 public class Recipe
 {
+    
     //public List<object> ingredients;  //여러 Ingredient 타입을 허용하기 위해 object 사용
     //public ProcessItemDataInfo outputItem;
     //public int outputCount;

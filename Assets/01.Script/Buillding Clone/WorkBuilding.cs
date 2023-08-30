@@ -5,6 +5,7 @@ using JinnyBuilding;
 using JinnyProcessItem;
 using JinnyCropItem;
 using JinnyFarm;
+using JinnyAnimal;
 using System.Linq;
 using System.Collections;
 
@@ -23,6 +24,7 @@ public class WorkBuilding : MonoBehaviour
     public IItem product;                                       //생산 완료 아이템
     public BuildingType buildingType;                           //생산 건물 타입
     public FarmType farmType;                                   //농장 타입
+    public AnimalType animalType;                               //축사 타입
 
     public Recipe currentRecipe;                                //현재 건물에서 사용할 레시피
 
@@ -31,6 +33,8 @@ public class WorkBuilding : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
     private Color originalColor;
+
+    public WorkBuilding finishImageBuilding;
 
 
     private List<Recipe> availableRecipes = new List<Recipe>();
@@ -46,7 +50,7 @@ public class WorkBuilding : MonoBehaviour
 
     void Start()
     {
-        SetRecipesForBuilding();
+        //SetRecipesForBuilding();
     }
 
     private void Update()
@@ -60,7 +64,14 @@ public class WorkBuilding : MonoBehaviour
         //Debug.Log("농장쓰스2");
         this.buildingType = type;
         this.farmType = FarmType.None;
-        //Debug.Log(buildingType);
+        this.animalType = AnimalType.None;
+
+        // 추가된 코드: finishImage의 buildingType도 동일하게 설정
+        if (finishImageBuilding != null)
+        {
+            finishImageBuilding.Initialize(type);
+        }
+        Debug.Log(gameObject + "work빌딩 타입" +  buildingType);
     }
 
     //농장 타입 자동 설정
@@ -69,26 +80,24 @@ public class WorkBuilding : MonoBehaviour
         Debug.Log("빌딩쓰스2");
         this.farmType = type;
         this.buildingType = BuildingType.None;
+        this.animalType = AnimalType.None;
+        //Debug.Log(farmType);
+    }
 
-
+    //축사 타입 자동 설정
+    public void Initialize(AnimalType type)
+    {
+        Debug.Log("빌딩쓰스3");
+        this.animalType = type;
+        this.buildingType = BuildingType.None;
+        this.farmType = FarmType.None;
         //Debug.Log(farmType);
     }
 
     //빌딩 타입별 레시피 설정
     private void SetRecipesForBuilding()
     {
-        //if (RecipeManager.Instance.buildingRecipes.TryGetValue(buildingType, out List<Recipe> recipesForThisBuilding))
-        //{
-        //    foreach (Recipe recipe in recipesForThisBuilding)
-        //    {
-        //        this.SetRecipe(recipe);
-        //    }
-        //}
-        //else
-        //{
-        //    Debug.Log("No recipes found for building type: " + buildingType);
-        //}
-
+       
         Debug.Log("타입별 레시피 설정" + $"Setting recipes for building type: {buildingType}");
 
         if (RecipeManager.Instance.buildingRecipes.TryGetValue(buildingType, out List<Recipe> recipesForThisBuilding))
@@ -97,100 +106,87 @@ public class WorkBuilding : MonoBehaviour
         }
         else
         {
-            Debug.Log("No recipes found for building type: " + buildingType);
+            Debug.Log("건물에 할당된 레시피 없음: " + buildingType);
         }
     }
-
-
-
-    //private void SetRecipesForBuilding()
-    //{
-    //    if (RecipeManager.Instance.buildingRecipes.TryGetValue(buildingType, out List<Recipe> recipesForThisBuilding))
-    //    {
-    //        availableRecipes = recipesForThisBuilding;
-    //    }
-    //    else
-    //    {
-    //        Debug.Log("No recipes found for building type: " + buildingType);
-    //    }
-    //}
-
-
-
-
-
 
     //레시피 선택
     public void SelectRecipe(Recipe recipe)
     {
-        Debug.Log($"Attempting to select recipe: {recipe.finishedProduct.processItemName}");
+        Debug.Log(gameObject + "레시피 생산품 이름" + $"Attempting to select recipe: {recipe.finishedProduct.processItemName}");
 
         if (availableRecipes.Contains(recipe))
         {
             Debug.Log($"Recipe {recipe.finishedProduct.processItemName} is available for this building.");
 
-            SetRecipeDetails(recipe);
+            SetRecipe(recipe);
         }
         else
         {
-            Debug.Log("This building can't use this recipe!");
+            Debug.Log("레시피 사용 불가");
         }
     }
 
-    private void SetRecipeDetails(Recipe recipe)
-    {
-        Debug.Log($"Setting recipe for: {recipe.finishedProduct.processItemName}");
+    //private void SetRecipeDetails(Recipe recipe)
+    //{
+    //    Debug.Log("레시피 생산품 이름2" + $"Setting recipe for: {recipe.finishedProduct.processItemName}");
 
-        currentRecipe = recipe;
-        needIngredient.Clear();
+    //    currentRecipe = recipe;
+    //    needIngredient.Clear();
 
-        foreach (var ingredientObj in recipe.ingredients)
-        {
-            if (ingredientObj is Ingredient<ProcessItemDataInfo> processedIngredient)
-            {
-                needIngredient.Add(new ProcessItemIItem(processedIngredient.item));
-            }
-            else if (ingredientObj is Ingredient<CropItemDataInfo> cropIngredient)
-            {
-                needIngredient.Add(new CropItemIItem(cropIngredient.item));
-            }
-        }
+    //    foreach (var ingredientObj in recipe.ingredients)
+    //    {
+    //        if (ingredientObj is Ingredient<ProcessItemDataInfo> processedIngredient)
+    //        {
+    //            needIngredient.Add(new ProcessItemIItem(processedIngredient.item));
+    //        }
+    //        else if (ingredientObj is Ingredient<CropItemDataInfo> cropIngredient)
+    //        {
+    //            needIngredient.Add(new CropItemIItem(cropIngredient.item));
+    //        }
+    //    }
 
-        product = new ProcessItemIItem(recipe.finishedProduct);
-        productionDuration = recipe.productionTime;
-        Debug.Log("Setting productionDuration to: " + recipe.productionTime);
-    }
-
-
+    //    product = new ProcessItemIItem(recipe.finishedProduct);
+    //    productionDuration = recipe.productionTime;
+    //    Debug.Log("세팅된 레시피 생산 시간 : " + recipe.productionTime);
+    //}
 
 
 
     //레시피 설정
     public void SetRecipe(Recipe recipe)
     {
+        
+        Debug.Log("레시피 설정");
+        Debug.Log($"[WorkBuilding] Set Recipe ID: {recipe.finishedProductId}");
+        Debug.Log("여기에 설정된 레시피 뭐임" + recipe);
+        Debug.Log($"Recipe IsInitialized: {recipe.IsInitialized}");
+        Debug.Log($"Recipe Finished Product ID: {recipe.finishedProductId}");
+
+
 
         if (recipe == null)
         {
-            Debug.LogError("Provided recipe is null!");
+            Debug.LogError("레시피 없음");
             return;
         }
 
 
-
-        Debug.Log($"Setting recipe for: {recipe.finishedProduct.processItemName}");
+        Debug.Log(gameObject +  "레시피 이름" + $"Setting recipe for: {recipe.finishedProduct.processItemName}");
 
         currentRecipe = recipe;
         needIngredient.Clear();
 
        
-
         if (!recipe.finishedProduct.IsInitialized)
         {
-            Debug.LogError("recipe.finishedProduct is not initialized!");
+            Debug.LogError("recipe.finishedProduct이 초기화되지 않았습니다!");
             return;
         }
         foreach (var ingredientObj in recipe.ingredients)
         {
+            Debug.Log("Checking ingredient: " + ingredientObj.ToString());
+
             if (ingredientObj is Ingredient<ProcessItemDataInfo> processedIngredient)
             {
                 needIngredient.Add(new ProcessItemIItem(processedIngredient.item));
@@ -201,57 +197,17 @@ public class WorkBuilding : MonoBehaviour
             }
         }
 
+        Debug.Log("레시피 데이터 확인" + recipe.ingredients);
         product = new ProcessItemIItem(recipe.finishedProduct);
         productionDuration = recipe.productionTime;
-        Debug.Log("Setting productionDuration to: " + recipe.productionTime);
+        Debug.Log("레시피 생산 시간: " + recipe.productionTime);
 
-
-
-
-        //Debug.Log($"Setting recipe for: {recipe.finishedProduct.processItemName}");
-        //foreach (var ingredient in needIngredient)
-        //{
-        //    Debug.Log($"Needed ingredient for {recipe.finishedProduct.processItemName}: {ingredient.ItemName}");
-        //}
-
-        ////Debug.Log("레시피 설정");
-        ////if (buildingType == BuildingType.None) return;
-
-        ////currentRecipe = recipe;
-        ////needIngredient.Clear();
-        ////Debug.Log("Setting productionDuration to111: " + recipe.productionTime);
-
-        ////foreach (var ingredientObj in recipe.ingredients)
-        ////{
-        ////    //재료가 Ingredient<ProcessItemDataInfo> 타입인지 확인
-        ////    if (ingredientObj is Ingredient<ProcessItemDataInfo> processedIngredient)
-        ////    {
-        ////        needIngredient.Add(new ProcessItemIItem(processedIngredient.item));
-        ////    }
-        ////    // CropItemDataInfo 타입의 재료 처리
-        ////    else if (ingredientObj is Ingredient<CropItemDataInfo> cropIngredient)
-        ////    {
-        ////        needIngredient.Add(new CropItemIItem(cropIngredient.item));
-        ////    }
-        ////}
-        ////product = new ProcessItemIItem(recipe.finishedProduct);
-        ////productionDuration = recipe.productionTime;
-        ////Debug.Log("Setting productionDuration to222: " + recipe.productionTime);
-
-
-        //if (availableRecipes.Contains(recipe))
-        //{
-        //    SetRecipe(recipe);
-        //}
-        //else
-        //{
-        //    Debug.Log("This building can't use this recipe!");
-        //}
     }
 
     //재료 추가
     public void AddItem(IItem item)
     {
+        Debug.Log("재료 추가");
         if (buildingType == BuildingType.None) return;
 
         if (!isProducing && needIngredient.Contains(item)) //레시피에 필요한 재료인지 확인 및 생산 중이 아닌지 확인
@@ -269,7 +225,6 @@ public class WorkBuilding : MonoBehaviour
             //필요하지 않은 재료
         }
     }
-
 
 
 
@@ -292,8 +247,10 @@ public class WorkBuilding : MonoBehaviour
 
 
         // 현재 선택된 레시피와 필요 원재료 디버그 로그 추가
-        Debug.Log($"Selected Recipe: {currentRecipe.finishedProduct.processItemName}");
-        Debug.Log("Required Ingredients for this recipe:");
+        Debug.Log($"선택 레시피: {currentRecipe.finishedProduct.processItemName}");
+        //Debug.Log("Required Ingredients for this recipe:");
+        
+
         foreach (var ingredient in needIngredient)
         {
             Debug.Log($"- {ingredient.ItemName}");
@@ -307,12 +264,6 @@ public class WorkBuilding : MonoBehaviour
 
             Debug.Log("[WorkBuilding] Needed ingredients for production:");
 
-            //int requiredCount = needIngredient.Count(item => item.Equals(requiredItem));
-            //int availableCount = Storage.Instance.GetItemAmount(requiredItem);
-            //Debug.Log($"[WorkBuilding] Required: {requiredItem.ItemName}, Needed: {requiredCount}, Available: {availableCount}");
-           
-
-
 
             foreach (var ingredient in needIngredient)
             {
@@ -321,16 +272,11 @@ public class WorkBuilding : MonoBehaviour
 
 
 
-            //int beforeCount = Storage.Instance.GetItemAmount(requiredItem);
-            //Storage.Instance.RemoveItem(requiredItem, requiredCount);
-            //int afterCount = Storage.Instance.GetItemAmount(requiredItem);
-            //Debug.Log($"[WorkBuilding] Item: {requiredItem.ItemName}, Before: {beforeCount}, After: {afterCount}");
-
-
             int requiredCount = needIngredient.Count(item => item.Equals(requiredItem));
 
             //창고에서 해당 아이템의 갯수를 확인
             int availableCount = Storage.Instance.GetItemAmount(requiredItem);
+
             Debug.Log("Required item: " + requiredItem.ToString() + " | Required Count: " + requiredCount + " | Available Count: " + availableCount);
 
             if (availableCount < requiredCount)

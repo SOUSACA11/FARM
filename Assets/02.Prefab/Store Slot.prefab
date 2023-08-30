@@ -425,6 +425,7 @@ MonoBehaviour:
   currentPrefab: {fileID: 5947351719657793345}
   currentBuildingType: 0
   currentFarmType: 0
+  currentAnimalType: 0
 --- !u!114 &4989785290062572177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -544,9 +545,11 @@ GameObject:
   - component: {fileID: 1848096931314361822}
   - component: {fileID: 8892271864003785120}
   - component: {fileID: 8626561759174702478}
-  m_Layer: 5
+  - component: {fileID: 931183693}
+  - component: {fileID: 931183697}
+  m_Layer: 3
   m_Name: itemSp
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -642,8 +645,8 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: IngredientManagerUI, Assembly-CSharp
-          m_MethodName: ProductImageClicked
-          m_Mode: 3
+          m_MethodName: IngredientClick
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -652,6 +655,59 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &931183693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5947351719657793345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a28ed77d3f4cfb4f9e49e2736e9445b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isProducing: 0
+  startTime: 0
+  buildingType: 0
+  farmType: 0
+  animalType: 0
+  currentRecipe:
+    IsInitialized: 0
+    finishedProduct:
+      IsInitialized: 0
+      processItemName: 
+      processItemCost: 0
+      processItemImage: {fileID: 0}
+      processItemId: 
+    finishedProductCount: 0
+    productionTime: 0
+    finishedProductId: 
+  finishedProductImage: {fileID: 0}
+  finishedProductUI: {fileID: 0}
+--- !u!114 &931183697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5947351719657793345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2961d9c8a17636242b65d20806ce1a03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  farmData:
+    farmName: 
+    farmCost: 0
+    farmHaverst: 0
+    farmGrowTime: 0
+    farmImage: []
+    farmType: 0
+    farmItemId: 
+    cropItemId: 
+    farmPrefab: {fileID: 0}
+  playerStorage: {fileID: 0}
 --- !u!1 &6478441695178123506
 GameObject:
   m_ObjectHideFlags: 0
@@ -747,6 +803,7 @@ MonoBehaviour:
   currentPrefab: {fileID: 5947351719657793345}
   currentBuildingType: 0
   currentFarmType: 0
+  currentAnimalType: 0
 --- !u!1 &7461397288971268677
 GameObject:
   m_ObjectHideFlags: 0

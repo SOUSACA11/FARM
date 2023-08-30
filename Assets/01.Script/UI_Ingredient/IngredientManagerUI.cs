@@ -69,7 +69,7 @@ using JinnyFarm;
         }
     }
 
-    //이미지 트리거 추가
+    //이미지 인덱스값 받아오기 
     void AddEventTriggerToImage(Image targetImage, int index)
     {
         Debug.Log("함수 추가 기능" + index);
@@ -86,8 +86,25 @@ using JinnyFarm;
         eventTrigger.triggers.Add(entry);
     }
 
-    //건물 복제본 클릭시
-    public void IngredientClick()
+    //외부에서 인덱스 사용
+    public int GetIndexFromImage(GameObject imageGameObject)
+    {
+        DragFinishItem dragItem = imageGameObject.GetComponent<DragFinishItem>();
+
+        if (dragItem != null)
+        {
+            Debug.Log("Retrieved index: " + dragItem.index);
+            return dragItem.index;
+        }
+        else
+        {
+            Debug.LogError("DragFinishItem component not found on the game object.");
+            return -1;
+        }
+
+    }
+        //건물 복제본 클릭시
+        public void IngredientClick()
     {
         Debug.Log("건물 복제본 클릭");
         //레이 캐스팅해서 건물 클릭 인식
@@ -111,7 +128,8 @@ using JinnyFarm;
         BuildingType type = buildingComponent.buildingType;
         Debug.Log(buildingComponent.buildingType);
 
-        //빌딩 타입이 none이 아닐경우만 작동, none일 경우 farmgrowth실행
+
+        //빌딩 타입이 none이 아닐경우만 작동, none일 경우 farmgrowth실행 ///////////////////////////
         if (buildingComponent == null || buildingComponent.buildingType == BuildingType.None)
         {
             Debug.Log("클릭된 건물 빌딩 타입 논");
@@ -224,9 +242,14 @@ using JinnyFarm;
             return;
         }
 
-        //클릭 이미지 인덱스로 해당 레시피 찾기 
-        BuildingType currentBuildingType = copyBuilding.GetComponent<WorkBuilding>().buildingType;
-        Recipe clickedRecipe = RecipeManager.Instance.buildingRecipes[currentBuildingType][index];
+        ////클릭 이미지 인덱스로 해당 레시피 찾기 
+        //BuildingType currentBuildingType = copyBuilding.GetComponent<WorkBuilding>().buildingType;
+        //Recipe clickedRecipe = RecipeManager.Instance.buildingRecipes[currentBuildingType][index];
+
+        // 클릭 이미지로 해당 레시피 찾기 
+        DragFinishItem dragItem = productImageDisplays[index].GetComponent<DragFinishItem>();
+        Recipe clickedRecipe = dragItem.currentRecipe;
+
 
         Debug.Log("클릭된 레시피" + clickedRecipe);
 
@@ -338,24 +361,27 @@ using JinnyFarm;
         //필요한 슬롯 활성화, 생성 
         for (int i = 0; i < numberOfSlots; i++)
         {
-            if (i >= productImageDisplays.Count)
-            {
-                Image newImage = Instantiate(finishImagePrefab, transform);
-                productImageDisplays.Add(newImage);
-                Debug.Log("Image created at: " + Time.time);
-            }
-            else
-            {
-                productImageDisplays[i].gameObject.SetActive(true);
-            }
+              BuildingType currentBuildingType = copyBuilding.GetComponent<WorkBuilding>().buildingType;
+                Recipe currentRecipe = RecipeManager.Instance.buildingRecipes[currentBuildingType][i];
 
-            // After creating or getting the productImageDisplay:
-            DragFinishItem dragItem = productImageDisplays[i].GetComponent<DragFinishItem>();
-            if (dragItem != null)
-            {
-                dragItem.index = i;
-            }
+                if (i >= productImageDisplays.Count)
+                {
+                    Image newImage = Instantiate(finishImagePrefab, transform);
+                    productImageDisplays.Add(newImage);
+                }
+                else
+                {
+                    productImageDisplays[i].gameObject.SetActive(true);
+                }
 
+                // Recipe 설정
+                DragFinishItem dragItem = productImageDisplays[i].GetComponent<DragFinishItem>();
+                if (dragItem != null)
+                {
+                    dragItem.currentRecipe = currentRecipe;
+                }
+
+            
 
             //각 이미지에 EventTrigger 추가 및 인덱스 설정
             AddEventTriggerToImage(productImageDisplays[i], i);
@@ -448,40 +474,7 @@ using JinnyFarm;
         transform.position = finishOriginalUIPosition;
     }
 
-    //public void FinishItemIdShow()
-    //{
-    //    Debug.Log("완성품 ID 출력");
-
-    //    List<Recipe> bakeryRecipes = RecipeManager.Instance.buildingRecipes[BuildingType.Bakery];
-    //    foreach (Recipe recipe in bakeryRecipes)
-    //    {
-    //        Debug.Log(recipe.finishedProductId);
-    //    }
-
-    //    List<Recipe> WindmillRecipes = RecipeManager.Instance.buildingRecipes[BuildingType.Windmill];
-    //    foreach (Recipe recipe in WindmillRecipes)
-    //    {
-    //        Debug.Log(recipe.finishedProductId);
-    //    }
-
-    //    List<Recipe> GrillShopRecipes = RecipeManager.Instance.buildingRecipes[BuildingType.GrillShop];
-    //    foreach (Recipe recipe in GrillShopRecipes)
-    //    {
-    //        Debug.Log(recipe.finishedProductId);
-    //    }
-
-    //    List<Recipe> DairyRecipes = RecipeManager.Instance.buildingRecipes[BuildingType.Dairy];
-    //    foreach (Recipe recipe in DairyRecipes)
-    //    {
-    //        Debug.Log(recipe.finishedProductId);
-    //    }
-
-    //    List<Recipe> JuiceShopRecipes = RecipeManager.Instance.buildingRecipes[BuildingType.JuiceShop];
-    //    foreach (Recipe recipe in JuiceShopRecipes)
-    //    {
-    //        Debug.Log(recipe.finishedProductId);
-    //    }
-    //}
+ 
 
 }
 

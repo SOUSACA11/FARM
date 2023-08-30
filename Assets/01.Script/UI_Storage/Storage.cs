@@ -73,7 +73,7 @@ public class Storage : MonoBehaviour
             Debug.Log($"- Item: {pair.Key.ItemName} | Count: {pair.Value}");
         }
 
-
+        Debug.Log("창고 추가 아템" + item);
 
         return true;
     }

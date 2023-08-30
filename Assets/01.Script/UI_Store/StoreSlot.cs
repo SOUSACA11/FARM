@@ -9,6 +9,7 @@ using UnityEngine.UI;
 //by.J:230810 상점 슬롯 정보 / 상점 건물 드래그
 //by.J:230817 건물 드래그 시 스냅 활성화
 //by.J:230825 아이소메트릭 셀 사이즈에 맞춘 스냅으로 변경
+//타입 변경시 이벤트 추가
 public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     private Camera mainCamera;                  //메인 카메라
@@ -20,6 +21,7 @@ public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     private SpriteRenderer itemSpriteRenderer;  //아이템 스프라이트 렌더러 이미지
     public BuildingType currentBuildingType;    //건물 타입
     public FarmType currentFarmType;            //농장 타입
+    public AnimalType currentAnimalType;        //축사 타입
 
     private BuildingDataInfo currentBuildingData = new BuildingDataInfo(); //현재 설정 건물 데이터
     private FarmDataInfo currentFarmData = new FarmDataInfo();             //현재 설정 농장밭 데이터
@@ -27,6 +29,11 @@ public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
 
     public static FarmDataInfo? SelectedFarmData = null;
+    public static AnimalDataInfo? SelectedAnimalData = null;
+
+
+    public delegate void BuildingTypeChangedDelegate(BuildingType newType);
+    public static event BuildingTypeChangedDelegate OnBuildingTypeChanged;
 
     private void Awake()
     {
@@ -40,6 +47,7 @@ public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         
         //변수 초기화
         SelectedFarmData = null;
+        SelectedAnimalData = null;
     }
 
     //빌딩 정보
@@ -52,6 +60,11 @@ public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         itemImage.sprite = buildingData.buildingImage;
         currentBuildingType = buildingData.buildingType;
         currentFarmType = FarmType.None;
+        currentAnimalType = AnimalType.None;
+
+        //Debug.Log("store slot 빌딩타입" + currentBuildingType);
+        ////이벤트 발생
+        //OnBuildingTypeChanged?.Invoke(currentBuildingType);
 
         if (itemSpriteRenderer != null) //스프라이트 렌더러가 있다면 스프라이트 설정
         {
@@ -61,9 +74,10 @@ public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
         currentBuildingData = buildingData; //currentBuildingDat 업데이트
         currentFarmData = new FarmDataInfo();
-        Debug.Log("빌딩 가격 불러오기 성공 " + buildingData.buildingCost);///
-        Debug.Log("슬롯에서 빌딩정보 " + gameObject.name + " 빌딩 가격: " + buildingData.buildingCost);///
-        Debug.Log("현재 빌딩가격" + currentBuildingData.buildingCost);///
+        //Debug.Log("빌딩 가격 불러오기 성공 " + buildingData.buildingCost);///
+        // Debug.Log("슬롯에서 빌딩정보 " + gameObject.name + " 빌딩 가격: " + buildingData.buildingCost);///
+        //Debug.Log("현재 빌딩가격" + currentBuildingData.buildingCost);///
+        Debug.Log("store slot 빌딩타입" + currentBuildingType);
     }
 
     //농장밭 정보
@@ -76,6 +90,7 @@ public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         itemImage.sprite = farmData.farmImage[0];
         currentFarmType = farmData.farmType;
         currentBuildingType = BuildingType.None;
+        currentAnimalType = AnimalType.None;
 
         //currentFarmData = farmData; //currentFarmData 업데이트
         //SelectedFarmData = farmData; // 정적 변수 업데이트
@@ -99,15 +114,20 @@ public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     {
         itemName.text = animalData.animalName;
         itemCost.text = animalData.animalCost.ToString();
-        itemImage.sprite = animalData.animalImage;
+        itemImage.sprite = animalData.animalImage[0];
+        currentAnimalType = animalData.animalType;
+        currentBuildingType = BuildingType.None;
+        currentFarmType = FarmType.None;
 
         if (itemSpriteRenderer != null) //스프라이트 렌더러가 있다면 스프라이트 설정
         {
-            itemSpriteRenderer.sprite = animalData.animalImage;
+            itemSpriteRenderer.sprite = animalData.animalImage[0];
             currentPrefab = animalData.animalPrefab;
         }
 
         currentAnimalData = animalData; //currentAnimalData 업데이트
+        currentBuildingData = new BuildingDataInfo();
+        currentFarmData = new FarmDataInfo();
         //Debug.Log("동물 가격 불러오기 성공 " + animalData.animalCost);
     }
 
@@ -253,5 +273,6 @@ public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         //Box Collider의 크기를 SpriteRenderer의 bounds 크기로 설정
         collider.size = spriteRenderer.bounds.size;
     }
+
 }
 

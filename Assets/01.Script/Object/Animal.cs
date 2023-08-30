@@ -5,15 +5,35 @@ using System.Collections.Generic;
 //by.J:230814 IItem 수정에 따른 작업
 namespace JinnyAnimal
 {
+    //타입 정의
+    public enum AnimalType
+    {
+        None,
+        Cage
+    }
+
+    //축사 성장 타입 정의
+    public enum GrowthAnimalType
+    {
+        Baby,  //생성
+        Child, //자람
+        Adult, //자람2
+        Man    //완성
+    }
+
     //구조체 정의
     [System.Serializable]
     public struct AnimalDataInfo
     {
-        public string animalName;      //이름
-        public int animalCost;         //가격
-        public Sprite animalImage;     //동물이미지
+        public string animalName;          //이름
+        public int animalCost;             //가격
+        public float animalGrowTime;         //축사 성장 시간
+        public Sprite[] animalImage;       //동물 축사 이미지
+        public AnimalType animalType;      //축사 타입
+        public string animalItemId;        //아이템 고유 ID
+        public string animalProcessItemId; //동물 생산뭎 고유 ID
+
         public GameObject animalPrefab;//동물 프리팹
-        public string animalItemId;   //아이템 고유 ID
 
     }
 
@@ -50,18 +70,18 @@ namespace JinnyAnimal
 
         }
 
-        public Sprite[] ItemImage
-        {
-            get
-            {
-                Sprite[] images = new Sprite[animalDataList.Count];
-                for (int i = 0; i < animalDataList.Count; i++)
-                {
-                    images[i] = animalDataList[i].animalImage;
-                }
-                return images;
-            }
-        }
+        //public Sprite[] ItemImage
+        //{
+        //    get
+        //    {
+        //        Sprite[] images = new Sprite[animalDataList.Count];
+        //        for (int i = 0; i < animalDataList.Count; i++)
+        //        {
+        //            images[i] = animalDataList[i].animalImage;
+        //        }
+        //        return images;
+        //    }
+        //}
 
         public string[] ItemId
         {
@@ -88,33 +108,65 @@ namespace JinnyAnimal
         {
             //이미지 추가
             Sprite[] sprites = Resources.LoadAll<Sprite>("Cage");
-            Sprite ChickenCage = System.Array.Find(sprites, sprite => sprite.name.Equals("Cage_0"));
-            Sprite CowCage = System.Array.Find(sprites, sprite => sprite.name.Equals("Cage_1"));
-            Sprite PigCage = System.Array.Find(sprites, sprite => sprite.name.Equals("Cage_2"));
+            
+            Sprite[] ChickenCage =
+            {
+                System.Array.Find(sprites, sprite => sprite.name.Equals("Cage_2")), //닭1
+                System.Array.Find(sprites, sprite => sprite.name.Equals("Cage_5")), //닭2
+                System.Array.Find(sprites, sprite => sprite.name.Equals("Cage_8")), //닭3
+                System.Array.Find(sprites, sprite => sprite.name.Equals("Cage_11")),//닭4
+            };
 
+            Sprite[] CowCage =
+            {
+                System.Array.Find(sprites, sprite => sprite.name.Equals("Cage_1")), //소1
+                System.Array.Find(sprites, sprite => sprite.name.Equals("Cage_4")), //소2
+                System.Array.Find(sprites, sprite => sprite.name.Equals("Cage_7")), //소3
+                System.Array.Find(sprites, sprite => sprite.name.Equals("Cage_10")), //소4
+            };
+
+            Sprite[] PigCage =
+            {
+                System.Array.Find(sprites, sprite => sprite.name.Equals("Cage_0")), //돼지1
+                System.Array.Find(sprites, sprite => sprite.name.Equals("Cage_3")), //돼지2
+                System.Array.Find(sprites, sprite => sprite.name.Equals("Cage_6")), //돼지3
+                System.Array.Find(sprites, sprite => sprite.name.Equals("Cage_9")), //돼지4
+            };
 
             //닭
             animalDataList.Add(new AnimalDataInfo()
             {
+                animalType = AnimalType.Cage,
                 animalName = "닭장",
                 animalCost = 10,
-                animalImage = ChickenCage
+                animalGrowTime = 5.0f,
+                animalImage = ChickenCage,
+                animalItemId = "cage_01",
+                animalProcessItemId = "animal_02"
             });
 
             //소
             animalDataList.Add(new AnimalDataInfo()
             {
+                animalType = AnimalType.Cage,
                 animalName = "젖소 축사",
                 animalCost = 10,
-                animalImage = CowCage
+                animalGrowTime = 5.0f,
+                animalImage = CowCage,
+                animalItemId = "cage_02",
+                animalProcessItemId = "animal_01"
             });
 
             //돼지
             animalDataList.Add(new AnimalDataInfo()
             {
-                animalName = "돼지 축사",
+                animalType = AnimalType.Cage,
+                animalName = "돼지 농장",
                 animalCost = 10,
-                animalImage = PigCage
+                animalGrowTime = 5.0f,
+                animalImage = PigCage,
+                animalItemId = "cage_03",
+                animalProcessItemId = "animal_0"
             });
 
 

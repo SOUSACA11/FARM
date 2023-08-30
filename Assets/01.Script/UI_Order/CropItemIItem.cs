@@ -29,6 +29,13 @@ public class CropItemIItem : IItem
 
     public override int GetHashCode()
     {
-        return this.ItemId.GetHashCode();
+        if (this.ItemId != null)
+        {
+            return this.ItemId.GetHashCode();
+        }
+        else
+        {
+            return 0; // or some default value
+        }
     }
 }

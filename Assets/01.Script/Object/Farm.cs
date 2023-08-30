@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using JinnyCropItem;
 
 //by.J:230720 농장밭 오브젝트 
-//by.J:230721 List 변경화 a
+//by.J:230721 List 변경화
 namespace JinnyFarm
 {
     //타입 정의
