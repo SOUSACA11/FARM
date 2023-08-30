@@ -6,16 +6,20 @@ public class OrdersTable : MonoBehaviour
 {
     public static OrdersTable instance;
 
-    public static List<Order> orders; //아이템 3개 배정
-  //List<Order> tes
+    public List<Order> orders;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
         Debug.Log("orders Count : " + orders.Count);

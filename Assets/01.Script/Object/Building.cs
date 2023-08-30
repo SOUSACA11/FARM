@@ -111,14 +111,14 @@ namespace JinnyBuilding
             });
 
             // 축사
-            buildingDataList.Add(new BuildingDataInfo()
-            {
-                buildingType = BuildingType.Cage,
-                buildingName = "축사",
-                buildingCost = 10,
-                buildingBuildTime = 5.0f,
-                buildingImage = buid_1_2
-            });
+            //buildingDataList.Add(new BuildingDataInfo()
+            //{
+            //    buildingType = BuildingType.Cage,
+            //    buildingName = "축사",
+            //    buildingCost = 10,
+            //    buildingBuildTime = 5.0f,
+            //    buildingImage = buid_1_2
+            //});
 
             //// 정미소
             //buildingDataList.Add(new BuildingDataInfo()

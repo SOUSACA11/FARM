@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-//by.J:230725 동물
+//by.J:230725 동물 축사
 //by.J:230814 IItem 수정에 따른 작업
 namespace JinnyAnimal
 {
@@ -22,59 +22,59 @@ namespace JinnyAnimal
     {
         [SerializeField] public List<AnimalDataInfo> animalDataList = new List<AnimalDataInfo>();
 
-        //public string[] ItemName
-        //{
-        //    get
-        //    {
-        //        string[] names = new string[animalDataList.Count];
-        //        for (int i = 0; i < animalDataList.Count; i++)
-        //        {
-        //            names[i] = animalDataList[i].animalName;
-        //        }
-        //        return names;
-        //    }
+        public string[] ItemName
+        {
+            get
+            {
+                string[] names = new string[animalDataList.Count];
+                for (int i = 0; i < animalDataList.Count; i++)
+                {
+                    names[i] = animalDataList[i].animalName;
+                }
+                return names;
+            }
 
-        //}
+        }
 
-        //public int[] ItemCost
-        //{
-        //    get
-        //    {
-        //        int[] costs = new int[animalDataList.Count];
-        //        for (int i = 0; i < animalDataList.Count; i++)
-        //        {
-        //            costs[i] = animalDataList[i].animalCost;
-        //        }
-        //        return costs;
-        //    }
+        public int[] ItemCost
+        {
+            get
+            {
+                int[] costs = new int[animalDataList.Count];
+                for (int i = 0; i < animalDataList.Count; i++)
+                {
+                    costs[i] = animalDataList[i].animalCost;
+                }
+                return costs;
+            }
 
-        //}
+        }
 
-        //public Sprite[] ItemImage
-        //{
-        //    get
-        //    {
-        //        Sprite[] images = new Sprite[animalDataList.Count];
-        //        for (int i = 0; i < animalDataList.Count; i++)
-        //        {
-        //            images[i] = animalDataList[i].animalImage;
-        //        }
-        //        return images;
-        //    }
-        //}
+        public Sprite[] ItemImage
+        {
+            get
+            {
+                Sprite[] images = new Sprite[animalDataList.Count];
+                for (int i = 0; i < animalDataList.Count; i++)
+                {
+                    images[i] = animalDataList[i].animalImage;
+                }
+                return images;
+            }
+        }
 
-        //public string[] ItemId
-        //{
-        //    get
-        //    {
-        //        string[] names = new string[animalDataList.Count];
-        //        for (int i = 0; i < animalDataList.Count; i++)
-        //        {
-        //            names[i] = animalDataList[i].animalItemId;
-        //        }
-        //        return names;
-        //    }
-        //}
+        public string[] ItemId
+        {
+            get
+            {
+                string[] names = new string[animalDataList.Count];
+                for (int i = 0; i < animalDataList.Count; i++)
+                {
+                    names[i] = animalDataList[i].animalItemId;
+                }
+                return names;
+            }
+        }
 
         //시작시 초기화 기능 시작
         private void Start()
@@ -86,28 +86,35 @@ namespace JinnyAnimal
         //초기화 기능
         private void InitializeCropItems()
         {
+            //이미지 추가
+            Sprite[] sprites = Resources.LoadAll<Sprite>("Cage");
+            Sprite ChickenCage = System.Array.Find(sprites, sprite => sprite.name.Equals("Cage_0"));
+            Sprite CowCage = System.Array.Find(sprites, sprite => sprite.name.Equals("Cage_1"));
+            Sprite PigCage = System.Array.Find(sprites, sprite => sprite.name.Equals("Cage_2"));
+
+
             //닭
             animalDataList.Add(new AnimalDataInfo()
             {
-                animalName = "닭",
-                animalCost = 10
-                //AnimalImage = buid_1_1
+                animalName = "닭장",
+                animalCost = 10,
+                animalImage = ChickenCage
             });
 
             //소
             animalDataList.Add(new AnimalDataInfo()
             {
-                animalName = "소",
-                animalCost = 10
-                //AnimalImage = buid_1_1
+                animalName = "젖소 축사",
+                animalCost = 10,
+                animalImage = CowCage
             });
 
             //돼지
             animalDataList.Add(new AnimalDataInfo()
             {
-                animalName = "돼지",
-                animalCost = 10
-                //AnimalImage = buid_1_1
+                animalName = "돼지 축사",
+                animalCost = 10,
+                animalImage = PigCage
             });
 
 
