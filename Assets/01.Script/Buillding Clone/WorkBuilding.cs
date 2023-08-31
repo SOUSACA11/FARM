@@ -383,7 +383,7 @@ public class WorkBuilding : MonoBehaviour
             //창고에서 해당 아이템의 갯수를 확인
             int availableCount = Storage.Instance.GetItemAmount(requiredItem);
             Debug.Log("필요아이템이름: " + requiredItem.ToString() + " | 아이템 수량: " + requiredCount + " | 창고수량: " + availableCount);
-            Debug.Log("Required item: " + requiredItem.ItemName + " | Required Count: " + requiredCount + " | Available Count: " + availableCount);
+            //Debug.Log("Required item: " + requiredItem.ItemName + " | Required Count: " + requiredCount + " | Available Count: " + availableCount);
 
             if (availableCount < requiredCount)
             {

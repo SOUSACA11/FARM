@@ -241,7 +241,8 @@ public class StoreManagerUI : MonoBehaviour
 
         Vector3 startPosition = image.transform.position;  //시작 위치 저장
 
-        endPosition = new Vector3(948, image.rectTransform.position.y + 1150, 0); //마지막 위치 저장
+        //endPosition = new Vector3(948, image.rectTransform.position.y + 1150, 0); //마지막 위치 저장
+        endPosition = new Vector3(948 + 400, image.rectTransform.position.y + 1150, 0);
 
         while (t < 1f) //t가 1이 될 때까지
         {
@@ -272,7 +273,7 @@ public class StoreManagerUI : MonoBehaviour
 
         Vector3 startPosition = image.transform.position;  //시작 위치 저장
 
-        endPosition = new Vector3(948, image.rectTransform.position.y - 480, 0); //마지막 위치 저장
+        endPosition = new Vector3(948+400, image.rectTransform.position.y - 480, 0); //마지막 위치 저장
 
         while (t < 1f) //t가 1이 될 때까지
         {
@@ -303,7 +304,7 @@ public class StoreManagerUI : MonoBehaviour
 
         Vector3 startPosition = image.transform.position;  //시작 위치 저장
 
-        endPosition = new Vector3(948, image.rectTransform.position.y + 480, 0); //마지막 위치 저장
+        endPosition = new Vector3(948+400, image.rectTransform.position.y + 480, 0); //마지막 위치 저장
 
         while (t < 1f) //t가 1이 될 때까지
         {

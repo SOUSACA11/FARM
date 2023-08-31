@@ -168,7 +168,7 @@ public class RecipeManager : MonoBehaviour
         //¹Ù°ÔÆ®
         List<object> baguetteIngredients = new List<object>
         {
-           new Ingredient<CropItemDataInfo>(wheat, 1)
+           new Ingredient<CropItemDataInfo>(wheat, 2)
         };
         baguetteRecipe = new Recipe(baguetteIngredients, baguette, 1, 10f);
         baguetteRecipe.finishedProductId = "bread_02";

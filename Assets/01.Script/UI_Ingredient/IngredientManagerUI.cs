@@ -67,7 +67,10 @@ public class IngredientManagerUI : MonoBehaviour
         {
             CheckClick();
         }
+
+      
     }
+
 
     //이미지 트리거 추가
     void AddEventTriggerToImage(Image targetImage, int index)

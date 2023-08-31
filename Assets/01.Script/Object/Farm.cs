@@ -146,9 +146,9 @@ namespace JinnyFarm
             {
                 farmType = FarmType.Farm,
                 farmName = "¹Ð¹ç",
-                farmCost = 10,
+                farmCost = 0,
                 farmHaverst = 3,
-                farmGrowTime = 5.0f,
+                farmGrowTime = 10f,
                 farmImage = wheat,
                 farmItemId = "farm_01",
                 cropItemId = "crop_01"
@@ -159,9 +159,9 @@ namespace JinnyFarm
             {
                 farmType = FarmType.Farm,
                 farmName = "¿Á¼ö¼ö¹ç",
-                farmCost = 10,
+                farmCost = 5,
                 farmHaverst = 3,
-                farmGrowTime = 5.0f,
+                farmGrowTime = 10f,
                 farmImage = corn,
                 farmItemId = "farm_02",
                 cropItemId = "crop_02"
@@ -174,7 +174,7 @@ namespace JinnyFarm
                 farmName = "Äá¹ç",
                 farmCost = 10,
                 farmHaverst = 3,
-                farmGrowTime = 5.0f,
+                farmGrowTime = 10f,
                 farmImage = bean,
                 farmItemId = "farm_03",
                 cropItemId = "crop_03"
@@ -185,9 +185,9 @@ namespace JinnyFarm
             {
                 farmType = FarmType.Farm,
                 farmName = "Åä¸¶Åä¹ç",
-                farmCost = 10,
+                farmCost = 15,
                 farmHaverst = 3,
-                farmGrowTime = 5.0f,
+                farmGrowTime = 15f,
                 farmImage = tomato,
                 farmItemId = "farm_04",
                 cropItemId = "crop_04"
@@ -198,9 +198,9 @@ namespace JinnyFarm
             {
                 farmType = FarmType.Farm,
                 farmName = "´ç±Ù¹ç",
-                farmCost = 10,
+                farmCost = 20,
                 farmHaverst = 3,
-                farmGrowTime = 5.0f,
+                farmGrowTime = 20f,
                 farmImage = carrot,
                 farmItemId = "farm_05",
                 cropItemId = "crop_05"

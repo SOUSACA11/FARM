@@ -10,7 +10,7 @@ public class MoneyManagerUI : MonoBehaviour
     private void Start()
     {
         //초기 재화 설정
-        MoneySystem.Instance.AddGold(100);
+        MoneySystem.Instance.AddGold(0);
         UpdateMoneyUI();
 
         MoneySystem.Instance.OnMoneychange += UpdateMoneyUI; //이벤트 리스너

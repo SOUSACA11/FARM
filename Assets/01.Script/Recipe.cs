@@ -40,12 +40,21 @@ public class Recipe
 
     public ProcessItemDataInfo finishedProduct
     {
+
         get
         {
-            if (!_finishedProduct.HasValue || !_finishedProduct.Value.IsInitialized)
+            if (!_finishedProduct.HasValue)
             {
-                return this.originalFinishedProduct;  // Lazy Initialization을 통해 값을 반환합니다.
+                return this.originalFinishedProduct;
             }
+
+            if (!_finishedProduct.Value.IsInitialized) // 만약 IsInitialized가 false라면
+            {
+                var updatedValue = _finishedProduct.Value;
+                updatedValue.IsInitialized = true;
+                _finishedProduct = updatedValue;
+            }
+
             return _finishedProduct.Value;
         }
         set
@@ -57,6 +66,7 @@ public class Recipe
     public Recipe()
     {
         this.IsInitialized = true;
+        //this._finishedProduct = new ProcessItemDataInfo();  // 초기화
     }
 
 

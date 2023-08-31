@@ -81,7 +81,7 @@ public class MoneySystem : MonoBehaviour
     //엔딩 조건
     private void CheckForEnding()
     {
-        if (gold >= 200) //금화200
+        if (gold >= 100) //금화100
         {
             SceneManager.LoadScene("Epilogue");
         }

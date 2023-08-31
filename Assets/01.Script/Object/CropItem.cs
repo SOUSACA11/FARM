@@ -170,7 +170,7 @@ namespace JinnyCropItem
             //    cropItemId = "crop_01"
 
             //});
-            cropItemDataInfoList.Add(new CropItemDataInfo("¹Ð", 10, wheat, "crop_01"));
+            cropItemDataInfoList.Add(new CropItemDataInfo("¹Ð", 0, wheat, "crop_01"));
 
             //¿Á¼ö¼ö
             //cropItemDataInfoList.Add(new CropItemDataInfo()
@@ -181,7 +181,7 @@ namespace JinnyCropItem
             //    cropItemImage = corn,
             //    cropItemId = "crop_02"
             //});
-            cropItemDataInfoList.Add(new CropItemDataInfo("¿Á¼ö¼ö", 10, corn, "crop_02"));
+            cropItemDataInfoList.Add(new CropItemDataInfo("¿Á¼ö¼ö", 3, corn, "crop_02"));
 
             //Äá
             //cropItemDataInfoList.Add(new CropItemDataInfo()
@@ -192,7 +192,7 @@ namespace JinnyCropItem
             //    cropItemImage = bean,
             //    cropItemId = "crop_03"
             //});
-            cropItemDataInfoList.Add(new CropItemDataInfo("Äá", 10, bean, "crop_03"));
+            cropItemDataInfoList.Add(new CropItemDataInfo("Äá", 5, bean, "crop_03"));
 
             //Åä¸¶Åä
             //cropItemDataInfoList.Add(new CropItemDataInfo()
@@ -203,7 +203,7 @@ namespace JinnyCropItem
             //    cropItemImage = tomato,
             //    cropItemId = "crop_04"
             //});
-            cropItemDataInfoList.Add(new CropItemDataInfo("Åä¸¶Åä", 10, tomato, "crop_04"));
+            cropItemDataInfoList.Add(new CropItemDataInfo("Åä¸¶Åä", 7, tomato, "crop_04"));
 
             //´ç±Ù
             //cropItemDataInfoList.Add(new CropItemDataInfo()
