@@ -267,8 +267,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2.9165497, y: -24.784191}
-  m_SizeDelta: {x: 200, y: 67.4325}
+  m_AnchoredPosition: {x: -2.9165497, y: -22.2}
+  m_SizeDelta: {x: 200, y: 113.481}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &321137668738818124
 CanvasRenderer:
@@ -298,7 +298,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: test
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6e2991e7a93a62341b4a195ff385a8be, type: 2}
   m_sharedMaterial: {fileID: -4374686545108751089, guid: 6e2991e7a93a62341b4a195ff385a8be, type: 2}
@@ -307,8 +307,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294575117
-  m_fontColor: {r: 0.052035566, g: 0.013883919, b: 0.9811321, a: 1}
+    rgba: 4278258492
+  m_fontColor: {r: 0.23529412, g: 0.043137256, b: 0.003921569, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -325,8 +325,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 45
-  m_fontSizeBase: 45
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -671,7 +671,6 @@ MonoBehaviour:
   startTime: 0
   buildingType: 0
   farmType: 0
-  animalType: 0
   currentRecipe:
     IsInitialized: 0
     finishedProduct:

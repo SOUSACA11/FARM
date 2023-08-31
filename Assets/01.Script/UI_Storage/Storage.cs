@@ -73,6 +73,8 @@ public class Storage : MonoBehaviour
             Debug.Log($"- Item: {pair.Key.ItemName} | Count: {pair.Value}");
         }
 
+        Debug.Log($"[Storage] Added Item: {item.ItemName}");
+
         Debug.Log("창고 추가 아템" + item);
 
         return true;
@@ -123,6 +125,7 @@ public class Storage : MonoBehaviour
         if (items.TryGetValue(item, out int count))
         {
             Debug.Log($"[Storage] Current item list in storage:");
+            Debug.Log($"[Storage] Item: {item.ItemName} | Count: {count}");
             foreach (var pair in items)
             {
                 Debug.Log($"- Item: {pair.Key.ItemName} | Count: {pair.Value}");

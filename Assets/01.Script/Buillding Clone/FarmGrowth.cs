@@ -8,6 +8,7 @@ using JinnyBuilding;
 //by.J:230825 시간 경과에 따른 이미지 추가(작물 성장)
 //by.J:230828 시간 경과시 이미지 자동 변화
 //by.J:230829 성장 완료된 밭 클릭시 작물 획득
+//by.J:230831 래퍼클래스 타입으로 작물 획득
 public class FarmGrowth : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;                      //농장밭 이미지
@@ -129,6 +130,8 @@ public class FarmGrowth : MonoBehaviour
 
         // 현재 농장밭의 데이터를 기반으로 CropItem에서 해당 작물 아이템을 찾는다.
         JinnyCropItem.CropItemDataInfo cropToCollect = JinnyCropItem.CropItem.Instance.cropItemDataInfoList.Find(item => item.cropItemId == farmData.cropItemId);
+        CropItemIItem wrappedCropItem = new CropItemIItem(cropToCollect);
+
 
         if (cropToCollect.cropItemId == null)
         {
@@ -137,7 +140,7 @@ public class FarmGrowth : MonoBehaviour
         }
 
         // 창고에 작물 아이템을 추가
-        if (playerStorage.AddItem(cropToCollect, 1))
+        if (playerStorage.AddItem(wrappedCropItem, 1))
         {
             Debug.Log("창고에 작물 추가");
 

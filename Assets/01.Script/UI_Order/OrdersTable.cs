@@ -22,6 +22,6 @@ public class OrdersTable : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("orders Count : " + orders.Count);
+        //Debug.Log("orders Count : " + orders.Count);
     }
 }

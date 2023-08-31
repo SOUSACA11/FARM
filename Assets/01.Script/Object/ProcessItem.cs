@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 //by.J:230720 생산품 (가공품 / 동물) 오브젝트 
 //by.J:230721 List 변경화
@@ -10,7 +11,7 @@ namespace JinnyProcessItem
 {
     //구조체 정의
     [System.Serializable]
-    public struct ProcessItemDataInfo : IItem
+    public struct ProcessItemDataInfo : IItem, IEquatable<ProcessItemDataInfo>
     {
         public bool IsInitialized;  //초기화 상태를 확인하기 위한 필드
 
@@ -19,10 +20,35 @@ namespace JinnyProcessItem
         public Sprite processItemImage;//생산품 이미지
         public string processItemId;   //아이템 고유 ID
 
+        public ProcessItemDataInfo(string name, int cost, Sprite image, string id)
+        {
+            IsInitialized = true;  //여기서 IsInitialized를 true로 설정
+            processItemName = name;
+            processItemCost = cost;
+            processItemImage = image;
+            processItemId = id;
+        }
+
         public string ItemName => processItemName;
         public int ItemCost => processItemCost;
         public Sprite ItemImage => processItemImage;
         public string ItemId => processItemId;
+
+
+        public override bool Equals(object obj)
+        {
+            return obj is ProcessItemDataInfo && Equals((ProcessItemDataInfo)obj);
+        }
+
+        public bool Equals(ProcessItemDataInfo other)
+        {
+            return ItemId == other.ItemId;
+        }
+
+        public override int GetHashCode()
+        {
+            return ItemId.GetHashCode();
+        }
     }
 
     //IItem 인터페이스 정의
@@ -36,10 +62,10 @@ namespace JinnyProcessItem
         //{
         //    get
         //    {
-        //        string[] names = new string[processitemDataInfoList.Count];
-        //        for (int i = 0; i < processitemDataInfoList.Count; i++)
+        //        string[] names = new string[processItemDataInfoList.Count];
+        //        for (int i = 0; i < processItemDataInfoList.Count; i++)
         //        {
-        //            names[i] = processitemDataInfoList[i].processItemName;
+        //            names[i] = processItemDataInfoList[i].processItemName;
         //        }
         //        return names;
         //    }
@@ -49,10 +75,10 @@ namespace JinnyProcessItem
         //{
         //    get
         //    {
-        //        int[] costs = new int[processitemDataInfoList.Count];
-        //        for (int i = 0; i < processitemDataInfoList.Count; i++)
+        //        int[] costs = new int[processItemDataInfoList.Count];
+        //        for (int i = 0; i < processItemDataInfoList.Count; i++)
         //        {
-        //            costs[i] = processitemDataInfoList[i].processItemCost;
+        //            costs[i] = processItemDataInfoList[i].processItemCost;
         //        }
         //        return costs;
         //    }
@@ -62,10 +88,10 @@ namespace JinnyProcessItem
         //{
         //    get
         //    {
-        //        Sprite[] images = new Sprite[processitemDataInfoList.Count];
-        //        for (int i = 0; i < processitemDataInfoList.Count; i++)
+        //        Sprite[] images = new Sprite[processItemDataInfoList.Count];
+        //        for (int i = 0; i < processItemDataInfoList.Count; i++)
         //        {
-        //            images[i] = processitemDataInfoList[i].processItemImage;
+        //            images[i] = processItemDataInfoList[i].processItemImage;
         //        }
         //        return images;
         //    }
@@ -75,10 +101,10 @@ namespace JinnyProcessItem
         //{
         //    get
         //    {
-        //        string[] names = new string[processitemDataInfoList.Count];
-        //        for (int i = 0; i < processitemDataInfoList.Count; i++)
+        //        string[] names = new string[processItemDataInfoList.Count];
+        //        for (int i = 0; i < processItemDataInfoList.Count; i++)
         //        {
-        //            names[i] = processitemDataInfoList[i].processItemId;
+        //            names[i] = processItemDataInfoList[i].processItemId;
         //        }
         //        return names;
         //    }
@@ -126,7 +152,7 @@ namespace JinnyProcessItem
             //우유
             processItemDataInfoList.Add(new ProcessItemDataInfo()
             {
-                IsInitialized = true,
+                //IsInitialized = true,
                 processItemName = "우유",
                 processItemCost = 10,
                 processItemImage = milk,
@@ -136,7 +162,7 @@ namespace JinnyProcessItem
             //달걀
             processItemDataInfoList.Add(new ProcessItemDataInfo()
             {
-                IsInitialized = true,
+                //IsInitialized = true,
                 processItemName = "달걀",
                 processItemCost = 10,
                 processItemImage = egg,
@@ -146,7 +172,7 @@ namespace JinnyProcessItem
             //돼지고기
             processItemDataInfoList.Add(new ProcessItemDataInfo()
             {
-                IsInitialized = true,
+                //IsInitialized = true,
                 processItemName = "돼지고기",
                 processItemCost = 10,
                 processItemImage = pork,
@@ -157,7 +183,7 @@ namespace JinnyProcessItem
             //식빵
             processItemDataInfoList.Add(new ProcessItemDataInfo()
             {
-                IsInitialized = true,
+                //IsInitialized = true,
                 processItemName = "식빵",
                 processItemCost = 10,
                 processItemImage = bread,
@@ -167,7 +193,7 @@ namespace JinnyProcessItem
             //바게트
             processItemDataInfoList.Add(new ProcessItemDataInfo()
             {
-                IsInitialized = true,
+                //IsInitialized = true,
                 processItemName = "바게트",
                 processItemCost = 10,
                 processItemImage = bagutte,
@@ -177,7 +203,7 @@ namespace JinnyProcessItem
             //크루와상
             processItemDataInfoList.Add(new ProcessItemDataInfo()
             {
-                IsInitialized = true,
+                //IsInitialized = true,
                 processItemName = "크루와상",
                 processItemCost = 10,
                 processItemImage = croissant,
@@ -187,7 +213,7 @@ namespace JinnyProcessItem
             //밀가루
             processItemDataInfoList.Add(new ProcessItemDataInfo()
             {
-                IsInitialized = true,
+                //IsInitialized = true,
                 processItemName = "밀가루",
                 processItemCost = 10,
                 processItemImage = flour,
@@ -197,7 +223,7 @@ namespace JinnyProcessItem
             //닭 사료
             processItemDataInfoList.Add(new ProcessItemDataInfo()
             {
-                IsInitialized = true,
+                //IsInitialized = true,
                 processItemName = "닭 사료",
                 processItemCost = 10,
                 processItemImage = chickenfeed,
@@ -207,7 +233,7 @@ namespace JinnyProcessItem
             //돼지 사료
             processItemDataInfoList.Add(new ProcessItemDataInfo()
             {
-                IsInitialized = true,
+                //IsInitialized = true,
                 processItemName = "돼지 사료",
                 processItemCost = 10,
                 processItemImage = pigfeed,
@@ -217,7 +243,7 @@ namespace JinnyProcessItem
             //소 사료
             processItemDataInfoList.Add(new ProcessItemDataInfo()
             {
-                IsInitialized = true,
+                //IsInitialized = true,
                 processItemName = "소 사료",
                 processItemCost = 10,
                 processItemImage = cowfeed,
@@ -227,7 +253,7 @@ namespace JinnyProcessItem
             //계란후라이
             processItemDataInfoList.Add(new ProcessItemDataInfo()
             {
-                IsInitialized = true,
+                //IsInitialized = true,
                 processItemName = "계란후라이",
                 processItemCost = 10,
                 processItemImage = eggflower,
@@ -237,7 +263,7 @@ namespace JinnyProcessItem
             //베이컨
             processItemDataInfoList.Add(new ProcessItemDataInfo()
             {
-                IsInitialized = true,
+                //IsInitialized = true,
                 processItemName = "베이컨",
                 processItemCost = 10,
                 processItemImage = bacon,
@@ -247,7 +273,7 @@ namespace JinnyProcessItem
             //토마토 쥬스
             processItemDataInfoList.Add(new ProcessItemDataInfo()
             {
-                IsInitialized = true,
+                //IsInitialized = true,
                 processItemName = "토마토 쥬스",
                 processItemCost = 10,
                 processItemImage = tomatojuice,
@@ -257,7 +283,7 @@ namespace JinnyProcessItem
             //당근 쥬스
             processItemDataInfoList.Add(new ProcessItemDataInfo()
             {
-                IsInitialized = true,
+                //IsInitialized = true,
                 processItemName = "당근 쥬스",
                 processItemCost = 10,
                 processItemImage = carrotjuice,
@@ -267,7 +293,7 @@ namespace JinnyProcessItem
             //버터
             processItemDataInfoList.Add(new ProcessItemDataInfo()
             {
-                IsInitialized = true,
+                //IsInitialized = true,
                 processItemName = "버터",
                 processItemCost = 10,
                 processItemImage = butter,
@@ -277,7 +303,7 @@ namespace JinnyProcessItem
             //치즈
             processItemDataInfoList.Add(new ProcessItemDataInfo()
             {
-                IsInitialized = true,
+                //IsInitialized = true,
                 processItemName = "치즈",
                 processItemCost = 10,
                 processItemImage = cheese,

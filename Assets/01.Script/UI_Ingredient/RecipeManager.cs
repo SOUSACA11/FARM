@@ -11,6 +11,7 @@ public class RecipeManager : MonoBehaviour
 {
     public static RecipeManager Instance; //싱글톤 처리
     public Dictionary<BuildingType, List<Recipe>> buildingRecipes = new Dictionary<BuildingType, List<Recipe>>(); //건물 타입
+    public Dictionary<string, Recipe> recipesByName = new Dictionary<string, Recipe>();
 
     public Recipe milkRecipe;         //우유
     public Recipe eggRecipe;          //달걀
@@ -33,9 +34,6 @@ public class RecipeManager : MonoBehaviour
     public CropItem cropItems;
     public ProcessItem processItems;
 
-    // 모든 레시피를 담을 리스트 추가
-    public List<Recipe> allRecipes = new List<Recipe>();
-
     private void Awake()
     {
         if (Instance == null)
@@ -47,9 +45,9 @@ public class RecipeManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        InitializeRecipes();
+
     }
-    
+
     //ID 기반으로 레시피 가져오기
     public Recipe GetRecipeByProductId(string productId)
     {
@@ -66,9 +64,19 @@ public class RecipeManager : MonoBehaviour
         return null;
     }
 
+    //이름 기반으로 레시피 가져오기
+    public Recipe GetRecipeByName(string recipeName)
+    {
+        if (recipesByName.ContainsKey(recipeName))
+        {
+            return recipesByName[recipeName];
+        }
+        return null;
+    }
+
     private void Start()
     {
-        //InitializeRecipes();
+        InitializeRecipes();
     }
 
     //레시피 모음 초기화
@@ -116,8 +124,8 @@ public class RecipeManager : MonoBehaviour
         };
         milkRecipe = new Recipe(milkIngredients, milk, 1, 10f);
         milkRecipe.finishedProductId = "animal_01";
-        allRecipes.Add(milkRecipe);
-        Debug.Log($"[RecipeManager] Milk Recipe ID: {milkRecipe.finishedProductId}");
+        recipesByName["우유"] = milkRecipe;
+        milkRecipe.recipeName = "우유";
 
         //달걀
         List<object> eggIngredients = new List<object>
@@ -126,7 +134,8 @@ public class RecipeManager : MonoBehaviour
         };
         eggRecipe = new Recipe(eggIngredients, egg, 1, 10f);
         eggRecipe.finishedProductId = "animal_02";
-        allRecipes.Add(eggRecipe);
+        recipesByName["달걀"] = eggRecipe;
+        eggRecipe.recipeName = "달걀";
 
         //돼지고기
         List<object> porkIngredients = new List<object>
@@ -135,7 +144,8 @@ public class RecipeManager : MonoBehaviour
         };
         porkRecipe = new Recipe(porkIngredients, pork, 1, 10f);
         porkRecipe.finishedProductId = "animal_03";
-        allRecipes.Add(porkRecipe);
+        recipesByName["돼지고기"] = porkRecipe;
+        porkRecipe.recipeName = "돼지고기";
 
         //식빵
         List<object> breadIngredients = new List<object>
@@ -144,9 +154,8 @@ public class RecipeManager : MonoBehaviour
         };
         breadRecipe = new Recipe(breadIngredients, bread, 1, 10f);
         breadRecipe.finishedProductId = "bread_01";
-        allRecipes.Add(breadRecipe);
-
-        Debug.Log($"[RecipeManager] Milk Recipe ID: {breadRecipe.finishedProductId}");
+        recipesByName["식빵"] = breadRecipe;
+        breadRecipe.recipeName = "식빵";
 
         //바게트
         List<object> baguetteIngredients = new List<object>
@@ -155,9 +164,8 @@ public class RecipeManager : MonoBehaviour
         };
         baguetteRecipe = new Recipe(baguetteIngredients, baguette, 1, 10f);
         baguetteRecipe.finishedProductId = "bread_02";
-        allRecipes.Add(baguetteRecipe);
-
-        Debug.Log($"[RecipeManager] Milk Recipe ID: {baguetteRecipe.finishedProductId}");
+        recipesByName["바게트"] = baguetteRecipe;
+        baguetteRecipe.recipeName = "바게트";
 
         //크루와상 (조합)
         List<Ingredient<CropItemDataInfo>> croissantCropIngredients = new List<Ingredient<CropItemDataInfo>>
@@ -173,7 +181,8 @@ public class RecipeManager : MonoBehaviour
         croissantAllIngredients.AddRange(croissantProcessIngredients);
         croissantRecipe = new Recipe(croissantAllIngredients, croissant, 1, 10f);
         croissantRecipe.finishedProductId = "bread_03";
-        allRecipes.Add(croissantRecipe);
+        recipesByName["크루와상"] = croissantRecipe;
+        croissantRecipe.recipeName = "크루와상";
 
         //밀가루
         List<object> flourIngredients = new List<object>
@@ -182,7 +191,8 @@ public class RecipeManager : MonoBehaviour
         };
         flourRecipe = new Recipe(flourIngredients, flour, 1, 10f);
         flourRecipe.finishedProductId = "windmill_01";
-        allRecipes.Add(flourRecipe);
+        recipesByName["밀가루"] = flourRecipe;
+        flourRecipe.recipeName = "밀가루";
 
         //닭 사료
         List<object> chickenfeedIngredients = new List<object>
@@ -191,7 +201,8 @@ public class RecipeManager : MonoBehaviour
         };
         chickenfeedRecipe = new Recipe(chickenfeedIngredients, chickenfeed, 1, 10f);
         chickenfeedRecipe.finishedProductId = "windmill_02";
-        allRecipes.Add(chickenfeedRecipe);
+        recipesByName["닭 사료"] = chickenfeedRecipe;
+        chickenfeedRecipe.recipeName = "닭 사료";
 
         //돼지 사료
         List<object> pigfeedIngredients = new List<object>
@@ -200,7 +211,8 @@ public class RecipeManager : MonoBehaviour
         };
         pigfeedRecipe = new Recipe(pigfeedIngredients, pigfeed, 1, 10f);
         pigfeedRecipe.finishedProductId = "windmill_03";
-        allRecipes.Add(pigfeedRecipe);
+        recipesByName["돼지 사료"] = pigfeedRecipe;
+        pigfeedRecipe.recipeName = "돼지 사료";
 
         //소 사료
         List<object> cowfeedIngredients = new List<object>
@@ -209,7 +221,8 @@ public class RecipeManager : MonoBehaviour
         };
         cowfeedRecipe = new Recipe(pigfeedIngredients, cowfeed, 1, 10f);
         cowfeedRecipe.finishedProductId = "windmill_04";
-        allRecipes.Add(cowfeedRecipe);
+        recipesByName["소 사료"] = cowfeedRecipe;
+        cowfeedRecipe.recipeName = "소 사료";
 
         //계란후라이
         List<object> eggflowerIngredients = new List<object>
@@ -218,7 +231,8 @@ public class RecipeManager : MonoBehaviour
         };
         eggflowerRecipe = new Recipe(eggflowerIngredients, eggflower, 1, 10f);
         eggflowerRecipe.finishedProductId = "grill_01";
-        allRecipes.Add(eggflowerRecipe);
+        recipesByName["계란후라이"] = eggflowerRecipe;
+        eggflowerRecipe.recipeName = "계란 후라이";
 
         //베이컨 
         List<object> baconIngredients = new List<object>
@@ -227,7 +241,8 @@ public class RecipeManager : MonoBehaviour
         };
         baconRecipe = new Recipe(baconIngredients, bacon, 1, 10f);
         baconRecipe.finishedProductId = "grill_02";
-        allRecipes.Add(baconRecipe);
+        recipesByName["베이컨"] = baconRecipe;
+        baconRecipe.recipeName = "베이컨";
 
         //토마토 쥬스
         List<object> tomatojuiceIngredients = new List<object>
@@ -236,7 +251,8 @@ public class RecipeManager : MonoBehaviour
         };
         tomatojuiceRecipe = new Recipe(tomatojuiceIngredients, tomatojuice, 1, 10f);
         tomatojuiceRecipe.finishedProductId = "juice_01";
-        allRecipes.Add(tomatojuiceRecipe);
+        recipesByName["토마토쥬스"] = tomatojuiceRecipe;
+        tomatojuiceRecipe.recipeName = "토마토쥬스";
 
         //당근 쥬스
         List<object> carrotjuiceIngredients = new List<object>
@@ -245,7 +261,8 @@ public class RecipeManager : MonoBehaviour
         };
         carrotjuiceRecipe = new Recipe(carrotjuiceIngredients, carrotjuice, 1, 10f);
         carrotjuiceRecipe.finishedProductId = "juice_02";
-        allRecipes.Add(carrotjuiceRecipe);
+        recipesByName["당근쥬스"] = carrotjuiceRecipe;
+        carrotjuiceRecipe.recipeName = "당근쥬스";
 
         //버터
         List<object> butterIngredients = new List<object>
@@ -254,7 +271,8 @@ public class RecipeManager : MonoBehaviour
         };
         butterRecipe = new Recipe(butterIngredients, butter, 1, 10f);
         butterRecipe.finishedProductId = "dairy_01";
-        allRecipes.Add(butterRecipe);
+        recipesByName["버터"] = butterRecipe;
+        butterRecipe.recipeName = "버터";
 
         //치즈
         List<object> cheeseIngredients = new List<object>
@@ -263,7 +281,8 @@ public class RecipeManager : MonoBehaviour
         };
         cheeseRecipe = new Recipe(cheeseIngredients, cheese, 1, 10f);
         cheeseRecipe.finishedProductId = "dairy_02";
-        allRecipes.Add(cheeseRecipe);
+        recipesByName["치즈"] = cheeseRecipe;
+        cheeseRecipe.recipeName = "치즈";
 
 
         //건물 타입별 레시피 정의

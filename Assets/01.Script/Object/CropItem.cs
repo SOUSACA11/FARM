@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 //by.J:230720 생산품 (작물) 오브젝트
 //by.J:230721 List 변경화
@@ -10,7 +11,7 @@ namespace JinnyCropItem
 {
     //구조체 정의
     [System.Serializable]
-    public struct CropItemDataInfo : IItem
+    public struct CropItemDataInfo : IItem, IEquatable<CropItemDataInfo>
     {
         public bool IsInitialized;  //초기화 상태를 확인하기 위한 필드
 
@@ -24,10 +25,25 @@ namespace JinnyCropItem
         public Sprite ItemImage => cropItemImage;
         public string ItemId => cropItemId;
 
+        public override bool Equals(object obj)
+        {
+            return obj is CropItemDataInfo && Equals((CropItemDataInfo)obj);
+        }
+
+        public bool Equals(CropItemDataInfo other)
+        {
+            return ItemId == other.ItemId;
+        }
+
+        public override int GetHashCode()
+        {
+            return ItemId.GetHashCode();
+        }
+
     }
 
     //IItem 인터페이스 정의
-    public class CropItem : MonoBehaviour //, IItem
+    public class CropItem : MonoBehaviour //IItem
     {
         public static CropItem Instance; //싱글톤
 
@@ -44,7 +60,7 @@ namespace JinnyCropItem
         //        }
         //        return names;
         //    }
-            
+
         //}
 
         //public int[] ItemCost
@@ -58,7 +74,7 @@ namespace JinnyCropItem
         //        }
         //        return costs;
         //    }
-            
+
         //}
 
         //public Sprite[] ItemImage

@@ -42,33 +42,33 @@ namespace JinnyAnimal
     {
         [SerializeField] public List<AnimalDataInfo> animalDataList = new List<AnimalDataInfo>();
 
-        public string[] ItemName
-        {
-            get
-            {
-                string[] names = new string[animalDataList.Count];
-                for (int i = 0; i < animalDataList.Count; i++)
-                {
-                    names[i] = animalDataList[i].animalName;
-                }
-                return names;
-            }
+        //public string[] ItemName
+        //{
+        //    get
+        //    {
+        //        string[] names = new string[animalDataList.Count];
+        //        for (int i = 0; i < animalDataList.Count; i++)
+        //        {
+        //            names[i] = animalDataList[i].animalName;
+        //        }
+        //        return names;
+        //    }
 
-        }
+        //}
 
-        public int[] ItemCost
-        {
-            get
-            {
-                int[] costs = new int[animalDataList.Count];
-                for (int i = 0; i < animalDataList.Count; i++)
-                {
-                    costs[i] = animalDataList[i].animalCost;
-                }
-                return costs;
-            }
+        //public int[] ItemCost
+        //{
+        //    get
+        //    {
+        //        int[] costs = new int[animalDataList.Count];
+        //        for (int i = 0; i < animalDataList.Count; i++)
+        //        {
+        //            costs[i] = animalDataList[i].animalCost;
+        //        }
+        //        return costs;
+        //    }
 
-        }
+        //}
 
         //public Sprite[] ItemImage
         //{
@@ -83,18 +83,18 @@ namespace JinnyAnimal
         //    }
         //}
 
-        public string[] ItemId
-        {
-            get
-            {
-                string[] names = new string[animalDataList.Count];
-                for (int i = 0; i < animalDataList.Count; i++)
-                {
-                    names[i] = animalDataList[i].animalItemId;
-                }
-                return names;
-            }
-        }
+        //public string[] ItemId
+        //{
+        //    get
+        //    {
+        //        string[] names = new string[animalDataList.Count];
+        //        for (int i = 0; i < animalDataList.Count; i++)
+        //        {
+        //            names[i] = animalDataList[i].animalItemId;
+        //        }
+        //        return names;
+        //    }
+        //}
 
         //½ÃÀÛ½Ã ÃÊ±âÈ­ ±â´É ½ÃÀÛ
         private void Start()
@@ -139,7 +139,7 @@ namespace JinnyAnimal
                 animalType = AnimalType.Cage,
                 animalName = "´ßÀå",
                 animalCost = 10,
-                animalGrowTime = 5.0f,
+                animalGrowTime = 10f,
                 animalImage = ChickenCage,
                 animalItemId = "cage_01",
                 animalProcessItemId = "animal_02"
@@ -151,7 +151,7 @@ namespace JinnyAnimal
                 animalType = AnimalType.Cage,
                 animalName = "Á¥¼Ò Ãà»ç",
                 animalCost = 10,
-                animalGrowTime = 5.0f,
+                animalGrowTime = 10f,
                 animalImage = CowCage,
                 animalItemId = "cage_02",
                 animalProcessItemId = "animal_01"
@@ -163,7 +163,7 @@ namespace JinnyAnimal
                 animalType = AnimalType.Cage,
                 animalName = "µÅÁö ³óÀå",
                 animalCost = 10,
-                animalGrowTime = 5.0f,
+                animalGrowTime = 10f,
                 animalImage = PigCage,
                 animalItemId = "cage_03",
                 animalProcessItemId = "animal_0"

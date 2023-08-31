@@ -24,12 +24,6 @@ public class Ingredient<T> //제네릭 -> 데이터 타입 유연화 / 타입 미리 지정하지 �
 [System.Serializable]
 public class Recipe
 {
-    
-    //public List<object> ingredients;  //여러 Ingredient 타입을 허용하기 위해 object 사용
-    //public ProcessItemDataInfo outputItem;
-    //public int outputCount;
-    //public string finishedProductId; //완성품 ID 정보
-    //public float productionTime;     //생산 시간
     public bool IsInitialized;
 
     public List<object> ingredients;
@@ -37,6 +31,13 @@ public class Recipe
     public int finishedProductCount;
     public float productionTime;
     public string finishedProductId;
+    public string recipeName;
+
+    public Recipe()
+    {
+        this.IsInitialized = true;
+    }
+
 
     //완성품 ID 정보에서 이미지 추가
     public Sprite FinishedProductImage
@@ -86,16 +87,16 @@ public class Recipe
         }
     }
 
-
     public Recipe(List<object> ingredients, ProcessItemDataInfo finishedProduct, int finishedProductCount, float productionTime)
     {
         this.ingredients = ingredients;
         this.finishedProduct = finishedProduct;
         this.finishedProductCount = finishedProductCount;
         this.productionTime = productionTime;
-        this.finishedProductId = finishedProduct.processItemId;
-        this.IsInitialized = true;
+        //this.finishedProductId = finishedProduct.processItemId;
+        //this.IsInitialized = true;
     }
+
 }
    
 

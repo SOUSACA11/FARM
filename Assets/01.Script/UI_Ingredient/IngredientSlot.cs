@@ -43,6 +43,6 @@ public class IngredientSlot : MonoBehaviour
 
         ingredientImage.sprite = production.ItemImage;
         ingredientQuantity.text = quantity.ToString();
-        Debug.Log("원재료 설정: " + production.ItemName + " 이미지: " + production.ItemImage.name); 
+        Debug.Log("원재료 설정: " + production.ItemName + " 이미지: " + production.ItemImage.name);
     }
 }
