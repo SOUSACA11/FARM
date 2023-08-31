@@ -38,6 +38,8 @@ public class IngredientManagerUI : MonoBehaviour
     //private FarmDataInfo farmData;
     //private bool ingredientClicked = false;
 
+    
+
 
     private void Awake()
     {
@@ -66,6 +68,7 @@ public class IngredientManagerUI : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             CheckClick();
+            
         }
     }
 
@@ -322,6 +325,7 @@ public class IngredientManagerUI : MonoBehaviour
         if (clonedIngredientUI != null)
         {
             clonedIngredientUI.SetActive(true);
+          
         }
     }
 
@@ -483,26 +487,63 @@ public class IngredientManagerUI : MonoBehaviour
     //클릭 확인
     void CheckClick()
     {
-        if (EventSystem.current.IsPointerOverGameObject()) //마우스 포인터가 UI 위에 있는 경우
+
+        bool isOverUI = false;
+
+        // PC에서 마우스 클릭을 확인
+        if (EventSystem.current.IsPointerOverGameObject())
         {
-            PointerEventData pointerData = new PointerEventData(EventSystem.current)
-            {
-                position = Input.mousePosition
-            };
+            isOverUI = true;
+        }
 
-            List<RaycastResult> results = new List<RaycastResult>();
-            EventSystem.current.RaycastAll(pointerData, results);
-
-            foreach (RaycastResult result in results)
+        // 모바일 환경에서의 터치를 확인
+        for (int i = 0; i < Input.touchCount; i++)
+        {
+            if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(i).fingerId))
             {
-                if (result.gameObject.CompareTag("ingredient") || result.gameObject.CompareTag("Building"))
-                {
-                    return; //원하는 UI 요소를 클릭한 경우
-                }
+                isOverUI = true;
+                break;
             }
         }
 
-        CloseFinishUI();
+        if (!isOverUI)
+        {
+            CloseFinishUI();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //if (EventSystem.current.IsPointerOverGameObject()) //마우스 포인터가 UI 위에 있는 경우
+        //{
+        //    PointerEventData pointerData = new PointerEventData(EventSystem.current)
+        //    {
+        //        position = Input.mousePosition
+        //    };
+
+        //    List<RaycastResult> results = new List<RaycastResult>();
+        //    EventSystem.current.RaycastAll(pointerData, results);
+
+        //    foreach (RaycastResult result in results)
+        //    {
+        //        if (result.gameObject.CompareTag("ingredient") || result.gameObject.CompareTag("Building"))
+        //        {
+        //            return; //원하는 UI 요소를 클릭한 경우
+        //        }
+        //    }
+        //}
+
+        //CloseFinishUI();
     }
 
     //완성품 창 초기화
@@ -510,6 +551,8 @@ public class IngredientManagerUI : MonoBehaviour
     {
         Debug.Log("완성품 창 원래대로");
         transform.position = finishOriginalUIPosition;
+
+       
     }
 
     //public void FinishItemIdShow()

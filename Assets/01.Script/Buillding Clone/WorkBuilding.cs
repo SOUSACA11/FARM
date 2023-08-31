@@ -1,13 +1,13 @@
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.EventSystems;
+using JinnyAnimal;
 using JinnyBuilding;
-using JinnyProcessItem;
 using JinnyCropItem;
 using JinnyFarm;
-using JinnyAnimal;
-using System.Linq;
+using JinnyProcessItem;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 //by.J:230811 복제된 건물 관련 정보 / 생산품 제작
@@ -236,7 +236,7 @@ public class WorkBuilding : MonoBehaviour
 
         if (!recipe.finishedProduct.IsInitialized)
         {
-          
+
             Debug.LogError("recipe.finishedProduct is not initialized!");
             return;
         }
@@ -345,52 +345,76 @@ public class WorkBuilding : MonoBehaviour
         // 현재 선택된 레시피와 필요 원재료 디버그 로그 추가
         Debug.Log($"Selected Recipe: {currentRecipe.finishedProduct.processItemName}");
         Debug.Log("Required Ingredients for this recipe:");
-        foreach (var ingredient in needIngredient)
-        {
-            Debug.Log($"- {ingredient.ItemName}");
-        }
+        //foreach (var ingredient in needIngredient)
+        //{
+        //    Debug.Log($"- {ingredient.ItemName}");
+        //}
 
 
         // 필요한 재료가 충분한지 확인
+        //foreach (IItem requiredItem in needIngredient)
+        //{
+        Debug.Log("재료 충분?");
+        //Debug.Log("[WorkBuilding] Needed ingredients for production:");
+
+        //foreach (var ingredient in needIngredient)
+        //{
+        //    Debug.Log($"- Ingredient: {ingredient.ItemName}");
+        //}
+        //int requiredCount = needIngredient.Count(item => item.Equals(requiredItem));
+        ////창고에서 해당 아이템의 갯수를 확인
+        //int availableCount = Storage.Instance.GetItemAmount(requiredItem);
+        //Debug.Log("필요아이템이름: " + requiredItem.ToString() + " | 아이템 수량: " + requiredCount + " | 창고수량: " + availableCount);
+        ////Debug.Log("Required item: " + requiredItem.ItemName + " | Required Count: " + requiredCount + " | Available Count: " + availableCount);
+        //if (availableCount < requiredCount)
+        //{
+        //    Debug.Log("재료가 부족합니다!");
+        //    return;
+        //}
+
+        bool enoughIngredients = true;
         foreach (IItem requiredItem in needIngredient)
         {
-            Debug.Log("재료 충분?");
-
-            Debug.Log("[WorkBuilding] Needed ingredients for production:");
-
-            //int requiredCount = needIngredient.Count(item => item.Equals(requiredItem));
-            //int availableCount = Storage.Instance.GetItemAmount(requiredItem);
-            //Debug.Log($"[WorkBuilding] Required: {requiredItem.ItemName}, Needed: {requiredCount}, Available: {availableCount}");
-
-
-
-
-            foreach (var ingredient in needIngredient)
-            {
-                Debug.Log($"- Ingredient: {ingredient.ItemName}");
-            }
-
-
-
-            //int beforeCount = Storage.Instance.GetItemAmount(requiredItem);
-            //Storage.Instance.RemoveItem(requiredItem, requiredCount);
-            //int afterCount = Storage.Instance.GetItemAmount(requiredItem);
-            //Debug.Log($"[WorkBuilding] Item: {requiredItem.ItemName}, Before: {beforeCount}, After: {afterCount}");
-
-
             int requiredCount = needIngredient.Count(item => item.Equals(requiredItem));
-
-            //창고에서 해당 아이템의 갯수를 확인
             int availableCount = Storage.Instance.GetItemAmount(requiredItem);
-            Debug.Log("필요아이템이름: " + requiredItem.ToString() + " | 아이템 수량: " + requiredCount + " | 창고수량: " + availableCount);
-            Debug.Log("Required item: " + requiredItem.ItemName + " | Required Count: " + requiredCount + " | Available Count: " + availableCount);
 
             if (availableCount < requiredCount)
             {
-                Debug.Log("재료가 부족합니다!");
-                return;
+                Debug.Log($"재료 {requiredItem.ItemName} 가 부족합니다!");
+                enoughIngredients = false;
+                break;
             }
+
         }
+        // 필요한 재료가 충분하지 않다면, 생산을 시작하지 않는다.
+        if (!enoughIngredients) return;
+
+        // 필요한 재료를 창고에서 제거
+        foreach (IItem requiredItem in needIngredient)
+        {
+            int requiredCount = needIngredient.Count(item => item.Equals(requiredItem));
+            Storage.Instance.RemoveItem(requiredItem, requiredCount);
+        }
+
+
+
+        // 애니메이션 시작
+        StartCoroutine(StartProductionAnimation());
+        //이미지 숨기기
+        if (finishedProductUI)
+        {
+            finishedProductUI.SetActive(false);
+        }
+
+        isProducing = true;
+        startTime = Time.time;
+        Debug.Log(isProducing);
+        Debug.Log("Start Time: " + startTime);
+        Debug.Log("Production Duration: " + productionDuration);
+        Debug.Log("Current Time.time: " + Time.time);
+
+
+
 
         // 재료를 창고에서 제거
         foreach (IItem requiredItem in needIngredient)
@@ -427,11 +451,6 @@ public class WorkBuilding : MonoBehaviour
             CompleteProduction();
         }
 
-        if (isProducing && Time.time - startTime >= productionDuration)
-        {
-            isProducing = false;
-            CompleteProduction();
-        }
     }
 
     //생산 완료
@@ -452,6 +471,7 @@ public class WorkBuilding : MonoBehaviour
 
     }
 
+    //반짝반짝 효과
     IEnumerator BlinkEffect()
     {
         int blinkTimes = 5;
@@ -467,5 +487,34 @@ public class WorkBuilding : MonoBehaviour
             spriteRenderer.color = originalColor;
             yield return new WaitForSeconds(blinkDuration);
         }
+    }
+
+    //커졌다 줄었다
+    IEnumerator StartProductionAnimation()
+    {
+        Vector3 originalScale = transform.localScale;
+        Vector3 targetScale = originalScale * 1.2f; // 1.2배 크기로 설정 (원하는 배율로 조절 가능)
+
+        float duration = 0.5f; // 애니메이션 지속 시간
+        float elapsed = 0;
+
+        // 커지는 애니메이션
+        while (elapsed < duration)
+        {
+            transform.localScale = Vector3.Lerp(originalScale, targetScale, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        transform.localScale = targetScale;
+
+        elapsed = 0;
+        // 원래 크기로 돌아오는 애니메이션
+        while (elapsed < duration)
+        {
+            transform.localScale = Vector3.Lerp(targetScale, originalScale, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        transform.localScale = originalScale;
     }
 }

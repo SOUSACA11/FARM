@@ -140,8 +140,8 @@ namespace JinnyAnimal
             {
                 animalType = AnimalType.CageChichen,
                 animalName = "¥ﬂ¿Â",
-                animalCost = 10,
-                animalGrowTime = 10f,
+                animalCost = 5,
+                animalGrowTime = 20f,
                 animalImage = ChickenCage,
                 animalItemId = "cage_01",
                 animalProcessItemId = "animal_02"
@@ -153,7 +153,7 @@ namespace JinnyAnimal
                 animalType = AnimalType.CageCow,
                 animalName = "¡•º“ √‡ªÁ",
                 animalCost = 10,
-                animalGrowTime = 10f,
+                animalGrowTime = 15f,
                 animalImage = CowCage,
                 animalItemId = "cage_02",
                 animalProcessItemId = "animal_01"
@@ -164,8 +164,8 @@ namespace JinnyAnimal
             {
                 animalType = AnimalType.CagePig,
                 animalName = "µ≈¡ˆ ≥Û¿Â",
-                animalCost = 10,
-                animalGrowTime = 10f,
+                animalCost = 20,
+                animalGrowTime = 20f,
                 animalImage = PigCage,
                 animalItemId = "cage_03",
                 animalProcessItemId = "animal_0"

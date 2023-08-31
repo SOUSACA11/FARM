@@ -170,7 +170,7 @@ namespace JinnyCropItem
             //    cropItemId = "crop_01"
 
             //});
-            cropItemDataInfoList.Add(new CropItemDataInfo("밀", 10, wheat, "crop_01"));
+            cropItemDataInfoList.Add(new CropItemDataInfo("밀", 3, wheat, "crop_01"));
 
             //옥수수
             //cropItemDataInfoList.Add(new CropItemDataInfo()
@@ -181,7 +181,7 @@ namespace JinnyCropItem
             //    cropItemImage = corn,
             //    cropItemId = "crop_02"
             //});
-            cropItemDataInfoList.Add(new CropItemDataInfo("옥수수", 10, corn, "crop_02"));
+            cropItemDataInfoList.Add(new CropItemDataInfo("옥수수", 5, corn, "crop_02"));
 
             //콩
             //cropItemDataInfoList.Add(new CropItemDataInfo()
@@ -203,7 +203,7 @@ namespace JinnyCropItem
             //    cropItemImage = tomato,
             //    cropItemId = "crop_04"
             //});
-            cropItemDataInfoList.Add(new CropItemDataInfo("토마토", 10, tomato, "crop_04"));
+            cropItemDataInfoList.Add(new CropItemDataInfo("토마토", 15, tomato, "crop_04"));
 
             //당근
             //cropItemDataInfoList.Add(new CropItemDataInfo()
@@ -214,7 +214,7 @@ namespace JinnyCropItem
             //    cropItemImage = carrot,
             //    cropItemId = "crop_05"
             //});
-            cropItemDataInfoList.Add(new CropItemDataInfo("당근", 10, carrot, "crop_05"));
+            cropItemDataInfoList.Add(new CropItemDataInfo("당근", 20, carrot, "crop_05"));
 
         }
     }

@@ -71,17 +71,28 @@ public class MoneySystem : MonoBehaviour
     }
 
     //재화 감소 기능(마이너스 방지)
-    public void DeductGold(int amount)
+    public bool DeductGold(int amount)
     {
-        Debug.Log("재화감소 됨?" + amount);
-        gold = Mathf.Max(gold - amount, 0); //Mathf.Max(float a, float b)->a와 b 중에 더 큰 값을 반환
-        OnMoneychange?.Invoke();            //? -> null 아니라면(이벤트 핸들러 1개 이상 연결된 경우) Invoke 호출
-    }
+        //Debug.Log("재화감소 됨?" + amount);
+        //gold = Mathf.Max(gold - amount, 0); //Mathf.Max(float a, float b)->a와 b 중에 더 큰 값을 반환
+        //OnMoneychange?.Invoke();            //? -> null 아니라면(이벤트 핸들러 1개 이상 연결된 경우) Invoke 호출
+        // 금액이 부족하면 false 반환
+        if (gold < amount)
+        {
+            Debug.LogWarning("금액이 부족합니다.");
+            return false;
+        }
+
+        gold -= amount;
+        OnMoneychange?.Invoke(); // ? -> null 아니라면 (이벤트 핸들러 1개 이상 연결된 경우) Invoke 호출
+        return true; // 금액 차감에 성공하면 true 반환
+    
+}
     
     //엔딩 조건
     private void CheckForEnding()
     {
-        if (gold >= 200) //금화200
+        if (gold >= 100) //금화100
         {
             SceneManager.LoadScene("Epilogue");
         }

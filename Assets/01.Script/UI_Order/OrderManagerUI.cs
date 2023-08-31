@@ -55,7 +55,7 @@ public class OrderManagerUI : MonoBehaviour
 
         Vector3 startPosition = image.transform.position;  // 시작 위치 저장
 
-        endPosition = new Vector3(977, image.rectTransform.position.y + 3550, 0); //마지막 위치 저장
+        endPosition = new Vector3(977+400, image.rectTransform.position.y + 3550, 0); //마지막 위치 저장
 
         while (t < 1f) // t가 1이 될 때까지
         {

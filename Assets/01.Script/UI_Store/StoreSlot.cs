@@ -195,10 +195,6 @@ public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     //드래그 끝난 후
     public void OnEndDrag(PointerEventData eventData)
     {
-        //WorkBuilding buildingComponent = clone.GetComponent<WorkBuilding>();
-        //BuildingType type = buildingComponent.buildingType;
-        //Debug.Log(buildingComponent.buildingType);
-        /////////////////////////////////////////////////////////
         if (clone != null)
         {
             WorkBuilding workBuilding = clone.GetComponent<WorkBuilding>();
@@ -208,29 +204,68 @@ public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
                 Vector3 mousePosition = GetWorldPosition(eventData);
                 clone.transform.position = IsoGridSnap(mousePosition);
             }
+
+            bool isSuccess = false; // 금액 차감 성공 여부 확인 변수
+
             if (currentBuildingType != BuildingType.None)
             {
-                MoneySystem.Instance.DeductGold(currentBuildingData.buildingCost);
+                isSuccess = MoneySystem.Instance.DeductGold(currentBuildingData.buildingCost);
             }
             else if (currentFarmType != FarmType.None)
             {
-                MoneySystem.Instance.DeductGold(currentFarmData.farmCost);
+                isSuccess = MoneySystem.Instance.DeductGold(currentFarmData.farmCost);
             }
             else if (currentAnimalType != AnimalType.None)
             {
-                MoneySystem.Instance.DeductGold(currentAnimalData.animalCost);
+                isSuccess = MoneySystem.Instance.DeductGold(currentAnimalData.animalCost);
             }
 
-            //드래그가 끝나면 복제본 게임 오브젝트로 존재
-            clone = null;
-
-            //Debug.Log(buildingComponent.buildingType);
-
-            //Debug.Log("현재 빌딩 가격" + currentBuildingData.buildingCost);
-            MoneySystem.Instance.DeductGold(currentBuildingData.buildingCost);
+            if (!isSuccess)
+            {
+                // 돈이 부족해서 건물을 배치할 수 없습니다. 따라서 건물을 제거하고 경고 메시지 표시
+                Destroy(clone);
+                Debug.LogWarning("금액이 부족하여 건물을 배치할 수 없습니다.");
+                // 추가적으로 사용자에게 메시지를 표시하려면, 여기에 코드를 추가하면 됩니다.
+            }
+            else
+            {
+                // 금액 차감에 성공했으므로, 건물 배치를 유지합니다.
+                clone = null;
+            }
         }
 
-        //Debug.Log(buildingComponent.buildingType);
+        //if (clone != null)
+        //{
+        //    WorkBuilding workBuilding = clone.GetComponent<WorkBuilding>();
+
+        //    if (clone != null)
+        //    {
+        //        Vector3 mousePosition = GetWorldPosition(eventData);
+        //        clone.transform.position = IsoGridSnap(mousePosition);
+        //    }
+        //    if (currentBuildingType != BuildingType.None)
+        //    {
+        //        MoneySystem.Instance.DeductGold(currentBuildingData.buildingCost);
+        //    }
+        //    else if (currentFarmType != FarmType.None)
+        //    {
+        //        MoneySystem.Instance.DeductGold(currentFarmData.farmCost);
+        //    }
+        //    else if (currentAnimalType != AnimalType.None)
+        //    {
+        //        MoneySystem.Instance.DeductGold(currentAnimalData.animalCost);
+        //    }
+
+        //    //드래그가 끝나면 복제본 게임 오브젝트로 존재
+        //    clone = null;
+
+        //    //Debug.Log(buildingComponent.buildingType);
+
+        //    //Debug.Log("현재 빌딩 가격" + currentBuildingData.buildingCost);
+        //    MoneySystem.Instance.DeductGold(currentBuildingData.buildingCost);
+        //}
+
+        ////Debug.Log(buildingComponent.buildingType);
 
     }
 

@@ -104,8 +104,8 @@ namespace JinnyBuilding
             {
                 buildingType = BuildingType.Bakery,
                 buildingName = "빵집",
-                buildingCost = 10,
-                buildingBuildTime = 10f,
+                buildingCost = 0,
+                buildingBuildTime = 15f,
                 buildingImage = buid_1_1
             });
 
@@ -125,7 +125,7 @@ namespace JinnyBuilding
                 buildingType = BuildingType.Windmill,
                 buildingName = "정미소",
                 buildingCost = 10,
-                buildingBuildTime =10f,
+                buildingBuildTime =15f,
                 buildingImage = buid_1_1
             });
 
@@ -134,8 +134,8 @@ namespace JinnyBuilding
             {
                 buildingType = BuildingType.GrillShop,
                 buildingName = "철판 가게",
-                buildingCost = 10,
-                buildingBuildTime = 10f,
+                buildingCost = 15,
+                buildingBuildTime = 20f,
                 buildingImage = buid_1_3
             });
 
@@ -144,8 +144,8 @@ namespace JinnyBuilding
             {
                 buildingType = BuildingType.Dairy,
                 buildingName = "유제품 가공소",
-                buildingCost = 10,
-                buildingBuildTime = 10f,
+                buildingCost = 20,
+                buildingBuildTime = 20f,
                 buildingImage = buid_1_3
             });
 
@@ -154,8 +154,8 @@ namespace JinnyBuilding
             {
                 buildingType = BuildingType.JuiceShop,
                 buildingName = "쥬스 가게",
-                buildingCost = 10,
-                buildingBuildTime = 10f,
+                buildingCost = 25,
+                buildingBuildTime = 25f,
                 buildingImage = buid_1_1
             });
 

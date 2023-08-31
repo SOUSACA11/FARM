@@ -193,7 +193,7 @@ namespace JinnyProcessItem
             //    processItemImage = bread,
             //    processItemId = "bread_01"
             //});
-            processItemDataInfoList.Add(new ProcessItemDataInfo("식빵", 10, bread, "bread_01"));
+            processItemDataInfoList.Add(new ProcessItemDataInfo("식빵", 5, bread, "bread_01"));
 
             //바게트
             //processItemDataInfoList.Add(new ProcessItemDataInfo()
@@ -215,7 +215,7 @@ namespace JinnyProcessItem
             //    processItemImage = croissant,
             //    processItemId = "bread_03"
             //});
-            processItemDataInfoList.Add(new ProcessItemDataInfo("크루와상", 10, croissant, "bread_03"));
+            processItemDataInfoList.Add(new ProcessItemDataInfo("크루와상", 25, croissant, "bread_03"));
 
             //밀가루
             //processItemDataInfoList.Add(new ProcessItemDataInfo()
@@ -226,7 +226,7 @@ namespace JinnyProcessItem
             //    processItemImage = flour,
             //    processItemId = "windmill_01"
             //});
-            processItemDataInfoList.Add(new ProcessItemDataInfo("밀가루", 10, flour, "windmill_01"));
+            processItemDataInfoList.Add(new ProcessItemDataInfo("밀가루", 3, flour, "windmill_01"));
 
             //닭 사료
             //processItemDataInfoList.Add(new ProcessItemDataInfo()
@@ -237,7 +237,7 @@ namespace JinnyProcessItem
             //    processItemImage = chickenfeed,
             //    processItemId = "windmill_02"
             //});
-            processItemDataInfoList.Add(new ProcessItemDataInfo("닭 사료", 10, chickenfeed, "windmill_02"));
+            processItemDataInfoList.Add(new ProcessItemDataInfo("닭 사료", 5, chickenfeed, "windmill_02"));
 
             //돼지 사료
             //processItemDataInfoList.Add(new ProcessItemDataInfo()
@@ -248,7 +248,7 @@ namespace JinnyProcessItem
             //    processItemImage = pigfeed,
             //    processItemId = "windmill_03"
             //});
-            processItemDataInfoList.Add(new ProcessItemDataInfo("돼지 사료", 10, pigfeed, "windmill_03"));
+            processItemDataInfoList.Add(new ProcessItemDataInfo("돼지 사료", 5, pigfeed, "windmill_03"));
 
             //소 사료
             //processItemDataInfoList.Add(new ProcessItemDataInfo()
@@ -259,7 +259,7 @@ namespace JinnyProcessItem
             //    processItemImage = cowfeed,
             //    processItemId = "windmill_04"
             //});
-            processItemDataInfoList.Add(new ProcessItemDataInfo("소 사료", 10, cowfeed, "windmill_04"));
+            processItemDataInfoList.Add(new ProcessItemDataInfo("소 사료", 5, cowfeed, "windmill_04"));
 
             //계란후라이
             //processItemDataInfoList.Add(new ProcessItemDataInfo()
@@ -292,7 +292,7 @@ namespace JinnyProcessItem
             //    processItemImage = tomatojuice,
             //    processItemId = "juice_01"
             //});
-            processItemDataInfoList.Add(new ProcessItemDataInfo("토마토 쥬스", 10, tomatojuice, "juice_01"));
+            processItemDataInfoList.Add(new ProcessItemDataInfo("토마토 쥬스", 15, tomatojuice, "juice_01"));
 
             //당근 쥬스
             //processItemDataInfoList.Add(new ProcessItemDataInfo()
@@ -303,7 +303,7 @@ namespace JinnyProcessItem
             //    processItemImage = carrotjuice,
             //    processItemId = "juice_02"
             //});
-            processItemDataInfoList.Add(new ProcessItemDataInfo("당근 쥬스", 10, carrotjuice, "juice_02"));
+            processItemDataInfoList.Add(new ProcessItemDataInfo("당근 쥬스", 15, carrotjuice, "juice_02"));
 
             //버터
             //processItemDataInfoList.Add(new ProcessItemDataInfo()
@@ -314,7 +314,7 @@ namespace JinnyProcessItem
             //    processItemImage = butter,
             //    processItemId = "dairy_01"
             //});
-            processItemDataInfoList.Add(new ProcessItemDataInfo("버터", 10, butter, "dairy_01"));
+            processItemDataInfoList.Add(new ProcessItemDataInfo("버터", 25, butter, "dairy_01"));
 
             //치즈
             //processItemDataInfoList.Add(new ProcessItemDataInfo()
@@ -325,7 +325,7 @@ namespace JinnyProcessItem
             //    processItemImage = cheese,
             //    processItemId = "dairy_02"
             //});
-            processItemDataInfoList.Add(new ProcessItemDataInfo("치즈", 10, cheese, "dairy_02"));
+            processItemDataInfoList.Add(new ProcessItemDataInfo("치즈", 25, cheese, "dairy_02"));
         }
     }
 }
