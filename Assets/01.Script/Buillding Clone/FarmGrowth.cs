@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 using System.Collections.Generic;
 using JinnyCropItem;
 using JinnyBuilding;
+using JinnyAnimal;
 
 //by.J:230825 시간 경과에 따른 이미지 추가(작물 성장)
 //by.J:230828 시간 경과시 이미지 자동 변화
@@ -101,14 +102,37 @@ public class FarmGrowth : MonoBehaviour
 
         WorkBuilding buildingComponent = GetComponent<WorkBuilding>();
 
-        //빌딩 타입이 None 이고 팜타입이 Farm이 아니면 return
-        if (buildingComponent == null || (buildingComponent.buildingType != BuildingType.None || buildingComponent.farmType != FarmType.Farm))
+        ////빌딩 타입이 None 이고 팜타입이 Farm이 아니면 return
+        //if (buildingComponent == null || (buildingComponent.buildingType != BuildingType.None || buildingComponent.farmType != FarmType.Farm))
+        //{
+        //    Debug.Log("조건이 만족되지 않습니다.");
+        //    return; // 아무것도 하지 않습니다.
+        //}
+
+        ////빌딩 타입이 None 이고 팜타입이 Farm일 경우만 실행
+        //if (IngredientManagerUI.ProcessedBuildingClick)//빌딩 타입 할당시 끝
+        //    return;
+
+        //if (currentStage == GrowthFarmType.Born) //완전히 자란 상태
+        //{
+        //    CollectCrop();
+        //}
+
+
+        //빌딩 타입이 None이 아닌지 확인
+        bool isBuildingNotNone = buildingComponent.buildingType != BuildingType.None;
+
+        //축사 타입이 None이 아닌지 확인
+        bool isAnimalNotNone = buildingComponent.animalType != AnimalType.None;
+
+        // 두 조건 중 하나라도 만족하면 실행
+        if (buildingComponent == null || isBuildingNotNone || isAnimalNotNone || buildingComponent.farmType != FarmType.Farm)
         {
             Debug.Log("조건이 만족되지 않습니다.");
             return; // 아무것도 하지 않습니다.
         }
 
-        //빌딩 타입이 None 이고 팜타입이 Farm일 경우만 실행
+        //빌딩 타입이 None 이고 축사타입이 None이며 팜타입이 Farm일 경우만 실행
         if (IngredientManagerUI.ProcessedBuildingClick)//빌딩 타입 할당시 끝
             return;
 
@@ -116,6 +140,8 @@ public class FarmGrowth : MonoBehaviour
         {
             CollectCrop();
         }
+
+
     }
 
     //작물 획득

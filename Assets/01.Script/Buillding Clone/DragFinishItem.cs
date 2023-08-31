@@ -19,9 +19,7 @@ public class DragFinishItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
     public int index = -1;
 
-    private string recipeName;
-
-
+ 
     private void Start()
     {
         // 카메라의 DragAndDropCamera 스크립트를 얻기
@@ -29,11 +27,8 @@ public class DragFinishItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
         // IngredientManagerUI의 참조 설정 (만약 IngredientManagerUI가 같은 오브젝트에 있으면)
         ingredientManagerUI = GetComponent<IngredientManagerUI>();
-
-
         
     }
-
 
 
     public void SetCurrentRecipe(Recipe recipe)
@@ -43,12 +38,7 @@ public class DragFinishItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         Debug.Log(currentSelectedRecipe);
     }
 
-    //public void SetRecipeName(string name)
-    //{
-    //    currentSelectedRecipe = name;
-        
-    //}
-
+ 
 
     //드래그 시작
     public void OnBeginDrag(PointerEventData eventData)

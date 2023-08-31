@@ -9,7 +9,9 @@ namespace JinnyAnimal
     public enum AnimalType
     {
         None,
-        Cage
+        CageChichen,
+        CageCow,
+        CagePig
     }
 
     //Ãà»ç ¼ºÀå Å¸ÀÔ Á¤ÀÇ
@@ -136,7 +138,7 @@ namespace JinnyAnimal
             //´ß
             animalDataList.Add(new AnimalDataInfo()
             {
-                animalType = AnimalType.Cage,
+                animalType = AnimalType.CageChichen,
                 animalName = "´ßÀå",
                 animalCost = 10,
                 animalGrowTime = 10f,
@@ -148,7 +150,7 @@ namespace JinnyAnimal
             //¼Ò
             animalDataList.Add(new AnimalDataInfo()
             {
-                animalType = AnimalType.Cage,
+                animalType = AnimalType.CageCow,
                 animalName = "Á¥¼Ò Ãà»ç",
                 animalCost = 10,
                 animalGrowTime = 10f,
@@ -160,7 +162,7 @@ namespace JinnyAnimal
             //µÅÁö
             animalDataList.Add(new AnimalDataInfo()
             {
-                animalType = AnimalType.Cage,
+                animalType = AnimalType.CagePig,
                 animalName = "µÅÁö ³óÀå",
                 animalCost = 10,
                 animalGrowTime = 10f,

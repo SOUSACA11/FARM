@@ -13,12 +13,23 @@ namespace JinnyCropItem
     [System.Serializable]
     public struct CropItemDataInfo : IItem, IEquatable<CropItemDataInfo>
     {
-        public bool IsInitialized;  //초기화 상태를 확인하기 위한 필드
+        public bool IsInitialized { get; private set; }  //초기화 상태를 확인하기 위한 필드
 
         public string cropItemName;   //이름
         public int cropItemCost;      //가격
         public Sprite cropItemImage;  //생산품 이미지
         public string cropItemId;     //아이템 고유 ID
+
+        public CropItemDataInfo(string name, int cost, Sprite image, string itemId)
+        {
+            this.cropItemName = name;
+            this.cropItemCost = cost;
+            this.cropItemImage = image;
+            this.cropItemId = itemId;
+            this.IsInitialized = true;
+        }
+
+
 
         public string ItemName => cropItemName;
         public int ItemCost => cropItemCost;
@@ -122,18 +133,18 @@ namespace JinnyCropItem
 
 
 
-            foreach (var item in cropItemDataInfoList)
-            {
-                //Debug.Log("Item Name: " + item.cropItemName + ", Image: " + item.cropItemImage);
-                //Debug.Log("Item ID: " + item.cropItemId);
-            }
+            //foreach (var item in cropItemDataInfoList)
+            //{
+            //    //Debug.Log("Item Name: " + item.cropItemName + ", Image: " + item.cropItemImage);
+            //    //Debug.Log("Item ID: " + item.cropItemId);
+            //}
 
-            Sprite[] sprites = Resources.LoadAll<Sprite>("Item");
-            Debug.Log("Loaded " + sprites.Length + " sprites from 'Item' folder.");
-            foreach (Sprite sprite in sprites)
-            {
-                //Debug.Log("Loaded sprite name: " + sprite.name);
-            }
+            //Sprite[] sprites = Resources.LoadAll<Sprite>("Item");
+            //Debug.Log("Loaded " + sprites.Length + " sprites from 'Item' folder.");
+            //foreach (Sprite sprite in sprites)
+            //{
+            //    //Debug.Log("Loaded sprite name: " + sprite.name);
+            //}
         }
 
         //초기화 기능
@@ -148,67 +159,63 @@ namespace JinnyCropItem
             Sprite carrot = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_7"));
 
 
-            
-            if (wheat != null)
-            {
-                Debug.Log("Found the 'Item_3' sprite.");
-            }
-            else
-            {
-                Debug.LogError("Failed to find the 'Item_3' sprite.");
-            }
 
             //밀
-            cropItemDataInfoList.Add(new CropItemDataInfo()
-            {
-                IsInitialized = true,
-                cropItemName = "밀",
-                cropItemCost = 10,
-                cropItemImage = wheat,
-                cropItemId = "crop_01"
+            //cropItemDataInfoList.Add(new CropItemDataInfo()
+            //{
+            //    IsInitialized = true,
+            //    cropItemName = "밀",
+            //    cropItemCost = 10,
+            //    cropItemImage = wheat,
+            //    cropItemId = "crop_01"
 
-            });
+            //});
+            cropItemDataInfoList.Add(new CropItemDataInfo("밀", 10, wheat, "crop_01"));
 
             //옥수수
-            cropItemDataInfoList.Add(new CropItemDataInfo()
-            {
-                IsInitialized = true,
-                cropItemName = "옥수수",
-                cropItemCost = 10,
-                cropItemImage = corn,
-                cropItemId = "crop_02"
-            });
+            //cropItemDataInfoList.Add(new CropItemDataInfo()
+            //{
+            //    IsInitialized = true,
+            //    cropItemName = "옥수수",
+            //    cropItemCost = 10,
+            //    cropItemImage = corn,
+            //    cropItemId = "crop_02"
+            //});
+            cropItemDataInfoList.Add(new CropItemDataInfo("옥수수", 10, corn, "crop_02"));
 
             //콩
-            cropItemDataInfoList.Add(new CropItemDataInfo()
-            {
-                IsInitialized = true,
-                cropItemName = "콩",
-                cropItemCost = 10,
-                cropItemImage = bean,
-                cropItemId = "crop_03"
-            });
+            //cropItemDataInfoList.Add(new CropItemDataInfo()
+            //{
+            //    IsInitialized = true,
+            //    cropItemName = "콩",
+            //    cropItemCost = 10,
+            //    cropItemImage = bean,
+            //    cropItemId = "crop_03"
+            //});
+            cropItemDataInfoList.Add(new CropItemDataInfo("콩", 10, bean, "crop_03"));
 
             //토마토
-            cropItemDataInfoList.Add(new CropItemDataInfo()
-            {
-                IsInitialized = true,
-                cropItemName = "토마토",
-                cropItemCost = 10,
-                cropItemImage = tomato,
-                cropItemId = "crop_04"
-            });
+            //cropItemDataInfoList.Add(new CropItemDataInfo()
+            //{
+            //    IsInitialized = true,
+            //    cropItemName = "토마토",
+            //    cropItemCost = 10,
+            //    cropItemImage = tomato,
+            //    cropItemId = "crop_04"
+            //});
+            cropItemDataInfoList.Add(new CropItemDataInfo("토마토", 10, tomato, "crop_04"));
 
             //당근
-            cropItemDataInfoList.Add(new CropItemDataInfo()
-            {
-                IsInitialized = true,
-                cropItemName = "당근",
-                cropItemCost = 10,
-                cropItemImage = carrot,
-                cropItemId = "crop_05"
-            });
-            
+            //cropItemDataInfoList.Add(new CropItemDataInfo()
+            //{
+            //    IsInitialized = true,
+            //    cropItemName = "당근",
+            //    cropItemCost = 10,
+            //    cropItemImage = carrot,
+            //    cropItemId = "crop_05"
+            //});
+            cropItemDataInfoList.Add(new CropItemDataInfo("당근", 10, carrot, "crop_05"));
+
         }
     }
 }

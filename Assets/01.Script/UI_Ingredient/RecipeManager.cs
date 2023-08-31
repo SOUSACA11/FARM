@@ -3,6 +3,7 @@ using UnityEngine;
 using JinnyCropItem;
 using JinnyProcessItem;
 using JinnyBuilding;
+using JinnyAnimal;
 
 //by.J:230816 레시피 데이터
 //by.J:230818 완성품 ID 추가
@@ -11,6 +12,7 @@ public class RecipeManager : MonoBehaviour
 {
     public static RecipeManager Instance; //싱글톤 처리
     public Dictionary<BuildingType, List<Recipe>> buildingRecipes = new Dictionary<BuildingType, List<Recipe>>(); //건물 타입
+    public Dictionary<AnimalType, List<Recipe>> animalRecipes = new Dictionary<AnimalType, List<Recipe>>();       //축사 타입
     public Dictionary<string, Recipe> recipesByName = new Dictionary<string, Recipe>();
 
     public Recipe milkRecipe;         //우유
@@ -34,6 +36,7 @@ public class RecipeManager : MonoBehaviour
     public CropItem cropItems;
     public ProcessItem processItems;
 
+
     private void Awake()
     {
         if (Instance == null)
@@ -46,10 +49,15 @@ public class RecipeManager : MonoBehaviour
             return;
         }
 
+  
+            cropItems = FindObjectOfType<CropItem>();
+            processItems = FindObjectOfType<ProcessItem>();
+        
+
     }
 
     //ID 기반으로 레시피 가져오기
-    public Recipe GetRecipeByProductId(string productId)
+    public Recipe GetRecipeByProductId(string productId) ///////동물 추가
     {
         foreach (var recipes in buildingRecipes.Values)
         {
@@ -64,20 +72,21 @@ public class RecipeManager : MonoBehaviour
         return null;
     }
 
-    //이름 기반으로 레시피 가져오기
-    public Recipe GetRecipeByName(string recipeName)
-    {
-        if (recipesByName.ContainsKey(recipeName))
-        {
-            return recipesByName[recipeName];
-        }
-        return null;
-    }
+    ////이름 기반으로 레시피 가져오기
+    //public Recipe GetRecipeByName(string recipeName)
+    //{
+    //    if (recipesByName.ContainsKey(recipeName))
+    //    {
+    //        return recipesByName[recipeName];
+    //    }
+    //    return null;
+    //}
 
     private void Start()
     {
         InitializeRecipes();
     }
+
 
     //레시피 모음 초기화
     private void InitializeRecipes()
@@ -109,7 +118,6 @@ public class RecipeManager : MonoBehaviour
         ProcessItemDataInfo carrotjuice = processItems.processItemDataInfoList.Find(item => item.processItemId == "juice_02");    //당근 쥬스
         ProcessItemDataInfo butter = processItems.processItemDataInfoList.Find(item => item.processItemId == "dairy_01");         //버터
         ProcessItemDataInfo cheese = processItems.processItemDataInfoList.Find(item => item.processItemId == "dairy_02");         //치즈
-
 
         if (cropItems == null || processItems == null)
         {
@@ -286,7 +294,9 @@ public class RecipeManager : MonoBehaviour
 
 
         //건물 타입별 레시피 정의
-        buildingRecipes[BuildingType.Cage] = new List<Recipe> { milkRecipe, eggRecipe, breadRecipe };                               //축사
+        animalRecipes[AnimalType.CageChichen] = new List<Recipe> { eggRecipe };
+        animalRecipes[AnimalType.CageCow] = new List<Recipe> { milkRecipe };
+        animalRecipes[AnimalType.CagePig] = new List<Recipe> { porkRecipe }; 
         buildingRecipes[BuildingType.Bakery] = new List<Recipe> { breadRecipe, baguetteRecipe, croissantRecipe };                   //빵집
         buildingRecipes[BuildingType.Windmill] = new List<Recipe> { flourRecipe, chickenfeedRecipe, pigfeedRecipe, cowfeedRecipe }; //정미소
         buildingRecipes[BuildingType.GrillShop] = new List<Recipe> { eggflowerRecipe, baconRecipe };                                //철판가게

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using JinnyFarm;
+using JinnyAnimal;
 
 //by.J:230817 건물에 원재료 넣는 UI / 원재료 창 이동
 //by.J:230818 완성품 이미지 ID 추가
@@ -108,20 +108,43 @@ public class IngredientManagerUI : MonoBehaviour
         copyBuilding = clickedBuilding;
 
         WorkBuilding buildingComponent = copyBuilding.GetComponent<WorkBuilding>();
-        BuildingType type = buildingComponent.buildingType;
+        //BuildingType type = buildingComponent.buildingType;
+        //AnimalType type2 = buildingComponent.animalType;
         Debug.Log(buildingComponent.buildingType);
 
-        //빌딩 타입이 none이 아닐경우만 작동, none일 경우 farmgrowth실행
-        if (buildingComponent == null || buildingComponent.buildingType == BuildingType.None)
+        ////빌딩 타입이 none이 아닐경우만 작동, none일 경우 farmgrowth실행
+        //if (buildingComponent == null || buildingComponent.buildingType == BuildingType.None)
+        //{
+        //    Debug.Log("클릭된 건물 빌딩 타입 논");
+        //    ProcessedBuildingClick = false; //None일 경우 false
+        //    return;
+        //}
+        //else
+        //{
+        //    ProcessedBuildingClick = true; //None이 아닐 경우 true
+        //}
+
+        //빌딩 타입이 None이 아닌지 확인
+        bool isBuildingNotNone = buildingComponent.buildingType == BuildingType.None;
+
+        //축사 타입이 None이 아닌지 확인
+        bool isAnimalNotNone =  buildingComponent.animalType == AnimalType.None;
+
+        // 두 조건 중 하나라도 만족하면 실행
+        if (buildingComponent == null || isBuildingNotNone && isAnimalNotNone)
         {
-            Debug.Log("클릭된 건물 빌딩 타입 논");
-            ProcessedBuildingClick = false; //None일 경우 false
+            Debug.Log("클릭된 건물 또는 축사의 타입이 None이 아님");
+            ProcessedBuildingClick = false;
             return;
         }
+       
         else
         {
-            ProcessedBuildingClick = true; //None이 아닐 경우 true
+            Debug.Log("클릭된 건물 또는 축사의 타입이 None");
+            ProcessedBuildingClick = true;
         }
+        
+
 
         Debug.Log("원재료 띠용");
 
@@ -134,8 +157,7 @@ public class IngredientManagerUI : MonoBehaviour
         {
             Debug.Log("완성품 이미지 뜸?");
             BuildingType buildingType = buildingComponent.buildingType; //빌딩 타입 저장
-
-            Debug.Log(RecipeManager.Instance.buildingRecipes.ContainsKey(buildingType));
+            AnimalType animalType = buildingComponent.animalType; //축사 타입 저장 
 
             if (RecipeManager.Instance.buildingRecipes.ContainsKey(buildingType))
             {
@@ -152,8 +174,23 @@ public class IngredientManagerUI : MonoBehaviour
                 }
             }
 
-            else
+            else if (RecipeManager.Instance.animalRecipes.ContainsKey(animalType))
             {
+                List<Recipe> recipesForAnimal = RecipeManager.Instance.animalRecipes[animalType];
+
+                //동적으로 이미지 슬롯 생성
+                CreateProductImageSlots(recipesForAnimal.Count);
+                Debug.Log("이미지 슬롯 생성이 되나?" + recipesForAnimal.Count);
+
+                //이미지 할당
+                for (int i = 0; i < recipesForAnimal.Count; i++)
+                {
+                    productImageDisplays[i].sprite = recipesForAnimal[i].FinishedProductImage;
+                }
+            }
+
+                else
+                {
                 Debug.LogError("빌딩타입 " + buildingType + " is not present in buildingRecipes dictionary.");
             }
         }
@@ -226,17 +263,30 @@ public class IngredientManagerUI : MonoBehaviour
 
         //클릭 이미지 인덱스로 해당 레시피 찾기 
         BuildingType currentBuildingType = copyBuilding.GetComponent<WorkBuilding>().buildingType;
-        Recipe clickedRecipe = RecipeManager.Instance.buildingRecipes[currentBuildingType][index];
+        AnimalType currentAnimalType = copyBuilding.GetComponent<WorkBuilding>().animalType;
+
+        Recipe clickedRecipe = null;
+
+        if (currentBuildingType != BuildingType.None)
+        {
+            clickedRecipe = RecipeManager.Instance.buildingRecipes[currentBuildingType][index];
+        }
+        else if (currentAnimalType != AnimalType.None)
+        {
+            clickedRecipe = RecipeManager.Instance.animalRecipes[currentAnimalType][index];
+        }
+
+        else if (clickedRecipe == null)
+        {
+            Debug.LogError("Clicked recipe could not be retrieved.");
+            return;
+        }
+
         //string clickedRecipe02 = RecipeManager.Instance.buildingRecipes[currentBuildingType][index].recipeName;
 
         Debug.Log("클릭된 레시피" + clickedRecipe);
 
 
-        //DragFinishItem dragItem = productImageDisplays[index].GetComponent<DragFinishItem>();
-        //if (dragItem != null)
-        //{
-        //    dragItem.SetRecipeName(clickedRecipe02);
-        //}
         DragFinishItem dragItem = productImageDisplays[index].GetComponent<DragFinishItem>();
         if (dragItem != null)
         {

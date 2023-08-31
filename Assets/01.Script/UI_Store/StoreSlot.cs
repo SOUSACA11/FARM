@@ -153,16 +153,16 @@ public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
                 if (currentBuildingType != BuildingType.None)
                 {
                     workBuilding.Initialize(currentBuildingType);
-                    // WorkBuilding buildingComponent = clone.GetComponent<WorkBuilding>();
-                    //BuildingType type = buildingComponent.buildingType;
-                    // Debug.Log(buildingComponent.buildingType);
-                    //Debug.Log("빌딩쓰스");
                 }
                 else if (currentFarmType != FarmType.None)
                 {
                     workBuilding.Initialize(currentFarmType);
-                    SelectedFarmData = currentFarmData; /////////이부분이 농장탭 후 빌딩탭 시 빌딩 복제본 배치 안되는 증상 원인
+                    SelectedFarmData = currentFarmData; 
                     //Debug.Log("농장쓰스");
+                }
+                else if (currentAnimalType != AnimalType.None)
+                {
+                    workBuilding.Initialize(currentAnimalType);
                 }
             }
 
@@ -215,6 +215,10 @@ public class StoreSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             else if (currentFarmType != FarmType.None)
             {
                 MoneySystem.Instance.DeductGold(currentFarmData.farmCost);
+            }
+            else if (currentAnimalType != AnimalType.None)
+            {
+                MoneySystem.Instance.DeductGold(currentAnimalData.animalCost);
             }
 
             //드래그가 끝나면 복제본 게임 오브젝트로 존재

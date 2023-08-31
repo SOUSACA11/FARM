@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections.Generic;
 using JinnyProcessItem;
 using JinnyCropItem;
+using System;
+
 
 //by.J:230816 아이템, 원재료, 레시피 설정
 //by.J;230829 생산시간 추가
@@ -24,14 +26,33 @@ public class Ingredient<T> //제네릭 -> 데이터 타입 유연화 / 타입 미리 지정하지 �
 [System.Serializable]
 public class Recipe
 {
+
     public bool IsInitialized;
 
     public List<object> ingredients;
-    public ProcessItemDataInfo finishedProduct;
+    public ProcessItemDataInfo originalFinishedProduct;  //finishedProduct;
     public int finishedProductCount;
     public float productionTime;
     public string finishedProductId;
     public string recipeName;
+
+    private ProcessItemDataInfo? _finishedProduct;
+
+    public ProcessItemDataInfo finishedProduct
+    {
+        get
+        {
+            if (!_finishedProduct.HasValue || !_finishedProduct.Value.IsInitialized)
+            {
+                return this.originalFinishedProduct;  // Lazy Initialization을 통해 값을 반환합니다.
+            }
+            return _finishedProduct.Value;
+        }
+        set
+        {
+            _finishedProduct = value;
+        }
+    }
 
     public Recipe()
     {
@@ -88,14 +109,31 @@ public class Recipe
     }
 
     public Recipe(List<object> ingredients, ProcessItemDataInfo finishedProduct, int finishedProductCount, float productionTime)
+    : this()
     {
-        this.ingredients = ingredients;
-        this.finishedProduct = finishedProduct;
-        this.finishedProductCount = finishedProductCount;
-        this.productionTime = productionTime;
+        //this.ingredients = ingredients;
+        //this.originalFinishedProduct = finishedProduct;
+        //this.finishedProductCount = finishedProductCount;
+        //this.productionTime = productionTime;
+
+        //this.originalFinishedProduct = finishedProduct;
         //this.finishedProductId = finishedProduct.processItemId;
         //this.IsInitialized = true;
+
+        if (!finishedProduct.IsInitialized)
+        {
+            throw new ArgumentException("FinishedProduct is not initialized!");
+        }
+
+        this.ingredients = ingredients;
+        this.originalFinishedProduct = finishedProduct;
+        this.finishedProductCount = finishedProductCount;
+        this.productionTime = productionTime;
+        this.finishedProduct = this.originalFinishedProduct;  // 이 부분에서 초기화를 해줍니다.
+        this.IsInitialized = true;
     }
+
+
 
 }
    

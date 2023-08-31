@@ -71,22 +71,28 @@ public class WorkBuilding : MonoBehaviour
     //빌딩 타입 자동 설정
     public void Initialize(BuildingType type)
     {
-        //Debug.Log("농장쓰스2");
         this.buildingType = type;
         this.farmType = FarmType.None;
-        //Debug.Log(buildingType);
+        this.animalType = AnimalType.None;
+
     }
 
     //농장 타입 자동 설정
     public void Initialize(FarmType type)
     {
-        Debug.Log("빌딩쓰스2");
         this.farmType = type;
         this.buildingType = BuildingType.None;
-
-
-        //Debug.Log(farmType);
+        this.animalType = AnimalType.None;
     }
+
+    //축사 타입 자동 설정
+    public void Initialize(AnimalType type)
+    {
+        this.animalType = type;
+        this.farmType = FarmType.None;
+        this.buildingType = BuildingType.None;
+    }
+
 
     //빌딩 타입별 레시피 설정
     private void SetRecipesForBuilding()
@@ -222,13 +228,15 @@ public class WorkBuilding : MonoBehaviour
             return;
         }
 
-        //////////////////////////////////클릭 이미지 인덱스로 해당 레시피 찾기 
-
-
-        //////////////////////////////////////////////////////////////////////
+        if (!recipe.IsInitialized)
+        {
+            Debug.LogError("Recipe is not initialized!");
+            return;
+        }
 
         if (!recipe.finishedProduct.IsInitialized)
         {
+          
             Debug.LogError("recipe.finishedProduct is not initialized!");
             return;
         }
