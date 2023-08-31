@@ -104,8 +104,13 @@ namespace JinnyBuilding
             {
                 buildingType = BuildingType.Bakery,
                 buildingName = "»§Áý",
+<<<<<<< HEAD
                 buildingCost = 0,
                 buildingBuildTime = 15f,
+=======
+                buildingCost = 5,
+                buildingBuildTime = 20f,
+>>>>>>> 9a48014a83e6cc12ac00691a590c038264773074
                 buildingImage = buid_1_1
             });
 
@@ -125,7 +130,11 @@ namespace JinnyBuilding
                 buildingType = BuildingType.Windmill,
                 buildingName = "Á¤¹Ì¼Ò",
                 buildingCost = 10,
+<<<<<<< HEAD
                 buildingBuildTime =15f,
+=======
+                buildingBuildTime =20f,
+>>>>>>> 9a48014a83e6cc12ac00691a590c038264773074
                 buildingImage = buid_1_1
             });
 
@@ -155,7 +164,11 @@ namespace JinnyBuilding
                 buildingType = BuildingType.JuiceShop,
                 buildingName = "Áê½º °¡°Ô",
                 buildingCost = 25,
+<<<<<<< HEAD
                 buildingBuildTime = 25f,
+=======
+                buildingBuildTime = 20f,
+>>>>>>> 9a48014a83e6cc12ac00691a590c038264773074
                 buildingImage = buid_1_1
             });
 

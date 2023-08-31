@@ -151,40 +151,41 @@ namespace JinnyProcessItem
             Sprite cheese = System.Array.Find(sprites, sprite => sprite.name.Equals("Item_20"));
 
             //우유
-            //processItemDataInfoList.Add(new ProcessItemDataInfo()
-            //{
-            //    //IsInitialized = true,
-            //    processItemName = "우유",
-            //    processItemCost = 10,
-            //    processItemImage = milk,
-            //    processItemId = "animal_01"
-            //});
-            processItemDataInfoList.Add(new ProcessItemDataInfo("우유", 10, milk, "animal_01"));
-           
+            processItemDataInfoList.Add(new ProcessItemDataInfo()
+            {
+                IsInitialized = true,
+                processItemName = "우유",
+                processItemCost = 5,
+                processItemImage = milk,
+                processItemId = "animal_01"
+            });
+            //processItemDataInfoList.Add(new ProcessItemDataInfo("우유", 10, milk, "animal_01"));
+
 
             //달걀
-            //processItemDataInfoList.Add(new ProcessItemDataInfo()
-            //{
-            //    //IsInitialized = true,
-            //    processItemName = "달걀",
-            //    processItemCost = 10,
-            //    processItemImage = egg,
-            //    processItemId = "animal_02"
-            //});
-            processItemDataInfoList.Add(new ProcessItemDataInfo("달걀", 10, egg, "animal_02"));
+            processItemDataInfoList.Add(new ProcessItemDataInfo()
+            {
+                IsInitialized = true,
+                processItemName = "달걀",
+                processItemCost = 5,
+                processItemImage = egg,
+                processItemId = "animal_02"
+            });
+            //processItemDataInfoList.Add(new ProcessItemDataInfo("달걀", 10, egg, "animal_02"));
 
             //돼지고기
-            //processItemDataInfoList.Add(new ProcessItemDataInfo()
-            //{
-            //    //IsInitialized = true,
-            //    processItemName = "돼지고기",
-            //    processItemCost = 10,
-            //    processItemImage = pork,
-            //    processItemId = "animal_03"
-            //});
-            processItemDataInfoList.Add(new ProcessItemDataInfo("돼지고기", 10, pork, "animal_03"));
+            processItemDataInfoList.Add(new ProcessItemDataInfo()
+            {
+                IsInitialized = true,
+                processItemName = "돼지고기",
+                processItemCost = 5,
+                processItemImage = pork,
+                processItemId = "animal_03"
+            });
+            //processItemDataInfoList.Add(new ProcessItemDataInfo("돼지고기", 10, pork, "animal_03"));
 
             //식빵
+<<<<<<< HEAD
             //processItemDataInfoList.Add(new ProcessItemDataInfo()
             //{
             //    //IsInitialized = true,
@@ -194,19 +195,31 @@ namespace JinnyProcessItem
             //    processItemId = "bread_01"
             //});
             processItemDataInfoList.Add(new ProcessItemDataInfo("식빵", 5, bread, "bread_01"));
+=======
+            processItemDataInfoList.Add(new ProcessItemDataInfo()
+            {
+                IsInitialized = true,
+                processItemName = "식빵",
+                processItemCost = 3,
+                processItemImage = bread,
+                processItemId = "bread_01"
+            });
+            //processItemDataInfoList.Add(new ProcessItemDataInfo("식빵", 10, bread, "bread_01"));
+>>>>>>> 9a48014a83e6cc12ac00691a590c038264773074
 
             //바게트
-            //processItemDataInfoList.Add(new ProcessItemDataInfo()
-            //{
-            //    //IsInitialized = true,
-            //    processItemName = "바게트",
-            //    processItemCost = 10,
-            //    processItemImage = bagutte,
-            //    processItemId = "bread_02"
-            //});
-            processItemDataInfoList.Add(new ProcessItemDataInfo("바게트", 10, bagutte, "bread_02"));
+            processItemDataInfoList.Add(new ProcessItemDataInfo()
+            {
+                IsInitialized = true,
+                processItemName = "바게트",
+                processItemCost = 5,
+                processItemImage = bagutte,
+                processItemId = "bread_02"
+            });
+            //processItemDataInfoList.Add(new ProcessItemDataInfo("바게트", 10, bagutte, "bread_02"));
 
             //크루와상
+<<<<<<< HEAD
             //processItemDataInfoList.Add(new ProcessItemDataInfo()
             //{
             //    //IsInitialized = true,
@@ -260,30 +273,86 @@ namespace JinnyProcessItem
             //    processItemId = "windmill_04"
             //});
             processItemDataInfoList.Add(new ProcessItemDataInfo("소 사료", 5, cowfeed, "windmill_04"));
+=======
+            processItemDataInfoList.Add(new ProcessItemDataInfo()
+            {
+                IsInitialized = true,
+                processItemName = "크루와상",
+                processItemCost = 30,
+                processItemImage = croissant,
+                processItemId = "bread_03"
+            });
+            //processItemDataInfoList.Add(new ProcessItemDataInfo("크루와상", 10, croissant, "bread_03"));
+
+            //밀가루
+            processItemDataInfoList.Add(new ProcessItemDataInfo()
+            {
+                IsInitialized = true,
+                processItemName = "밀가루",
+                processItemCost = 5,
+                processItemImage = flour,
+                processItemId = "windmill_01"
+            });
+            //processItemDataInfoList.Add(new ProcessItemDataInfo("밀가루", 10, flour, "windmill_01"));
+
+            //닭 사료
+            processItemDataInfoList.Add(new ProcessItemDataInfo()
+            {
+                IsInitialized = true,
+                processItemName = "닭 사료",
+                processItemCost = 5,
+                processItemImage = chickenfeed,
+                processItemId = "windmill_02"
+            });
+            //processItemDataInfoList.Add(new ProcessItemDataInfo("닭 사료", 10, chickenfeed, "windmill_02"));
+
+            //돼지 사료
+            processItemDataInfoList.Add(new ProcessItemDataInfo()
+            {
+                IsInitialized = true,
+                processItemName = "돼지 사료",
+                processItemCost = 10,
+                processItemImage = pigfeed,
+                processItemId = "windmill_03"
+            });
+            processItemDataInfoList.Add(new ProcessItemDataInfo("돼지 사료", 10, pigfeed, "windmill_03"));
+
+            //소 사료
+            processItemDataInfoList.Add(new ProcessItemDataInfo()
+            {
+                IsInitialized = true,
+                processItemName = "소 사료",
+                processItemCost = 10,
+                processItemImage = cowfeed,
+                processItemId = "windmill_04"
+            });
+            //processItemDataInfoList.Add(new ProcessItemDataInfo("소 사료", 10, cowfeed, "windmill_04"));
+>>>>>>> 9a48014a83e6cc12ac00691a590c038264773074
 
             //계란후라이
-            //processItemDataInfoList.Add(new ProcessItemDataInfo()
-            //{
-            //    //IsInitialized = true,
-            //    processItemName = "계란후라이",
-            //    processItemCost = 10,
-            //    processItemImage = eggflower,
-            //    processItemId = "grill_01"
-            //});
-            processItemDataInfoList.Add(new ProcessItemDataInfo("계란후라이", 10, eggflower, "grill_01"));
+            processItemDataInfoList.Add(new ProcessItemDataInfo()
+            {
+                IsInitialized = true,
+                processItemName = "계란후라이",
+                processItemCost = 10,
+                processItemImage = eggflower,
+                processItemId = "grill_01"
+            });
+            //processItemDataInfoList.Add(new ProcessItemDataInfo("계란후라이", 10, eggflower, "grill_01"));
 
             //베이컨
-            //processItemDataInfoList.Add(new ProcessItemDataInfo()
-            //{
-            //    //IsInitialized = true,
-            //    processItemName = "베이컨",
-            //    processItemCost = 10,
-            //    processItemImage = bacon,
-            //    processItemId = "grill_02"
-            //});
-            processItemDataInfoList.Add(new ProcessItemDataInfo("베이컨", 10, bacon, "grill_02"));
+            processItemDataInfoList.Add(new ProcessItemDataInfo()
+            {
+                IsInitialized = true,
+                processItemName = "베이컨",
+                processItemCost = 15,
+                processItemImage = bacon,
+                processItemId = "grill_02"
+            });
+            //processItemDataInfoList.Add(new ProcessItemDataInfo("베이컨", 10, bacon, "grill_02"));
 
             //토마토 쥬스
+<<<<<<< HEAD
             //processItemDataInfoList.Add(new ProcessItemDataInfo()
             //{
             //    //IsInitialized = true,
@@ -326,6 +395,50 @@ namespace JinnyProcessItem
             //    processItemId = "dairy_02"
             //});
             processItemDataInfoList.Add(new ProcessItemDataInfo("치즈", 25, cheese, "dairy_02"));
+=======
+            processItemDataInfoList.Add(new ProcessItemDataInfo()
+            {
+                //IsInitialized = true,
+                processItemName = "토마토 쥬스",
+                processItemCost = 20,
+                processItemImage = tomatojuice,
+                processItemId = "juice_01"
+            });
+            //processItemDataInfoList.Add(new ProcessItemDataInfo("토마토 쥬스", 10, tomatojuice, "juice_01"));
+
+            //당근 쥬스
+            processItemDataInfoList.Add(new ProcessItemDataInfo()
+            {
+                IsInitialized = true,
+                processItemName = "당근 쥬스",
+                processItemCost = 25,
+                processItemImage = carrotjuice,
+                processItemId = "juice_02"
+            });
+            //processItemDataInfoList.Add(new ProcessItemDataInfo("당근 쥬스", 10, carrotjuice, "juice_02"));
+
+            //버터
+            processItemDataInfoList.Add(new ProcessItemDataInfo()
+            {
+                IsInitialized = true,
+                processItemName = "버터",
+                processItemCost = 15,
+                processItemImage = butter,
+                processItemId = "dairy_01"
+            });
+            //processItemDataInfoList.Add(new ProcessItemDataInfo("버터", 10, butter, "dairy_01"));
+
+            //치즈
+            processItemDataInfoList.Add(new ProcessItemDataInfo()
+            {
+                IsInitialized = true,
+                processItemName = "치즈",
+                processItemCost = 20,
+                processItemImage = cheese,
+                processItemId = "dairy_02"
+            });
+            //processItemDataInfoList.Add(new ProcessItemDataInfo("치즈", 10, cheese, "dairy_02"));
+>>>>>>> 9a48014a83e6cc12ac00691a590c038264773074
         }
     }
 }

@@ -377,6 +377,11 @@ public class WorkBuilding : MonoBehaviour
         {
             int requiredCount = needIngredient.Count(item => item.Equals(requiredItem));
             int availableCount = Storage.Instance.GetItemAmount(requiredItem);
+<<<<<<< HEAD
+=======
+            Debug.Log("필요아이템이름: " + requiredItem.ToString() + " | 아이템 수량: " + requiredCount + " | 창고수량: " + availableCount);
+            //Debug.Log("Required item: " + requiredItem.ItemName + " | Required Count: " + requiredCount + " | Available Count: " + availableCount);
+>>>>>>> 9a48014a83e6cc12ac00691a590c038264773074
 
             if (availableCount < requiredCount)
             {

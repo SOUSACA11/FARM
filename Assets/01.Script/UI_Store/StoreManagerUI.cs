@@ -241,7 +241,12 @@ public class StoreManagerUI : MonoBehaviour
 
         Vector3 startPosition = image.transform.position;  //시작 위치 저장
 
+<<<<<<< HEAD
         endPosition = new Vector3(948+400, image.rectTransform.position.y + 1150, 0); //마지막 위치 저장
+=======
+        //endPosition = new Vector3(948, image.rectTransform.position.y + 1150, 0); //마지막 위치 저장
+        endPosition = new Vector3(948 + 400, image.rectTransform.position.y + 1150, 0);
+>>>>>>> 9a48014a83e6cc12ac00691a590c038264773074
 
         while (t < 1f) //t가 1이 될 때까지
         {
